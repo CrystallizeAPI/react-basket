@@ -1,5 +1,6 @@
 {
   "npm": {
+    "publish": true,
     "access": "public"
   }
 }
