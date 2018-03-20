@@ -70,14 +70,12 @@ export class BasketProvider extends React.Component {
       itemInBasket.quantity += num;
 
       if (itemInBasket.quantity === 0 || remove) {
-        this.setState({
-          items: [...items.splice(index, 1)]
-        });
-      } else {
-        this.setState({
-          items: [...items]
-        });
+        items.splice(index, 1);
       }
+
+      this.setState({
+        items: [...items]
+      });
       return true;
     }
     return false;
