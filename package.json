@@ -1,23 +1,27 @@
 {
-  "name": "crystallize-frontend-template",
-  "version": "1.2.1",
+  "name": "@crystallize/react-basket",
+  "description": "React and Express components to help with integrating your basket with Crystallize",
+  "version": "0.0.0",
   "private": true,
   "license": "ISC",
   "engines": {
     "node": ">=9"
   },
   "repository": {
-    "url": "git@github.com:snowballdigital/crystallize-frontend-template.git",
+    "url": "git@github.com:snowballdigital/react-basket.git",
     "type": "git"
   },
   "scripts": {
     "precommit": "npm run validate",
     "dev": "node server/index.js",
-    "build": "next build",
     "start": "NODE_ENV=production node server/index.js",
     "test": "NODE_ENV=test jest",
     "lint": "eslint .",
-    "validate": "npm-run-all lint"
+    "validate": "npm-run-all lint",
+    "build-client": "babel --config-file=babel-client.json module/client -d dist",
+    "build-server": "babel module/server -d dist/server",
+    "build": "npm run build-client && npm run build-server",
+    "prepare": "npm run build"
   },
   "browserslist": [
     "> 1%",
@@ -118,18 +122,24 @@
       "react/no-unused-state": 0
     }
   },
-  "eslintIgnore": [],
+  "eslintIgnore": ["dist"],
   "dependencies": {
-    "babel-plugin-module-resolver": "^3.0.0",
-    "babel-plugin-styled-components": "^1.4.0",
     "bounce": "^1.2.0",
-    "es6-promise": "^4.2.2",
-    "isomorphic-fetch": "^2.2.1",
     "localforage": "^1.6.0",
     "prop-types": "^15.6.0",
     "styled-components": "^3.2.1"
   },
   "devDependencies": {
+    "es6-promise": "^4.2.2",
+    "isomorphic-fetch": "^2.2.1",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-module-resolver": "^3.0.0",
+    "babel-plugin-styled-components": "^1.5.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
     "babel-eslint": "^8.1.2",
     "dotenv": "^5.0.1",
     "enzyme": "^3.3.0",

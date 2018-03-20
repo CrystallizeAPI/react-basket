@@ -10,7 +10,7 @@ export default class Layout extends React.PureComponent {
     return (
       <Fragment>
         <Head>
-          <title key="title">React basket</title>
+          <title key="title">Crystallize - React basket</title>
         </Head>
         <BasketProvider>
           <Outer>
