@@ -6,6 +6,7 @@
       {
         "ssr": true
       }
-    ]
+    ],
+    "babel-plugin-external-helpers"
   ]
 }
