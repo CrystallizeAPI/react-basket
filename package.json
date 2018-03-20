@@ -2,7 +2,7 @@
   "name": "@crystallize/react-basket",
   "description": "React and Express components to help with integrating your basket with Crystallize",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "license": "ISC",
   "engines": {
     "node": ">=9"
