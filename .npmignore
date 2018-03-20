@@ -1,0 +1,17 @@
+__tests__
+.next
+.vscode
+.editorconfig
+.env
+.prettierignore
+.release-it.json
+babel-client.json
+jest.config.js
+jest.setup.js
+
+
+components
+module
+pages
+server
+static

@@ -11,6 +11,7 @@
     "url": "git@github.com:snowballdigital/react-basket.git",
     "type": "git"
   },
+  "main": "dist/index.js",
   "scripts": {
     "precommit": "npm run validate",
     "dev": "node server/index.js",
