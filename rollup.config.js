@@ -10,7 +10,6 @@ export default {
   plugins: [
     babel({
       babelrc: false,
-      exclude: 'node_modules/**',
       presets: [
         [
           'env',
@@ -21,7 +20,8 @@ export default {
         'stage-0',
         'react'
       ],
-      plugins: ['external-helpers']
+      plugins: ['external-helpers'],
+      externalHelpers: true
     })
   ]
 };
