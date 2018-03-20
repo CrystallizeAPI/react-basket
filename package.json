@@ -19,9 +19,7 @@
     "test": "NODE_ENV=test jest",
     "lint": "eslint .",
     "validate": "npm-run-all lint",
-    "build-client": "babel --config-file=babel-client.json module/client -d dist",
-    "build-server": "babel module/server -d dist/server",
-    "build": "npm run build-client && npm run build-server",
+    "build": "rm -rf dist && babel --config-file=babel-build.json module -d dist",
     "prepare": "npm run build"
   },
   "browserslist": [

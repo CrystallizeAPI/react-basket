@@ -8,12 +8,8 @@ const config = require('./config');
 const app = next({ dev: config.DEV });
 const handle = app.getRequestHandler();
 
-const basketApi = require('../module/server/api');
-
 app.prepare().then(() => {
   const server = express();
-
-  server.use('/basket/', basketApi);
 
   server.use(handle);
 
