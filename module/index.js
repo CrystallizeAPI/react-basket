@@ -1,5 +1,3 @@
-require('babel-polyfill');
-
-export * from './big-basket/index';
-export * from './tiny-basket/index';
+export * from './big-basket';
+export * from './tiny-basket';
 export * from './context';

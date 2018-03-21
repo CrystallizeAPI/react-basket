@@ -19,7 +19,7 @@
     "test": "NODE_ENV=test jest",
     "lint": "eslint .",
     "validate": "npm-run-all lint",
-    "build": "rm -rf dist && rollup -c",
+    "build": "webpack --mode=production",
     "prepare": "npm run build"
   },
   "browserslist": [
@@ -125,16 +125,14 @@
     "dist"
   ],
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "bounce": "^1.2.0",
-    "localforage": "^1.6.0",
     "prop-types": "^15.6.0",
-    "styled-components": "^3.2.1"
+    "localforage": "^1.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.1.2",
+    "babel-loader": "^7.1.4",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-module-resolver": "^3.0.0",
     "babel-plugin-styled-components": "^1.5.0",
@@ -163,9 +161,13 @@
     "npm-run-all": "^4.1.2",
     "prettier": "^1.9.2",
     "react": "next",
-    "react-addons-test-utils": "^15.6.2",
     "react-dom": "next",
-    "rollup": "^0.57.1",
-    "rollup-plugin-babel": "^3.0.3"
+    "react-addons-test-utils": "^15.6.2",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12",
+    "styled-components": "^3.2.1"
+  },
+  "peerDependencies": {
+    "styled-components": "^3.2.1"
   }
 }

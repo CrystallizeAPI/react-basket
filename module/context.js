@@ -1,5 +1,4 @@
 import React, { createContext } from 'react';
-import Bounce from 'bounce';
 import localforage from 'localforage';
 
 const localCacheKey = 'crystallize-basket';
@@ -11,7 +10,7 @@ async function retrieveBasketFromCache() {
     parsed.items.forEach(normalizeBasketItem);
     return parsed;
   } catch (error) {
-    Bounce.rethrow(error, 'system');
+    console.warn('The basket was not retrieved', error);
   }
   return null;
 }
@@ -20,7 +19,6 @@ async function persistBasketToCache(basket) {
   try {
     await localforage.setItem(localCacheKey, JSON.stringify(basket));
   } catch (error) {
-    Bounce.rethrow(error, 'system');
     console.warn('The basket was not persisted', error);
   }
 }
@@ -51,13 +49,9 @@ export class BasketProvider extends React.Component {
   }
 
   getCachedBasket = async () => {
-    try {
-      const basket = await retrieveBasketFromCache();
-      if (basket) {
-        this.setState(basket);
-      }
-    } catch (error) {
-      Bounce.rethrow(error, 'system');
+    const basket = await retrieveBasketFromCache();
+    if (basket) {
+      this.setState(basket);
     }
   };
 
