@@ -20,7 +20,6 @@
     "lint": "eslint .",
     "validate": "npm-run-all lint",
     "build": "webpack --mode=production",
-    "build:babel": "babel module --configFile=babel.build.json -d dist",
     "prepare": "npm run build"
   },
   "browserslist": [
