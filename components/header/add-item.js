@@ -5,7 +5,9 @@ export default class AddItem extends React.Component {
     const id = +new Date();
     return {
       id,
-      sku: `sku-${id}`
+      sku: `sku-${id}`,
+      product_image_resized: '/static/404.png',
+      price: Math.floor(Math.random() * 100)
     };
   };
 
@@ -18,7 +20,8 @@ export default class AddItem extends React.Component {
       id: 'snowball',
       sku: 'snowball-1',
       name: 'Awesome snowball',
-      image: '/static/snowball.png'
+      product_image_resized: '/static/snowball.png',
+      price: 99
     });
   };
 

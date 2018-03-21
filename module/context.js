@@ -36,7 +36,9 @@ const BasketContext = createContext();
 export class BasketProvider extends React.Component {
   state = {
     items: [],
-    coupon: null
+    coupon: null,
+    totalPrice: 0,
+    totalQuantity: 0
   };
 
   componentDidMount() {
@@ -54,6 +56,17 @@ export class BasketProvider extends React.Component {
     }
   };
 
+  updateBasketState = ({ items, ...rest }) => {
+    const totalQuantity = items.reduce((acc, i) => acc + i.quantity, 0);
+    const totalPrice = items.reduce((acc, i) => acc + i.quantity * i.price, 0);
+    this.setState({
+      totalPrice,
+      totalQuantity,
+      items,
+      ...rest
+    });
+  };
+
   changeItemQuantity = ({ item, num, remove }) => {
     const { items } = this.state;
     const index = items.findIndex(i => i.id === item.id && i.sku === item.sku);
@@ -66,9 +79,10 @@ export class BasketProvider extends React.Component {
         items.splice(index, 1);
       }
 
-      this.setState({
+      this.updateBasketState({
         items: [...items]
       });
+
       return true;
     }
     return false;
@@ -87,7 +101,7 @@ export class BasketProvider extends React.Component {
 
     // Try to increment by one. If not, add new product to basket
     if (!this.changeItemQuantity({ item, num: 1 })) {
-      this.setState({
+      this.updateBasketState({
         items: [...this.state.items, item]
       });
     }
@@ -95,12 +109,19 @@ export class BasketProvider extends React.Component {
 
   removeItem = item => this.changeItemQuantity({ item, remove: true });
 
+  empty = () => {
+    this.updateBasketState({
+      items: []
+    });
+  };
+
   render() {
     return (
       <BasketContext.Provider
         value={{
           state: this.state,
           actions: {
+            empty: this.empty,
             addItem: this.addItem,
             removeItem: this.removeItem,
             incrementQuantityItem: this.incrementQuantityItem,

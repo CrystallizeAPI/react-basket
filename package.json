@@ -20,6 +20,7 @@
     "lint": "eslint .",
     "validate": "npm-run-all lint",
     "build": "webpack --mode=production",
+    "build:watch": "webpack --mode=production --watch",
     "prepare": "npm run build"
   },
   "browserslist": [
@@ -125,8 +126,9 @@
     "dist"
   ],
   "dependencies": {
-    "prop-types": "^15.6.0",
+    "@crystallize/react-image": "^1.2.2",
     "localforage": "^1.6.0",
+    "prop-types": "^15.6.0",
     "react": "next",
     "react-dom": "next",
     "styled-components": "^3.2.1"
@@ -164,8 +166,8 @@
     "npm-run-all": "^4.1.2",
     "prettier": "^1.9.2",
     "react": "next",
-    "react-dom": "next",
     "react-addons-test-utils": "^15.6.2",
+    "react-dom": "next",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.12"
   }
