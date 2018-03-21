@@ -19,7 +19,8 @@
     "test": "NODE_ENV=test jest",
     "lint": "eslint .",
     "validate": "npm-run-all lint",
-    "build": "webpack --mode=production",
+    "build:webpack": "webpack --mode=production",
+    "build": "babel module --configFile=babel.build.json -d dist",
     "prepare": "npm run build"
   },
   "browserslist": [
