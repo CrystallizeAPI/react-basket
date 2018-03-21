@@ -1,5 +1,4 @@
 const path = require('path');
-// const styledComponentsPlugin = require('babel-plugin-styled-components');
 
 module.exports = {
   entry: ['./module/index.js'],
@@ -28,8 +27,5 @@ module.exports = {
         }
       }
     ]
-  },
-  externals: {
-    'styled-components': 'styled'
   }
 };
