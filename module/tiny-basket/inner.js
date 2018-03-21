@@ -21,7 +21,6 @@ export default class TinyBasketInner extends React.Component {
         <Items>
           {items.map(item => (
             <Item key={item.id}>
-              <img src={item.image} alt={item.name} />
               {item.name}
               <button onClick={() => decrementQuantityItem(item)}>-</button>
               {item.quantity}

@@ -26,7 +26,6 @@ async function persistBasketToCache(basket) {
 export function normalizeBasketItem(item) {
   return {
     name: 'No name',
-    image: '/static/404.png',
     quantity: 1,
     ...item
   };
