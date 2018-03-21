@@ -30,8 +30,6 @@ module.exports = {
     ]
   },
   externals: {
-    react: true,
-    'react-dom': true,
     'styled-components': 'styled'
   }
 };

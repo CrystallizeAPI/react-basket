@@ -126,7 +126,9 @@
   ],
   "dependencies": {
     "prop-types": "^15.6.0",
-    "localforage": "^1.6.0"
+    "localforage": "^1.6.0",
+    "react": "next",
+    "react-dom": "next"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -168,8 +170,6 @@
     "styled-components": "^3.2.1"
   },
   "peerDependencies": {
-    "react": "next",
-    "react-dom": "next",
     "styled-components": "^3.2.1"
   }
 }
