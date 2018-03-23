@@ -9,10 +9,12 @@ export const Outer = styled.div.attrs({
 export const Items = styled.ul.attrs({
   className: 'crystallize-basket__items'
 })`
+  flex: 1 1 auto;
   display: block;
   margin: 0;
   padding: 0;
   list-style: none;
+  overflow-y: auto;
 `;
 
 export const Item = styled.li.attrs({
@@ -72,21 +74,18 @@ export const BasketIsEmpty = styled.div.attrs({
   margin: 25px;
 `;
 
-export const EmptyTheBasket = styled.div.attrs({
-  className: 'crystallize-basket__empty-the-basket'
-})`
-  text-align: center;
-  margin-top: 15px;
-`;
-
 export const Totals = styled.div.attrs({
   className: 'crystallize-basket__totals'
 })`
-  margin: 15px;
+  padding: 15px;
+  flex: 0 0 auto;
 `;
 
 export const TotalsRow = styled.div.attrs({
-  className: 'crystallize-basket__totals-row'
+  className: p =>
+    `crystallize-basket__totals-row crystallize-basket__totals-row--${
+      p.modifier
+    }`
 })`
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -98,4 +97,10 @@ export const TotalsRow = styled.div.attrs({
   > :last-child {
     text-align: right;
   }
+`;
+
+export const RemainingUntilFreeShipping = styled.div.attrs({
+  className: 'crystallize-basket__remaining-until-free-shipping'
+})`
+  text-align: center;
 `;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import {
   Outer,
@@ -8,21 +8,27 @@ import {
   ItemImage,
   ItemQuantityChanger,
   ItemQuantity,
-  EmptyTheBasket,
   BasketIsEmpty,
   Totals,
   TotalsRow,
-  ItemDelete
+  ItemDelete,
+  RemainingUntilFreeShipping
 } from './styles';
 
 export default class TinyBasketInner extends React.Component {
   render() {
     const {
       items,
+      discount,
       totalPrice,
+      totalPriceMinusDiscount,
+      totalToPay,
       incrementQuantityItem,
       decrementQuantityItem,
-      removeItem
+      removeItem,
+      freeShipping,
+      remainingUntilFreeShippingApplies,
+      options
     } = this.props;
 
     if (!items.length) {
@@ -37,7 +43,7 @@ export default class TinyBasketInner extends React.Component {
       <Outer>
         <Items>
           {items.map(item => (
-            <Item key={item.id}>
+            <Item key={item.sku}>
               <ItemInfo>
                 <ItemImage src={item.product_image_resized} alt={item.name} />
                 <div>
@@ -56,14 +62,38 @@ export default class TinyBasketInner extends React.Component {
           ))}
         </Items>
         <Totals>
-          <TotalsRow>
+          <TotalsRow modifier="total-price">
             <span>Total price:</span>
             <span>{totalPrice},-</span>
           </TotalsRow>
+          {discount && (
+            <Fragment>
+              <TotalsRow modifier="discount">
+                <span>Discount:</span>
+                <span>{discount},-</span>
+              </TotalsRow>
+              <TotalsRow modifier="total-after-discount">
+                <span>Total after discount:</span>
+                <span>{totalPriceMinusDiscount},-</span>
+              </TotalsRow>
+            </Fragment>
+          )}
+          <TotalsRow modifier="shipping">
+            <span>Shipping:</span>
+            <span>{freeShipping ? '0,-' : `${options.shippingCost},-`}</span>
+          </TotalsRow>
+          <TotalsRow modifier="to-pay">
+            <span>To pay:</span>
+            <span>{totalToPay},-</span>
+          </TotalsRow>
         </Totals>
-        <EmptyTheBasket>
-          <button onClick={this.props.empty}>Empty basket</button>
-        </EmptyTheBasket>
+
+        {!freeShipping &&
+          remainingUntilFreeShippingApplies > 0 && (
+            <RemainingUntilFreeShipping>
+              Du mangler {remainingUntilFreeShippingApplies},- for fri frakt
+            </RemainingUntilFreeShipping>
+          )}
       </Outer>
     );
   }

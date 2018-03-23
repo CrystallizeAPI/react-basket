@@ -5,12 +5,14 @@ export const BigBasket = () => (
   <BasketConsumer>
     {({ state }) => (
       <Outer>
+        <h2>The big basket has not been implemented yet</h2>
+        <br />
         {!state.items.length ? (
           <div>No items in basket</div>
         ) : (
           state.items.map(item => (
-            <div key={item.id}>
-              {item.name} {item.quantity}
+            <div key={item.sku}>
+              {item.name} ({item.quantity})
             </div>
           ))
         )}

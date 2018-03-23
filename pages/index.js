@@ -1,7 +1,9 @@
+import React from 'react';
 import styled from 'styled-components';
 
 import Layout from 'components/layout';
 import { H2 } from 'components/style';
+import Products from 'components/products';
 
 import { BigBasket, TinyBasket } from 'module';
 
@@ -10,6 +12,7 @@ const Outer = styled.div`
   display: flex;
   margin: 0 auto 25px;
   max-width: 1600px;
+  width: 85vw;
 `;
 
 const Big = styled.div`
@@ -29,21 +32,27 @@ const Inner = styled.div`
   overflow: auto;
 `;
 
-export default ({ router }) => (
-  <Layout router={router}>
-    <Outer>
-      <Big>
-        <H2>Big</H2>
-        <Inner>
-          <BigBasket />
-        </Inner>
-      </Big>
-      <Tiny>
-        <H2>Tiny</H2>
-        <Inner>
-          <TinyBasket />
-        </Inner>
-      </Tiny>
-    </Outer>
-  </Layout>
-);
+export default class Index extends React.Component {
+  render() {
+    const { router } = this.props;
+    return (
+      <Layout router={router}>
+        <Products />
+        <Outer>
+          <Big>
+            <H2>Big</H2>
+            <Inner>
+              <BigBasket />
+            </Inner>
+          </Big>
+          <Tiny>
+            <H2>Tiny</H2>
+            <Inner>
+              <TinyBasket />
+            </Inner>
+          </Tiny>
+        </Outer>
+      </Layout>
+    );
+  }
+}

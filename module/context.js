@@ -1,45 +1,27 @@
 import React, { createContext } from 'react';
-import localforage from 'localforage';
 
-const localCacheKey = 'crystallize-basket';
+import * as helpers from './helpers';
+import { retrieveBasketFromCache, persistBasketToCache } from './cache';
 
-async function retrieveBasketFromCache() {
-  try {
-    const basket = await localforage.getItem(localCacheKey);
-    const parsed = JSON.parse(basket);
-    parsed.items.forEach(normalizeBasketItem);
-    return parsed;
-  } catch (error) {
-    console.warn('The basket was not retrieved', error);
-  }
-  return null;
-}
-
-async function persistBasketToCache(basket) {
-  try {
-    await localforage.setItem(localCacheKey, JSON.stringify(basket));
-  } catch (error) {
-    console.warn('The basket was not persisted', error);
-  }
-}
-
-export function normalizeBasketItem(item) {
-  return {
-    name: 'No name',
-    quantity: 1,
-    ...item
-  };
-}
+export const { parseBasketItem, createBasketItem } = helpers;
 
 const BasketContext = createContext();
 
 export class BasketProvider extends React.Component {
-  state = {
-    items: [],
-    coupon: null,
-    totalPrice: 0,
-    totalQuantity: 0
-  };
+  constructor(props) {
+    super(props);
+
+    // Extract the supported options
+    const { freeShippingMinimumPurchaseAmount = -1, shippingCost = -1 } = props;
+
+    this.state = {
+      ...this.getBasketState({ items: [] }),
+      options: {
+        shippingCost,
+        freeShippingMinimumPurchaseAmount
+      }
+    };
+  }
 
   componentDidMount() {
     this.getCachedBasket();
@@ -52,36 +34,68 @@ export class BasketProvider extends React.Component {
   getCachedBasket = async () => {
     const basket = await retrieveBasketFromCache();
     if (basket) {
-      this.setState(basket);
+      this.setState(this.getBasketState(basket));
     }
   };
 
-  updateBasketState = ({ items, ...rest }) => {
+  getBasketState = ({ items, ...rest }) => {
+    const { discount = 0, options } = this.state || {};
+    const { freeShippingMinimumPurchaseAmount = -1, shippingCost = -1 } =
+      options || {};
+
     const totalQuantity = items.reduce((acc, i) => acc + i.quantity, 0);
     const totalPrice = items.reduce((acc, i) => acc + i.quantity * i.price, 0);
-    this.setState({
+
+    const totalPriceMinusDiscount = totalPrice - discount;
+
+    // Determine shipping related variables
+    let freeShipping = false;
+    let remainingUntilFreeShippingApplies = 0;
+    if (
+      freeShippingMinimumPurchaseAmount &&
+      freeShippingMinimumPurchaseAmount !== -1
+    ) {
+      remainingUntilFreeShippingApplies =
+        freeShippingMinimumPurchaseAmount - totalPriceMinusDiscount;
+      if (remainingUntilFreeShippingApplies <= 0) {
+        remainingUntilFreeShippingApplies = 0;
+        freeShipping = true;
+      }
+    }
+
+    return {
       totalPrice,
+      totalPriceMinusDiscount,
+      totalToPay: totalPriceMinusDiscount + (freeShipping ? 0 : shippingCost),
       totalQuantity,
+      freeShipping,
+      remainingUntilFreeShippingApplies,
       items,
       ...rest
-    });
+    };
   };
 
-  changeItemQuantity = ({ item, num, remove }) => {
+  changeItemQuantity = ({ item, num, quantity }) => {
     const { items } = this.state;
-    const index = items.findIndex(i => i.id === item.id && i.sku === item.sku);
+    const index = items.findIndex(i => i.sku === item.sku);
     const itemInBasket = items[index];
 
     if (itemInBasket) {
-      itemInBasket.quantity += num;
+      if (typeof quantity === 'number') {
+        itemInBasket.quantity = quantity;
+      } else if (typeof num === 'number') {
+        itemInBasket.quantity += num;
+      }
 
-      if (itemInBasket.quantity === 0 || remove) {
+      if (itemInBasket.quantity === 0) {
         items.splice(index, 1);
       }
 
-      this.updateBasketState({
-        items: [...items]
-      });
+      this.setState(
+        this.getBasketState({
+          items: [...items]
+        })
+      );
 
       return true;
     }
@@ -97,35 +111,43 @@ export class BasketProvider extends React.Component {
   };
 
   addItem = itemRaw => {
-    const item = normalizeBasketItem(itemRaw);
+    const item = parseBasketItem(itemRaw);
 
     // Try to increment by one. If not, add new product to basket
     if (!this.changeItemQuantity({ item, num: 1 })) {
-      this.updateBasketState({
-        items: [...this.state.items, item]
-      });
+      this.setState(
+        this.getBasketState({
+          items: [...this.state.items, item]
+        })
+      );
     }
   };
 
-  removeItem = item => this.changeItemQuantity({ item, remove: true });
+  removeItem = item => this.changeItemQuantity({ item, quantity: 0 });
 
   empty = () => {
-    this.updateBasketState({
-      items: []
-    });
+    this.setState(
+      this.getBasketState({
+        items: []
+      })
+    );
   };
 
   render() {
+    const { options, ...state } = this.state;
+
     return (
       <BasketContext.Provider
         value={{
-          state: this.state,
+          state,
+          options,
           actions: {
             empty: this.empty,
             addItem: this.addItem,
             removeItem: this.removeItem,
             incrementQuantityItem: this.incrementQuantityItem,
-            decrementQuantityItem: this.decrementQuantityItem
+            decrementQuantityItem: this.decrementQuantityItem,
+            parseBasketItem
           }
         }}
       >
