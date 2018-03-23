@@ -54,3 +54,11 @@ export function createBasketItem({ masterProduct, variant }) {
 
   return basketItem;
 }
+
+export function getSupportedOptionsFromProps(props) {
+  const { freeShippingMinimumPurchaseAmount = -1, shippingCost = -1 } = props;
+  return {
+    freeShippingMinimumPurchaseAmount,
+    shippingCost
+  };
+}

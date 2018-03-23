@@ -6,7 +6,7 @@ import Header from '../header';
 import { Outer, Main } from './styles';
 
 const basketOptions = {
-  freeShippingMinimumPurchaseAmount: 800,
+  freeShippingMinimumPurchaseAmount: 600,
   shippingCost: 150
 };
 

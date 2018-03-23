@@ -3,7 +3,11 @@ import React, { createContext } from 'react';
 import * as helpers from './helpers';
 import { retrieveBasketFromCache, persistBasketToCache } from './cache';
 
-export const { parseBasketItem, createBasketItem } = helpers;
+export const {
+  parseBasketItem,
+  createBasketItem,
+  getSupportedOptionsFromProps
+} = helpers;
 
 const BasketContext = createContext();
 
@@ -11,20 +15,25 @@ export class BasketProvider extends React.Component {
   constructor(props) {
     super(props);
 
-    // Extract the supported options
-    const { freeShippingMinimumPurchaseAmount = -1, shippingCost = -1 } = props;
-
     this.state = {
-      ...this.getBasketState({ items: [] }),
+      items: [],
       options: {
-        shippingCost,
-        freeShippingMinimumPurchaseAmount
+        ...getSupportedOptionsFromProps(props)
       }
     };
   }
 
   componentDidMount() {
     this.getCachedBasket();
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      options: {
+        ...this.state.options,
+        ...getSupportedOptionsFromProps(newProps)
+      }
+    });
   }
 
   componentDidUpdate() {
@@ -34,14 +43,16 @@ export class BasketProvider extends React.Component {
   getCachedBasket = async () => {
     const basket = await retrieveBasketFromCache();
     if (basket) {
-      this.setState(this.getBasketState(basket));
+      this.setState(basket);
     }
   };
 
-  getBasketState = ({ items, ...rest }) => {
-    const { discount = 0, options } = this.state || {};
-    const { freeShippingMinimumPurchaseAmount = -1, shippingCost = -1 } =
-      options || {};
+  calculateExtraBasketState = () => {
+    const { items, discount = 0, options } = this.state;
+    const {
+      freeShippingMinimumPurchaseAmount = -1,
+      shippingCost = -1
+    } = options;
 
     const totalQuantity = items.reduce((acc, i) => acc + i.quantity, 0);
     const totalPrice = items.reduce((acc, i) => acc + i.quantity * i.price, 0);
@@ -70,8 +81,7 @@ export class BasketProvider extends React.Component {
       totalQuantity,
       freeShipping,
       remainingUntilFreeShippingApplies,
-      items,
-      ...rest
+      items
     };
   };
 
@@ -91,11 +101,9 @@ export class BasketProvider extends React.Component {
         items.splice(index, 1);
       }
 
-      this.setState(
-        this.getBasketState({
-          items: [...items]
-        })
-      );
+      this.setState({
+        items: [...items]
+      });
 
       return true;
     }
@@ -115,31 +123,31 @@ export class BasketProvider extends React.Component {
 
     // Try to increment by one. If not, add new product to basket
     if (!this.changeItemQuantity({ item, num: 1 })) {
-      this.setState(
-        this.getBasketState({
-          items: [...this.state.items, item]
-        })
-      );
+      this.setState({
+        items: [...this.state.items, item]
+      });
     }
   };
 
   removeItem = item => this.changeItemQuantity({ item, quantity: 0 });
 
   empty = () => {
-    this.setState(
-      this.getBasketState({
-        items: []
-      })
-    );
+    this.setState({
+      items: []
+    });
   };
 
   render() {
     const { options, ...state } = this.state;
+    const calculatedState = this.calculateExtraBasketState();
 
     return (
       <BasketContext.Provider
         value={{
-          state,
+          state: {
+            ...state,
+            ...calculatedState
+          },
           options,
           actions: {
             empty: this.empty,
