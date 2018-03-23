@@ -30,6 +30,7 @@ export function createBasketItem({ masterProduct, variant }) {
     /* eslint-enable */
   } else {
     basketItem.sku = variant.variation_sku;
+    basketItem.attributes = variant.attributes;
 
     if (!masterProduct) {
       /* eslint-disable */
