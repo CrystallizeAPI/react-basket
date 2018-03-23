@@ -86,7 +86,7 @@ export default class TinyBasketItem extends React.Component {
               attributes.length > 0 && (
                 <Attributes>
                   {attributes.map(a => (
-                    <Attribute>
+                    <Attribute key={a.attribute_key}>
                       {a.attribute_key}: {a.attribute_value}
                     </Attribute>
                   ))}

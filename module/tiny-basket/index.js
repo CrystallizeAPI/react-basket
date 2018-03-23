@@ -59,6 +59,12 @@ const RemainingUntilFreeShipping = styled.div.attrs({
   text-align: center;
 `;
 
+const StrikeThrough = styled.span.attrs({
+  className: 'crystallize-basket__strike-through'
+})`
+  text-decoration: line-through;
+`;
+
 class TinyBasketInner extends React.Component {
   render() {
     const { state, actions, options } = this.props;
@@ -107,7 +113,13 @@ class TinyBasketInner extends React.Component {
           )}
           <TotalsRow modifier="shipping">
             <span>Shipping:</span>
-            <span>{freeShipping ? '0,-' : `${options.shippingCost},-`}</span>
+            {freeShipping ? (
+              <span>
+                <StrikeThrough>{options.shippingCost},-</StrikeThrough> 0,-
+              </span>
+            ) : (
+              <span>{options.shippingCost},-</span>
+            )}
           </TotalsRow>
           <TotalsRow modifier="to-pay">
             <span>To pay:</span>
