@@ -118,7 +118,9 @@ class TinyBasketInner extends React.Component {
                 <StrikeThrough>{options.shippingCost},-</StrikeThrough> 0,-
               </span>
             ) : (
-              <span>{options.shippingCost},-</span>
+              <span>
+                {options.shippingCost <= 0 ? 0 : options.shippingCost},-
+              </span>
             )}
           </TotalsRow>
           <TotalsRow modifier="to-pay">
