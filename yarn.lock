@@ -6385,9 +6385,9 @@ react-addons-test-utils@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.6.2.tgz#c12b6efdc2247c10da7b8770d185080a7b047156"
 
-react-dom@next:
-  version "16.3.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.0-alpha.2.tgz#a970b6185684941e89a568c09321d22643457cb6"
+react-dom@^16.3.0:
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.0.tgz#b318e52184188ecb5c3e81117420cca40618643e"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -6426,9 +6426,9 @@ react-test-renderer@^16.0.0-0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react@next:
-  version "16.3.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.3.0-alpha.2.tgz#91e2b82bb985b23e7b6555f810e1fd94894afce2"
+react@^16.3.0:
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.0.tgz#fc5a01c68f91e9b38e92cf83f7b795ebdca8ddff"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"

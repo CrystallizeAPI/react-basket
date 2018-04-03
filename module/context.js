@@ -12,6 +12,15 @@ export const {
 const BasketContext = createContext();
 
 export class BasketProvider extends React.Component {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      options: {
+        ...prevState.options,
+        ...getSupportedOptionsFromProps(nextProps)
+      }
+    };
+  }
+
   constructor(props) {
     super(props);
 
@@ -25,15 +34,6 @@ export class BasketProvider extends React.Component {
 
   componentDidMount() {
     this.getCachedBasket();
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      options: {
-        ...this.state.options,
-        ...getSupportedOptionsFromProps(newProps)
-      }
-    });
   }
 
   componentDidUpdate() {
