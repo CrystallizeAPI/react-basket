@@ -129,8 +129,8 @@
     "@crystallize/react-image": "^1.2.2",
     "localforage": "^1.6.0",
     "prop-types": "^15.6.0",
-    "react": "next",
-    "react-dom": "next",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
     "styled-components": "^3.2.1"
   },
   "devDependencies": {
