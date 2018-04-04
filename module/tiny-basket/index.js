@@ -1,73 +1,35 @@
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
 
 import { BasketConsumer } from '../context';
+import { Coupon } from '../coupon';
+
 import TinyBasketItem from './item';
+import DefaultSpinner from '../spinner';
 
-const Outer = styled.div.attrs({
-  className: 'crystallize-basket crystallize-basket--tiny'
-})`
-  padding-bottom: 15px;
-`;
+import { getTranslationsFromProps } from '../helpers';
 
-const Items = styled.ul.attrs({
-  className: 'crystallize-basket__items'
-})`
-  flex: 1 1 auto;
-  display: block;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  overflow-y: auto;
-`;
-
-const BasketIsEmpty = styled.div.attrs({
-  className: 'crystallize-basket__basket-is-empty'
-})`
-  text-align: center;
-  margin: 25px;
-`;
-
-const Totals = styled.div.attrs({
-  className: 'crystallize-basket__totals'
-})`
-  padding: 15px;
-  flex: 0 0 auto;
-`;
-
-const TotalsRow = styled.div.attrs({
-  className: p =>
-    `crystallize-basket__totals-row crystallize-basket__totals-row--${
-      p.modifier
-    }`
-})`
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-
-  &:not(:last-child) {
-    margin-bottom: 5px;
-  }
-
-  > :last-child {
-    text-align: right;
-  }
-`;
-
-const RemainingUntilFreeShipping = styled.div.attrs({
-  className: 'crystallize-basket__remaining-until-free-shipping'
-})`
-  text-align: center;
-`;
-
-const StrikeThrough = styled.span.attrs({
-  className: 'crystallize-basket__strike-through'
-})`
-  text-decoration: line-through;
-`;
+import {
+  Outer,
+  Items,
+  BasketIsEmpty,
+  Totals,
+  TotalsRow,
+  RemainingUntilFreeShipping,
+  StrikeThrough,
+  TotalsSpinner,
+  TotalsRows
+} from './styles';
 
 class TinyBasketInner extends React.Component {
   render() {
-    const { state, actions, options } = this.props;
+    const {
+      state,
+      actions,
+      options,
+      tr,
+      Spinner = DefaultSpinner
+    } = this.props;
+    const translations = getTranslationsFromProps(tr);
 
     const {
       items,
@@ -76,6 +38,7 @@ class TinyBasketInner extends React.Component {
       totalPriceMinusDiscount,
       totalToPay,
       freeShipping,
+      validating,
       remainingUntilFreeShippingApplies
     } = state;
 
@@ -91,45 +54,61 @@ class TinyBasketInner extends React.Component {
       <Outer>
         <Items>
           {items.map(item => (
-            <TinyBasketItem actions={actions} key={item.sku} item={item} />
+            <TinyBasketItem
+              actions={actions}
+              key={item.reference}
+              item={item}
+            />
           ))}
         </Items>
         <Totals>
-          <TotalsRow modifier="total-price">
-            <span>Total price:</span>
-            <span>{totalPrice},-</span>
-          </TotalsRow>
-          {discount && (
-            <Fragment>
-              <TotalsRow modifier="discount">
-                <span>Discount:</span>
-                <span>{discount},-</span>
-              </TotalsRow>
-              <TotalsRow modifier="total-after-discount">
-                <span>Total after discount:</span>
-                <span>{totalPriceMinusDiscount},-</span>
-              </TotalsRow>
-            </Fragment>
-          )}
-          <TotalsRow modifier="shipping">
-            <span>Shipping:</span>
-            {freeShipping ? (
-              <span>
-                <StrikeThrough>{options.shippingCost},-</StrikeThrough> 0,-
-              </span>
-            ) : (
-              <span>
-                {options.shippingCost <= 0 ? 0 : options.shippingCost},-
-              </span>
+          <TotalsRows>
+            <TotalsRow hideValue={validating} modifier="total-price">
+              <span>Total price:</span>
+              <span>{totalPrice},-</span>
+            </TotalsRow>
+            {discount && (
+              <Fragment>
+                <TotalsRow hideValue={validating} modifier="discount">
+                  <span>Discount:</span>
+                  <span>{discount},-</span>
+                </TotalsRow>
+                <TotalsRow
+                  hideValue={validating}
+                  modifier="total-after-discount"
+                >
+                  <span>Total after discount:</span>
+                  <span>{totalPriceMinusDiscount},-</span>
+                </TotalsRow>
+              </Fragment>
             )}
-          </TotalsRow>
-          <TotalsRow modifier="to-pay">
-            <span>To pay:</span>
-            <span>{totalToPay},-</span>
-          </TotalsRow>
+            <TotalsRow hideValue={validating} modifier="shipping">
+              <span>Shipping:</span>
+              {freeShipping ? (
+                <span>
+                  <StrikeThrough>{options.shippingCost},-</StrikeThrough> 0,-
+                </span>
+              ) : (
+                <span>
+                  {options.shippingCost <= 0 ? 0 : options.shippingCost},-
+                </span>
+              )}
+            </TotalsRow>
+            <TotalsRow hideValue={validating} modifier="to-pay">
+              <span>To pay:</span>
+              <span>{totalToPay},-</span>
+            </TotalsRow>
+            {validating && (
+              <TotalsSpinner>
+                <Spinner size="25" />
+              </TotalsSpinner>
+            )}
+          </TotalsRows>
+          <Coupon tr={translations} Spinner={Spinner} />
         </Totals>
 
-        {!freeShipping &&
+        {!validating &&
+          !freeShipping &&
           remainingUntilFreeShippingApplies > 0 && (
             <RemainingUntilFreeShipping>
               Du mangler {remainingUntilFreeShippingApplies},- for fri frakt

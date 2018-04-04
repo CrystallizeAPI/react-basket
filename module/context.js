@@ -6,7 +6,8 @@ import { retrieveBasketFromCache, persistBasketToCache } from './cache';
 export const {
   parseBasketItem,
   createBasketItem,
-  getSupportedOptionsFromProps
+  getSupportedOptionsFromProps,
+  validateBasket
 } = helpers;
 
 const BasketContext = createContext();
@@ -21,16 +22,14 @@ export class BasketProvider extends React.Component {
     };
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      items: [],
-      options: {
-        ...getSupportedOptionsFromProps(props)
-      }
-    };
-  }
+  state = {
+    items: [],
+    options: {},
+    validating: false,
+    validatingNewCoupon: false,
+    coupon: null,
+    discount: null
+  };
 
   componentDidMount() {
     this.getCachedBasket();
@@ -55,9 +54,12 @@ export class BasketProvider extends React.Component {
     } = options;
 
     const totalQuantity = items.reduce((acc, i) => acc + i.quantity, 0);
-    const totalPrice = items.reduce((acc, i) => acc + i.quantity * i.price, 0);
+    const totalPrice = items.reduce(
+      (acc, i) => acc + i.quantity * i.unit_price,
+      0
+    );
 
-    const totalPriceMinusDiscount = totalPrice - discount;
+    const totalPriceMinusDiscount = totalPrice - Math.abs(discount);
 
     // Determine shipping related variables
     let freeShipping = false;
@@ -85,6 +87,40 @@ export class BasketProvider extends React.Component {
     };
   };
 
+  validateBasketDelayed = () => {
+    // No coupon -> no validation needed
+    if (!this.state.coupon) {
+      return;
+    }
+
+    this.setValidating(true);
+
+    clearTimeout(this.validateBasketDelayedTimeout);
+    this.validateBasketDelayedTimeout = setTimeout(async () => {
+      const { items, coupon, options } = this.state;
+      const { validateEndpoint } = options;
+      const tr = helpers.getTranslationsFromProps(this.props.tr);
+
+      try {
+        const result = await validateBasket({
+          items,
+          coupon,
+          validateEndpoint,
+          tr
+        });
+
+        if (!result.error) {
+          this.setItems(result.items);
+          this.setDiscount(result.discount);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+
+      this.setValidating(false);
+    }, 250);
+  };
+
   changeItemQuantity = ({ item, num, quantity }) => {
     const { items } = this.state;
     const index = items.findIndex(i => i.sku === item.sku);
@@ -104,6 +140,8 @@ export class BasketProvider extends React.Component {
       this.setState({
         items: [...items]
       });
+
+      this.validateBasketDelayed();
 
       return true;
     }
@@ -137,6 +175,16 @@ export class BasketProvider extends React.Component {
     });
   };
 
+  setValidating = validating => this.setState({ validating });
+  setValidatingNewCoupon = validatingNewCoupon =>
+    this.setState({ validatingNewCoupon });
+
+  setCoupon = coupon => this.setState({ coupon });
+
+  setItems = items => this.setState({ items });
+
+  setDiscount = discount => this.setState({ discount });
+
   render() {
     const { options, ...state } = this.state;
     const calculatedState = this.calculateExtraBasketState();
@@ -155,7 +203,12 @@ export class BasketProvider extends React.Component {
             removeItem: this.removeItem,
             incrementQuantityItem: this.incrementQuantityItem,
             decrementQuantityItem: this.decrementQuantityItem,
-            parseBasketItem
+            parseBasketItem,
+            setValidating: this.setValidating,
+            setValidatingNewCoupon: this.setValidatingNewCoupon,
+            setCoupon: this.setCoupon,
+            setItems: this.setItems,
+            setDiscount: this.setDiscount
           }
         }}
       >

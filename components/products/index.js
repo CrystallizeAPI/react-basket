@@ -105,9 +105,9 @@ export default class Products extends Component {
           <BasketConsumer>
             {({ actions }) =>
               this.state.products.map(v => (
-                <Item key={v.sku}>
-                  <div>{v.sku}</div>
-                  <div>Price: {v.price},-</div>
+                <Item key={v.reference}>
+                  <div>{v.reference}</div>
+                  <div>Price: {v.unit_price},-</div>
                   <Add>
                     <button onClick={() => actions.addItem(v)}>
                       Add to basket

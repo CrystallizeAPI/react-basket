@@ -92,7 +92,7 @@ export default class TinyBasketItem extends React.Component {
                   ))}
                 </Attributes>
               )}
-            <Price>{item.price},-</Price>
+            <Price>{item.unit_price},-</Price>
           </ItemInfoText>
         </ItemInfo>
         <ItemQuantityChanger>

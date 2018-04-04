@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const next = require('next');
+const basketApi = require('@crystallize/express-basket');
 
 const config = require('./config');
 
@@ -10,6 +11,8 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
+
+  server.use('/api/basket', basketApi);
 
   server.use(handle);
 
