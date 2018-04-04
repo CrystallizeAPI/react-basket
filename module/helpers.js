@@ -85,8 +85,10 @@ export function getSupportedOptionsFromProps(props) {
   } = props;
 
   return {
-    freeShippingMinimumPurchaseAmount,
-    shippingCost,
+    freeShippingMinimumPurchaseAmount: parseFloat(
+      freeShippingMinimumPurchaseAmount
+    ),
+    shippingCost: parseFloat(shippingCost),
     validateEndpoint
   };
 }
