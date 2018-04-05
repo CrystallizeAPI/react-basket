@@ -79,7 +79,7 @@ class CouponInner extends React.PureComponent {
         setDiscount(result.discount);
       }
     } catch (error) {
-      console.warn(error);
+      console.warn(error); // eslint-disable-line
     }
 
     setValidatingNewCoupon(false);

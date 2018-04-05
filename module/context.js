@@ -116,7 +116,7 @@ export class BasketProvider extends React.Component {
           this.setDiscount(result.discount);
         }
       } catch (error) {
-        console.error(error);
+        console.error(error); // eslint-disable-line
       }
 
       this.setValidating(false);
