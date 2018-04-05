@@ -97,7 +97,7 @@ class CouponInner extends React.PureComponent {
       const id = generateUniqueId('coupon-input');
       return (
         <Outer>
-          <Label htmlFor={id}>{tr.inputCoupon}</Label>
+          <Label htmlFor={id}>{tr('basket.inputCoupon')}</Label>
           <Input
             id={id}
             innerRef={this.getInputRef}
@@ -114,11 +114,13 @@ class CouponInner extends React.PureComponent {
               onClick={this.register}
               disabled={validatingNewCoupon}
             >
-              {tr.registerCoupon}
+              {tr('basket.registerCoupon')}
             </ButtonRegister>
             {validatingNewCoupon && <Spinner size="12" />}
             <ButtonRegisterCancel>
-              <ButtonToggle onClick={this.hideInput}>{tr.cancel}</ButtonToggle>
+              <ButtonToggle onClick={this.hideInput}>
+                {tr('basket.cancel')}
+              </ButtonToggle>
             </ButtonRegisterCancel>
           </ButtonRegisterWrap>
         </Outer>
@@ -128,7 +130,7 @@ class CouponInner extends React.PureComponent {
     return (
       <Outer>
         <ButtonToggle onClick={this.showInput}>
-          {tr.clickToAddCoupon}
+          {tr('basket.clickToAddCoupon')}
         </ButtonToggle>
       </Outer>
     );

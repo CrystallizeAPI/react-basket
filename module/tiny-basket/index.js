@@ -6,7 +6,7 @@ import { Coupon } from '../coupon';
 import TinyBasketItem from './item';
 import DefaultSpinner from '../spinner';
 
-import { getTranslationsFromProps } from '../helpers';
+import { getTranslations } from '../helpers';
 
 import {
   Outer,
@@ -29,7 +29,7 @@ class TinyBasketInner extends React.Component {
       tr,
       Spinner = DefaultSpinner
     } = this.props;
-    const translations = getTranslationsFromProps(tr);
+    const translations = getTranslations(tr);
 
     const {
       items,
@@ -45,7 +45,7 @@ class TinyBasketInner extends React.Component {
     if (!items.length) {
       return (
         <Outer>
-          <BasketIsEmpty>No items in basket</BasketIsEmpty>
+          <BasketIsEmpty>{translations('basket.basketIsEmpty')}</BasketIsEmpty>
         </Outer>
       );
     }
@@ -64,26 +64,26 @@ class TinyBasketInner extends React.Component {
         <Totals>
           <TotalsRows>
             <TotalsRow hideValue={validating} modifier="total-price">
-              <span>Total price:</span>
+              <span>{translations('basket.totalPrice')}:</span>
               <span>{totalPrice},-</span>
             </TotalsRow>
             {discount && (
               <Fragment>
                 <TotalsRow hideValue={validating} modifier="discount">
-                  <span>Discount:</span>
+                  <span>{translations('basket.discount')}:</span>
                   <span>{discount},-</span>
                 </TotalsRow>
                 <TotalsRow
                   hideValue={validating}
                   modifier="total-after-discount"
                 >
-                  <span>Total after discount:</span>
+                  <span>{translations('basket.totalAfterDiscount')}:</span>
                   <span>{totalPriceMinusDiscount},-</span>
                 </TotalsRow>
               </Fragment>
             )}
             <TotalsRow hideValue={validating} modifier="shipping">
-              <span>Shipping:</span>
+              <span>{translations('basket.shipping')}:</span>
               {freeShipping ? (
                 <span>
                   <StrikeThrough>{options.shippingCost},-</StrikeThrough> 0,-
@@ -95,7 +95,7 @@ class TinyBasketInner extends React.Component {
               )}
             </TotalsRow>
             <TotalsRow hideValue={validating} modifier="to-pay">
-              <span>To pay:</span>
+              <span>{translations('basket.amountToPay')}:</span>
               <span>{totalToPay},-</span>
             </TotalsRow>
             {validating && (
@@ -111,7 +111,9 @@ class TinyBasketInner extends React.Component {
           !freeShipping &&
           remainingUntilFreeShippingApplies > 0 && (
             <RemainingUntilFreeShipping>
-              Du mangler {remainingUntilFreeShippingApplies},- for fri frakt
+              {translations('basket.remainingUntilFreeShippingApplies', {
+                remainingUntilFreeShippingApplies
+              })}
             </RemainingUntilFreeShipping>
           )}
       </Outer>

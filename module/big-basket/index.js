@@ -1,11 +1,11 @@
 import { BasketConsumer } from '../context';
 import { Coupon } from '../coupon';
-import { getTranslationsFromProps } from '../helpers';
+import { getTranslations } from '../helpers';
 
 import { Outer } from './styles';
 
 export const BigBasket = ({ tr }) => {
-  const translations = getTranslationsFromProps(tr);
+  const translations = getTranslations(tr);
   return (
     <BasketConsumer>
       {({ state }) => (

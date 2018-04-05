@@ -1,12 +1,34 @@
-export function getTranslationsFromProps(tr) {
-  return {
-    clickToAddCoupon: 'Click here to add a coupon',
-    inputCoupon: 'Input coupon below',
-    registerCoupon: 'Register coupon',
-    cancel: 'Cancel',
-    thisCouponIsNotValid: 'This coupon is not valid',
-    anErrorOccurred: 'An error occurred. Please try again.',
+export function getTranslations(tr = {}) {
+  const strings = {
+    'basket.clickToAddCoupon': 'Click here to add a coupon',
+    'basket.inputCoupon': 'Input coupon below',
+    'basket.registerCoupon': 'Register coupon',
+    'basket.cancel': 'Cancel',
+    'basket.thisCouponIsNotValid': 'This coupon is not valid',
+    'basket.anErrorOccurred': 'An error occurred. Please try again.',
+    'basket.basketIsEmpty': 'You have no items in your basket',
+    'basket.totalPrice': 'Total price',
+    'basket.discount': 'Discount',
+    'basket.totalAfterDiscount': 'Total after discount',
+    'basket.shipping': 'Shipping',
+    'basket.amountToPay': 'To pay',
+    'basket.remainingUntilFreeShippingApplies':
+      'Shop for {remainingUntilFreeShippingApplies},- more for free shipping',
     ...tr
+  };
+
+  return function getTranslation(name, variables = {}) {
+    if (!Object.hasOwnProperty.call(strings, name)) {
+      return `[tr 404, ${name}]`;
+    }
+
+    let value = strings[name];
+    const variablesKeys = Object.keys(variables);
+    variablesKeys.forEach(key => {
+      value = value.replace(new RegExp(`{${key}}`, 'g'), variables[key]);
+    });
+
+    return value;
   };
 }
 

@@ -99,7 +99,7 @@ export class BasketProvider extends React.Component {
     this.validateBasketDelayedTimeout = setTimeout(async () => {
       const { items, coupon, options } = this.state;
       const { validateEndpoint } = options;
-      const tr = helpers.getTranslationsFromProps(this.props.tr);
+      const tr = helpers.getTranslations(this.props.tr);
 
       try {
         const result = await validateBasket({
