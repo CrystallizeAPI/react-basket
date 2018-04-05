@@ -2,6 +2,7 @@ import React from 'react';
 
 import { BasketConsumer } from '../context';
 import { generateUniqueId, validateBasket } from '../helpers';
+import { getTranslation as tr } from '../translations';
 
 import DefaultSpinner from '../spinner';
 import {
@@ -33,7 +34,6 @@ class CouponInner extends React.PureComponent {
   };
 
   register = async () => {
-    const { tr } = this.props;
     const {
       setValidatingNewCoupon,
       setCoupon,
@@ -44,6 +44,15 @@ class CouponInner extends React.PureComponent {
     const { validateEndpoint } = this.props.options;
 
     const { coupon } = this.state;
+
+    if (!coupon) {
+      this.inputRef.focus();
+
+      this.setState({
+        feedback: tr('basket.fillOutCoupon')
+      });
+      return;
+    }
 
     this.setState({
       feedback: null
@@ -59,9 +68,9 @@ class CouponInner extends React.PureComponent {
         tr
       });
 
-      if (result.error) {
+      if (result.error || result.status === 'INVALID') {
         this.setState({
-          feedback: result.error
+          feedback: tr('basket.couldNotVerifyCoupon', { coupon })
         });
         this.inputRef.focus();
       } else {
@@ -81,12 +90,13 @@ class CouponInner extends React.PureComponent {
       this.inputRef.focus();
     });
 
-  hideInput = () => this.setState({ showInput: false });
+  hideInput = () =>
+    this.setState({ showInput: false, feedback: null, coupon: '' });
 
   render() {
     const { showInput, coupon, feedback } = this.state;
     const { validatingNewCoupon } = this.props.state;
-    const { tr, Spinner = DefaultSpinner } = this.props;
+    const { Spinner = DefaultSpinner } = this.props;
 
     // A coupon has already been registered
     if (this.props.state.coupon) {

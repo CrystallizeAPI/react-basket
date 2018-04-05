@@ -1,37 +1,3 @@
-export function getTranslations(tr = {}) {
-  const strings = {
-    'basket.clickToAddCoupon': 'Click here to add a coupon',
-    'basket.inputCoupon': 'Input coupon below',
-    'basket.registerCoupon': 'Register coupon',
-    'basket.cancel': 'Cancel',
-    'basket.thisCouponIsNotValid': 'This coupon is not valid',
-    'basket.anErrorOccurred': 'An error occurred. Please try again.',
-    'basket.basketIsEmpty': 'You have no items in your basket',
-    'basket.totalPrice': 'Total price',
-    'basket.discount': 'Discount',
-    'basket.totalAfterDiscount': 'Total after discount',
-    'basket.shipping': 'Shipping',
-    'basket.amountToPay': 'To pay',
-    'basket.remainingUntilFreeShippingApplies':
-      'Shop for {remainingUntilFreeShippingApplies},- more for free shipping',
-    ...tr
-  };
-
-  return function getTranslation(name, variables = {}) {
-    if (!Object.hasOwnProperty.call(strings, name)) {
-      return `[tr 404, ${name}]`;
-    }
-
-    let value = strings[name];
-    const variablesKeys = Object.keys(variables);
-    variablesKeys.forEach(key => {
-      value = value.replace(new RegExp(`{${key}}`, 'g'), variables[key]);
-    });
-
-    return value;
-  };
-}
-
 export const generateUniqueId = (function iife() {
   let idIncremenet = 0;
 
@@ -162,16 +128,7 @@ export async function validateBasket({ validateEndpoint, items, coupon, tr }) {
     });
 
     if (result.status === 'INVALID') {
-      let message = tr.thisCouponIsNotValid;
-      if (
-        result.message &&
-        result.message !== 'NO valid coupons found with this code'
-      ) {
-        ({ message } = result);
-      }
-      return {
-        error: message
-      };
+      return result;
     }
 
     const discountItem = result.find(item => item.type === 'discount');

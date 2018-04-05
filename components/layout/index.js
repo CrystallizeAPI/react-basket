@@ -5,6 +5,11 @@ import { BasketProvider } from 'module';
 import Header from '../header';
 import { Outer, Main } from './styles';
 
+const basketOptions = {
+  shippingCost: 199,
+  freeShippingMinimumPurchaseAmount: 800
+};
+
 export default class Layout extends React.PureComponent {
   render() {
     return (
@@ -12,10 +17,7 @@ export default class Layout extends React.PureComponent {
         <Head>
           <title key="title">Crystallize - React basket</title>
         </Head>
-        <BasketProvider
-          shippingCost="199"
-          freeShippingMinimumPurchaseAmount="800"
-        >
+        <BasketProvider {...basketOptions}>
           <Outer>
             <Header />
             <Main>{this.props.children}</Main>
