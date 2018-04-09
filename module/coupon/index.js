@@ -1,8 +1,8 @@
 import React from 'react';
+import { tr } from '@crystallize/translations';
 
 import { BasketConsumer } from '../context';
 import { generateUniqueId, validateBasket } from '../helpers';
-import { getTranslation as tr } from '../translations';
 
 import DefaultSpinner from '../spinner';
 import {
@@ -64,8 +64,7 @@ class CouponInner extends React.PureComponent {
       const result = await validateBasket({
         items,
         coupon,
-        validateEndpoint,
-        tr
+        validateEndpoint
       });
 
       if (result.error || result.status === 'INVALID') {

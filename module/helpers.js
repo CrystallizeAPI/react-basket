@@ -1,3 +1,5 @@
+import { tr } from '@crystallize/translations';
+
 export const generateUniqueId = (function iife() {
   let idIncremenet = 0;
 
@@ -118,7 +120,7 @@ const validateBasketRequest = async ({ validateEndpoint, basket }) => {
 };
 
 // Validate the basket if there is a coupon present.
-export async function validateBasket({ validateEndpoint, items, coupon, tr }) {
+export async function validateBasket({ validateEndpoint, items, coupon }) {
   let discount = null;
 
   if (items.length === 0) {

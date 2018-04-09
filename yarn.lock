@@ -97,6 +97,10 @@
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@crystallize/react-image/-/react-image-1.3.0.tgz#e507425cfc724154504af05c11a73ea8cf45e750"
 
+"@crystallize/translations@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@crystallize/translations/-/translations-0.0.1.tgz#051424f255313fc8e4e7bd9d31c6d8332b56e66c"
+
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"

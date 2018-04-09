@@ -146,6 +146,7 @@
   "dependencies": {
     "@crystallize/express-basket": "^0.0.5",
     "@crystallize/react-image": "^1.2.2",
+    "@crystallize/translations": "^0.0.1",
     "localforage": "^1.6.0",
     "prop-types": "^15.6.0",
     "react": "^16.3.0",

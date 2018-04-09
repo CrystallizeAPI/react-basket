@@ -1,8 +1,8 @@
 import React, { createContext } from 'react';
+import { setTranslations } from '@crystallize/translations';
 
 import * as helpers from './helpers';
 import { retrieveBasketFromCache, persistBasketToCache } from './cache';
-import { getTranslation as tr, setTranslations } from './translations';
 
 export const {
   parseBasketItem,
@@ -15,7 +15,10 @@ const BasketContext = createContext();
 
 export class BasketProvider extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
-    setTranslations(nextProps.translations);
+    const tr = nextProps.translations || nextProps.tr;
+    if (tr) {
+      setTranslations(tr);
+    }
 
     return {
       options: {
@@ -26,6 +29,7 @@ export class BasketProvider extends React.Component {
   }
 
   state = {
+    ready: false,
     items: [],
     options: {},
     validating: false,
@@ -45,7 +49,7 @@ export class BasketProvider extends React.Component {
   getCachedBasket = async () => {
     const basket = await retrieveBasketFromCache();
     if (basket) {
-      this.setState(basket);
+      this.setState({ ...basket, ready: true });
     }
   };
 
@@ -107,8 +111,7 @@ export class BasketProvider extends React.Component {
         const result = await validateBasket({
           items,
           coupon,
-          validateEndpoint,
-          tr
+          validateEndpoint
         });
 
         if (!result.error) {
