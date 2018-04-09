@@ -32,35 +32,51 @@ export function parseBasketItem(item) {
 }
 
 export function createBasketItem({ masterProduct, variant }) {
-  const basketItem = {};
+  if (!masterProduct) {
+    /* eslint-disable */
+    console.error('Could not the create basket item without a master product!');
+    /* eslint-enable */
+    return {};
+  }
+
+  function getPriceWithVAT(price) {
+    return price * (1 + (masterProduct.vat || 0) / 100);
+  }
+
+  const basketItem = {
+    name: masterProduct.name,
+    sku: `${masterProduct.sku}-standard`,
+    product_image: masterProduct.product_image,
+    product_image_resized: masterProduct.product_image_resized,
+    unit_price: getPriceWithVAT(masterProduct.price),
+    attributes: []
+  };
+
   if (!variant) {
     /* eslint-disable */
-    console.error('Could not create basket item. Please provide the variant!');
+    console.warn(
+      'Creating basket item without a variant. Deferring to -standard'
+    );
     /* eslint-enable */
   } else {
-    basketItem.sku = variant.variation_sku;
-    basketItem.reference = variant.variation_sku;
-    basketItem.attributes = variant.attributes;
+    Object.assign(basketItem, {
+      sku: variant.variation_sku,
+      attributes: variant.attributes
+    });
 
-    if (!masterProduct) {
-      /* eslint-disable */
-      console.error(
-        'Could not create basket item from variant alone. Please provide the master product!'
-      );
-      /* eslint-enable */
-    } else {
-      basketItem.unit_price =
-        variant.price_ex_vat * (1 + (masterProduct.vat || 0) / 100);
-      basketItem.name = masterProduct.name;
+    Object.assign(basketItem, {
+      unit_price: getPriceWithVAT(variant.price_ex_vat)
+    });
 
-      if (variant.image) {
-        basketItem.product_image = variant.image;
-      } else {
-        basketItem.product_image = masterProduct.product_image;
-        basketItem.product_image_resized = masterProduct.product_image_resized;
-      }
+    if (variant.image) {
+      Object.assign(basketItem, {
+        product_image: variant.image,
+        product_image_resized: null
+      });
     }
   }
+
+  basketItem.reference = basketItem.sku;
 
   return basketItem;
 }

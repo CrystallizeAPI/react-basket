@@ -13,7 +13,7 @@ const defaultStrings = {
   'basket.amountToPay': 'To pay',
   'basket.remainingUntilFreeShippingApplies':
     'Shop for {remainingUntilFreeShippingApplies},- more for free shipping',
-  'basket.couldNotVerifyCoupon': 'Could not verify "{coupon}"',
+  'basket.couldNotVerifyCoupon': 'Could not find the coupon "{coupon}"',
   'basket.fillOutCoupon': 'Please input a coupon'
 };
 

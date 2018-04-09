@@ -22,8 +22,6 @@ export const Add = styled.div`
   margin-top: 5px;
 `;
 
-const server_url = `http://api.crystallize.digital/graphql`;
-
 async function doFetch(query) {
   const body = JSON.stringify({
     query,
@@ -32,7 +30,7 @@ async function doFetch(query) {
   });
 
   try {
-    const request = await fetch(server_url, {
+    const request = await fetch(`${__crystallizeConfig.API_URL}/graphql`, {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -58,7 +56,31 @@ export default class Products extends Component {
 
   async getProducts() {
     const response = await doFetch(`{
-      product (url: "/smart-mat/myopancakes", tenantID: "myrevolution") {
+      category (url: "/magasin", tenantID: "bunad_magasinet") {
+        products {
+          name
+          current_version
+          sku
+          price
+          vat
+          product_image
+          product_image_resized
+        }
+      }
+    }`);
+
+    if (response.data) {
+      this.setState({
+        products: response.data.category.products
+          .map(p => createBasketItem({ masterProduct: p }))
+          .slice(0, 10)
+      });
+    }
+
+    /* A tenant with product variants */
+    /*
+    const response = await doFetch(`{
+      product (url: "/magasin", tenantID: "bunad_magasinet") {
         id
         name
         vat
@@ -88,13 +110,15 @@ export default class Products extends Component {
       }
     }`);
 
-    const { product } = response.data;
-
-    this.setState({
-      products: product.variations.map(variant =>
-        createBasketItem({ masterProduct: product, variant })
-      )
-    });
+    if (response.data) {
+      const { product } = response.data;
+      this.setState({
+        products: product.variations.map(variant =>
+          createBasketItem({ masterProduct: product, variant })
+        )
+      });
+    }
+    */
   }
 
   render() {
