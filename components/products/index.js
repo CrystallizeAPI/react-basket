@@ -55,32 +55,9 @@ export default class Products extends Component {
   }
 
   async getProducts() {
-    const response = await doFetch(`{
-      category (url: "/magasin", tenantID: "bunad_magasinet") {
-        products {
-          name
-          current_version
-          sku
-          price
-          vat
-          product_image
-          product_image_resized
-        }
-      }
-    }`);
-
-    if (response.data) {
-      this.setState({
-        products: response.data.category.products
-          .map(p => createBasketItem({ masterProduct: p }))
-          .slice(0, 10)
-      });
-    }
-
     /* A tenant with product variants */
-    /*
     const response = await doFetch(`{
-      product (url: "/magasin", tenantID: "bunad_magasinet") {
+      product (url: "/magasin/bunad-utgave-1-2017", tenantID: "bunad_magasinet") {
         id
         name
         vat
@@ -118,7 +95,6 @@ export default class Products extends Component {
         )
       });
     }
-    */
   }
 
   render() {
