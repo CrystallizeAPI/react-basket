@@ -14,8 +14,7 @@ yarn add @crystallize/react-basket
 import { BasketProvider } from '@crystallize/react-basket';
 
 const basketOptions = {
-  freeShippingMinimumPurchaseAmount: 600,
-  shippingCost: 100
+  freeShippingMinimumPurchaseAmount: 600
 };
 
 export default () => (

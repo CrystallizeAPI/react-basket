@@ -86,7 +86,6 @@ export function createBasketItem({ masterProduct, variant }) {
 export function getSupportedOptionsFromProps(props) {
   const {
     freeShippingMinimumPurchaseAmount = -1,
-    shippingCost = -1,
     validateEndpoint = '/api/basket/validate'
   } = props;
 
@@ -94,7 +93,6 @@ export function getSupportedOptionsFromProps(props) {
     freeShippingMinimumPurchaseAmount: parseFloat(
       freeShippingMinimumPurchaseAmount
     ),
-    shippingCost: parseFloat(shippingCost),
     validateEndpoint
   };
 }

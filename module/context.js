@@ -20,11 +20,34 @@ export class BasketProvider extends React.Component {
       setTranslations(tr);
     }
 
-    return {
+    const newState = {
       options: {
         ...prevState.options,
         ...getSupportedOptionsFromProps(nextProps)
       }
+    };
+
+    if (!newState.shipping && nextProps.shipping) {
+      newState.shipping = nextProps.shipping;
+    }
+
+    return newState;
+  }
+
+  /* eslint-disable */
+  static createShippingBasketItem(shipping) {
+    return {
+      name: 'Shipping',
+      reference: 'not-set',
+      unit_price: 0,
+      discount_rate: 0,
+      quantity: 1,
+      tax_rate: 0,
+      total_price_excluding_tax: 0,
+      total_price_including_tax: 0,
+      total_tax_amount: 0,
+      type: 'shipping_fee',
+      ...shipping
     };
   }
 
@@ -35,7 +58,8 @@ export class BasketProvider extends React.Component {
     validating: false,
     validatingNewCoupon: false,
     coupon: null,
-    discount: null
+    discount: null,
+    shipping: null
   };
 
   componentDidMount() {
@@ -54,11 +78,8 @@ export class BasketProvider extends React.Component {
   };
 
   calculateExtraBasketState = () => {
-    const { items, discount = 0, options } = this.state;
-    const {
-      freeShippingMinimumPurchaseAmount = -1,
-      shippingCost = -1
-    } = options;
+    const { items, discount = 0, options, shipping } = this.state;
+    const { freeShippingMinimumPurchaseAmount = -1 } = options;
 
     const totalQuantity = items.reduce((acc, i) => acc + i.quantity, 0);
     const totalPrice = items.reduce(
@@ -73,7 +94,7 @@ export class BasketProvider extends React.Component {
     let remainingUntilFreeShippingApplies = 0;
     if (
       freeShippingMinimumPurchaseAmount &&
-      freeShippingMinimumPurchaseAmount !== -1
+      freeShippingMinimumPurchaseAmount > 0
     ) {
       remainingUntilFreeShippingApplies =
         freeShippingMinimumPurchaseAmount - totalPriceMinusDiscount;
@@ -83,14 +104,23 @@ export class BasketProvider extends React.Component {
       }
     }
 
+    // Create the checkout model. It will include the shipping as well as the items
+    const checkoutItems = [...items];
+    if (shipping) {
+      checkoutItems.push(BasketProvider.createShippingBasketItem(shipping));
+    }
+
+    const shippingCost = shipping ? shipping.unit_price : 0;
+
     return {
       totalPrice,
       totalPriceMinusDiscount,
-      totalToPay: totalPriceMinusDiscount + (freeShipping ? 0 : shippingCost),
+      totalToPay: totalPriceMinusDiscount + shippingCost,
       totalQuantity,
       freeShipping,
       remainingUntilFreeShippingApplies,
-      items
+      items,
+      checkoutItems
     };
   };
 
@@ -189,6 +219,8 @@ export class BasketProvider extends React.Component {
   setItems = items => this.setState({ items });
 
   setDiscount = discount => this.setState({ discount });
+
+  setShipping = shipping => this.setState({ shipping });
 
   render() {
     const { options, ...state } = this.state;
