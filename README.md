@@ -69,3 +69,4 @@ The state object contains:
 * setCoupon (set the coupon code)
 * setDiscount (set the discount item)
 * setShipping (set the current shipping item)
+* onReady (calls then given function when the basket is loaded and ready)

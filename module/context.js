@@ -66,6 +66,8 @@ export class BasketProvider extends React.Component {
     shipping: null
   };
 
+  onReadyQueue = [];
+
   componentDidMount() {
     this.getCachedBasket();
   }
@@ -79,6 +81,9 @@ export class BasketProvider extends React.Component {
     if (basket) {
       this.setState({ ...basket, ready: true });
     }
+
+    this.onReadyQueue.forEach(fn => fn());
+    this.onReadyQueue.length = 0;
   };
 
   calculateExtraBasketState = () => {
@@ -180,47 +185,63 @@ export class BasketProvider extends React.Component {
     return false;
   };
 
-  incrementQuantityItem = item => {
-    this.changeItemQuantity({ item, num: 1 });
-  };
-
-  decrementQuantityItem = item => {
-    this.changeItemQuantity({ item, num: -1 });
-  };
-
-  addItem = itemRaw => {
-    const item = parseBasketItem(itemRaw);
-
-    // Try to increment by one. If not, add new product to basket
-    if (!this.changeItemQuantity({ item, num: 1 })) {
-      this.setState({
-        items: [...this.state.items, item]
-      });
-    }
-  };
-
-  removeItem = item => this.changeItemQuantity({ item, quantity: 0 });
-
-  empty = () => {
-    this.setState({
-      items: []
+  incrementQuantityItem = item =>
+    this.onReady(() => {
+      this.changeItemQuantity({ item, num: 1 });
     });
-  };
 
-  setValidating = validating => this.setState({ validating });
+  decrementQuantityItem = item =>
+    this.onReady(() => {
+      this.changeItemQuantity({ item, num: -1 });
+    });
+
+  addItem = itemRaw =>
+    this.onReady(() => {
+      const item = parseBasketItem(itemRaw);
+
+      // Try to increment by one. If not, add new product to basket
+      if (!this.changeItemQuantity({ item, num: 1 })) {
+        this.setState({
+          items: [...this.state.items, item]
+        });
+      }
+    });
+
+  removeItem = item =>
+    this.onReady(() => this.changeItemQuantity({ item, quantity: 0 }));
+
+  empty = () =>
+    this.onReady(() =>
+      this.setState({
+        items: []
+      })
+    );
+
+  setValidating = validating =>
+    this.onReady(() => this.setState({ validating }));
   setValidatingNewCoupon = validatingNewCoupon =>
-    this.setState({ validatingNewCoupon });
+    this.onReady(() => this.setState({ validatingNewCoupon }));
 
-  setCoupon = coupon => this.setState({ coupon });
+  setCoupon = coupon => this.onReady(() => this.setState({ coupon }));
 
-  setItems = items => this.setState({ items });
+  setItems = items => this.onReady(() => this.setState({ items }));
 
-  setDiscount = discount => this.setState({ discount });
+  setDiscount = discount => this.onReady(() => this.setState({ discount }));
 
   setShipping = shipping =>
-    this.setState({
-      shipping: BasketProvider.createShippingBasketItem(shipping)
-    });
+    this.onReady(() =>
+      this.setState({
+        shipping: BasketProvider.createShippingBasketItem(shipping)
+      })
+    );
+
+  onReady = fn => {
+    if (this.state.ready) {
+      fn();
+    } else {
+      this.onReadyQueue.push(fn);
+    }
+  };
 
   render() {
     const { options, ...state } = this.state;
@@ -246,7 +267,8 @@ export class BasketProvider extends React.Component {
             setCoupon: this.setCoupon,
             setItems: this.setItems,
             setDiscount: this.setDiscount,
-            setShipping: this.setShipping
+            setShipping: this.setShipping,
+            onReady: this.onReady
           }
         }}
       >
