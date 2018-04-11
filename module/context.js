@@ -27,8 +27,8 @@ export class BasketProvider extends React.Component {
       }
     };
 
-    if (!newState.shipping && nextProps.shipping) {
-      newState.shipping = nextProps.shipping;
+    if (!newState.shipping && nextProps.defaultShipping) {
+      newState.shipping = nextProps.defaultShipping;
     }
 
     return newState;
@@ -36,6 +36,10 @@ export class BasketProvider extends React.Component {
 
   /* eslint-disable */
   static createShippingBasketItem(shipping) {
+    if (!shipping) {
+      return shipping;
+    }
+
     return {
       name: 'Shipping',
       reference: 'not-set',
@@ -104,23 +108,16 @@ export class BasketProvider extends React.Component {
       }
     }
 
-    // Create the checkout model. It will include the shipping as well as the items
-    const checkoutItems = [...items];
-    if (shipping) {
-      checkoutItems.push(BasketProvider.createShippingBasketItem(shipping));
-    }
-
     const shippingCost = shipping ? shipping.unit_price : 0;
 
     return {
       totalPrice,
       totalPriceMinusDiscount,
-      totalToPay: totalPriceMinusDiscount + shippingCost,
+      totalToPay: totalPriceMinusDiscount + (freeShipping ? 0 : shippingCost),
       totalQuantity,
       freeShipping,
       remainingUntilFreeShippingApplies,
-      items,
-      checkoutItems
+      items
     };
   };
 
@@ -220,7 +217,10 @@ export class BasketProvider extends React.Component {
 
   setDiscount = discount => this.setState({ discount });
 
-  setShipping = shipping => this.setState({ shipping });
+  setShipping = shipping =>
+    this.setState({
+      shipping: BasketProvider.createShippingBasketItem(shipping)
+    });
 
   render() {
     const { options, ...state } = this.state;
@@ -245,7 +245,8 @@ export class BasketProvider extends React.Component {
             setValidatingNewCoupon: this.setValidatingNewCoupon,
             setCoupon: this.setCoupon,
             setItems: this.setItems,
-            setDiscount: this.setDiscount
+            setDiscount: this.setDiscount,
+            setShipping: this.setShipping
           }
         }}
       >

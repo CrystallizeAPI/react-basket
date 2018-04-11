@@ -14,7 +14,8 @@ yarn add @crystallize/react-basket
 import { BasketProvider } from '@crystallize/react-basket';
 
 const basketOptions = {
-  freeShippingMinimumPurchaseAmount: 600
+  freeShippingMinimumPurchaseAmount: 600,
+  defaultShipping: yourDefaultShipping
 };
 
 export default () => (
@@ -58,7 +59,13 @@ The state object contains:
 
 * empty (empty the basket)
 * addItem (add an item)
+* setItems (set all the basket items in one go)
 * removeItem (remove an item)
 * incrementQuantityItem (incremenet the quantity for a given item)
 * decrementQuantityItem (decremenet the quantity for a given item)
 * parseBasketItem (takes a product and a variant model and returns a valid basket item)
+* setValidating (set the validating flag (found in state))
+* setValidatingNewCoupon (set validatingNewCoupon flag (found in state))
+* setCoupon (set the coupon code)
+* setDiscount (set the discount item)
+* setShipping (set the current shipping item)

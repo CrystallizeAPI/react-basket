@@ -16,7 +16,12 @@ export const List = styled.div`
   grid-row-gap: 20px;
 `;
 
-export const Item = styled.div``;
+export const Item = styled.div`
+  img {
+    height: 100px;
+    margin-bottom: 5px;
+  }
+`;
 
 export const Add = styled.div`
   margin-top: 5px;
@@ -99,13 +104,38 @@ export default class Products extends Component {
 
   render() {
     return (
-      <Outer>
-        <h1>Products:</h1>
-        <List>
-          <BasketConsumer>
-            {({ actions }) =>
-              this.state.products.map(v => (
+      <BasketConsumer>
+        {({ actions }) => (
+          <Outer>
+            <h2>Shipping:</h2>
+            <button
+              onClick={() =>
+                actions.setShipping({
+                  discount_rate: 0,
+                  name: 'Shipping',
+                  quantity: 1,
+                  reference: 'BM-1-Frakt-standard',
+                  tax_rate: 0,
+                  total_price_excluding_tax: 0,
+                  total_price_including_tax: 0,
+                  total_tax_amount: 0,
+                  type: 'shipping_fee',
+                  unit_price: 99
+                })
+              }
+            >
+              Add standard shipping
+            </button>
+            <button onClick={() => actions.setShipping(null)}>
+              Remove shipping
+            </button>
+            <br />
+            <br />
+            <h2>Products:</h2>
+            <List>
+              {this.state.products.map(v => (
                 <Item key={v.reference}>
+                  <img src={v.product_image_resized} alt={v.name} />
                   <div>{v.reference}</div>
                   <div>Price: {v.unit_price},-</div>
                   <Add>
@@ -114,11 +144,11 @@ export default class Products extends Component {
                     </button>
                   </Add>
                 </Item>
-              ))
-            }
-          </BasketConsumer>
-        </List>
-      </Outer>
+              ))}
+            </List>
+          </Outer>
+        )}
+      </BasketConsumer>
     );
   }
 }

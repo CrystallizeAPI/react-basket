@@ -21,7 +21,7 @@ import {
 
 class TinyBasketInner extends React.Component {
   render() {
-    const { state, actions, options, Spinner = DefaultSpinner } = this.props;
+    const { state, actions, Spinner = DefaultSpinner } = this.props;
 
     const {
       items,
@@ -29,6 +29,7 @@ class TinyBasketInner extends React.Component {
       totalPrice,
       totalPriceMinusDiscount,
       totalToPay,
+      shipping,
       freeShipping,
       validating,
       remainingUntilFreeShippingApplies
@@ -78,12 +79,13 @@ class TinyBasketInner extends React.Component {
               <span>{tr('basket.shipping')}:</span>
               {freeShipping ? (
                 <span>
-                  <StrikeThrough>{options.shippingCost},-</StrikeThrough> 0,-
+                  {shipping && (
+                    <StrikeThrough>{shipping.unit_price},-</StrikeThrough>
+                  )}{' '}
+                  0,-
                 </span>
               ) : (
-                <span>
-                  {options.shippingCost <= 0 ? 0 : options.shippingCost},-
-                </span>
+                <span>{shipping ? shipping.unit_price : 0},-</span>
               )}
             </TotalsRow>
             <TotalsRow hideValue={validating} modifier="to-pay">
