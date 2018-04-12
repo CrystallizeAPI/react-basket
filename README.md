@@ -54,6 +54,7 @@ The state object contains:
 * totalQuantity (the total items including quantity)
 * freeShipping (if free shipping has been granted)
 * remainingUntilFreeShippingApplies (the minimum amount required for free shipping)
+* metadata (additional metadata that you can set)
 
 ## Actions
 
@@ -69,4 +70,5 @@ The state object contains:
 * setCoupon (set the coupon code)
 * setDiscount (set the discount item)
 * setShipping (set the current shipping item)
+* setMetadata (set your metadata)
 * onReady (calls then given function when the basket is loaded and ready)

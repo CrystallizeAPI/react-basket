@@ -178,6 +178,7 @@
     "eslint-plugin-prettier": "^2.4.0",
     "eslint-plugin-react": "^7.5.1",
     "express": "^4.16.2",
+    "faker": "^4.1.0",
     "helmet": "^3.10.0",
     "husky": "^0.14.3",
     "isomorphic-fetch": "^2.2.1",

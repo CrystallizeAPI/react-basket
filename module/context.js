@@ -63,7 +63,8 @@ export class BasketProvider extends React.Component {
     validatingNewCoupon: false,
     coupon: null,
     discount: null,
-    shipping: null
+    shipping: null,
+    metadata: null
   };
 
   onReadyQueue = [];
@@ -213,7 +214,10 @@ export class BasketProvider extends React.Component {
   empty = () =>
     this.onReady(() =>
       this.setState({
-        items: []
+        items: [],
+        metadata: null,
+        coupon: null,
+        discount: null
       })
     );
 
@@ -227,6 +231,8 @@ export class BasketProvider extends React.Component {
   setItems = items => this.onReady(() => this.setState({ items }));
 
   setDiscount = discount => this.onReady(() => this.setState({ discount }));
+
+  setMetadata = metadata => this.onReady(() => this.setState({ metadata }));
 
   setShipping = shipping =>
     this.onReady(() =>
@@ -268,6 +274,7 @@ export class BasketProvider extends React.Component {
             setItems: this.setItems,
             setDiscount: this.setDiscount,
             setShipping: this.setShipping,
+            setMetadata: this.setMetadata,
             onReady: this.onReady
           }
         }}

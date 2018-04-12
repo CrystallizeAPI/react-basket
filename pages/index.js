@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Layout from 'components/layout';
 import { H2 } from 'components/style';
-import Products from 'components/products';
+import Actions from 'components/actions';
 
 import { BigBasket, TinyBasket } from 'module';
 
@@ -37,7 +37,7 @@ export default class Index extends React.Component {
     const { router } = this.props;
     return (
       <Layout router={router}>
-        <Products />
+        <Actions />
         <Outer>
           <Big>
             <H2>Big</H2>
