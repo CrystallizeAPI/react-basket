@@ -88,6 +88,7 @@ export class BasketProvider extends React.Component {
   };
 
   calculateExtraBasketState = () => {
+    debugger;
     const { items, discount = 0, options, shipping } = this.state;
     const { freeShippingMinimumPurchaseAmount = -1 } = options;
 

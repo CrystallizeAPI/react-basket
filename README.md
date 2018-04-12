@@ -43,6 +43,16 @@ export default () => (
 );
 ```
 
+## All exports
+
+* BasketProvider
+* BasketConsumer
+* TinyBasket
+* Coupon
+* parseBasketItem
+* createBasketItem
+* validateBasket
+
 ## State
 
 The state object contains:
@@ -77,4 +87,6 @@ The state object contains:
 
 The tiny basket accepts the following props
 
+* hideCoupon
+* hideRemainingUntilFreeShipping
 * ItemCmp (The component to use when rendering each basket item)

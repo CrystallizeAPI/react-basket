@@ -25,7 +25,9 @@ class TinyBasketInner extends React.Component {
       state,
       actions,
       Spinner = DefaultSpinner,
-      ItemCmp = TinyBasketItem
+      ItemCmp = TinyBasketItem,
+      hideCoupon = false,
+      hideRemainingUntilFreeShipping = false
     } = this.props;
 
     const {
@@ -99,10 +101,11 @@ class TinyBasketInner extends React.Component {
               </TotalsSpinner>
             )}
           </TotalsRows>
-          <Coupon Spinner={Spinner} />
+          {!hideCoupon && <Coupon Spinner={Spinner} />}
         </Totals>
 
-        {!validating &&
+        {!hideRemainingUntilFreeShipping &&
+          !validating &&
           !freeShipping &&
           remainingUntilFreeShippingApplies > 0 && (
             <RemainingUntilFreeShipping>
