@@ -77,11 +77,21 @@ export class BasketProvider extends React.Component {
     persistBasketToCache(this.state);
   }
 
+  onReady = fn => {
+    if (this.state.ready) {
+      fn();
+    } else {
+      this.onReadyQueue.push(fn);
+    }
+  };
+
   getCachedBasket = async () => {
     const basket = await retrieveBasketFromCache();
     if (basket) {
-      this.setState({ ...basket, ready: true });
+      this.setState({ ...basket });
     }
+
+    this.setState({ ready: true });
 
     this.onReadyQueue.forEach(fn => fn());
     this.onReadyQueue.length = 0;
@@ -241,14 +251,6 @@ export class BasketProvider extends React.Component {
         shipping: BasketProvider.createShippingBasketItem(shipping)
       })
     );
-
-  onReady = fn => {
-    if (this.state.ready) {
-      fn();
-    } else {
-      this.onReadyQueue.push(fn);
-    }
-  };
 
   render() {
     const { options, ...state } = this.state;
