@@ -21,7 +21,12 @@ import {
 
 class TinyBasketInner extends React.Component {
   render() {
-    const { state, actions, Spinner = DefaultSpinner } = this.props;
+    const {
+      state,
+      actions,
+      Spinner = DefaultSpinner,
+      ItemCmp = TinyBasketItem
+    } = this.props;
 
     const {
       items,
@@ -47,11 +52,7 @@ class TinyBasketInner extends React.Component {
       <Outer>
         <Items>
           {items.map(item => (
-            <TinyBasketItem
-              actions={actions}
-              key={item.reference}
-              item={item}
-            />
+            <ItemCmp actions={actions} key={item.reference} item={item} />
           ))}
         </Items>
         <Totals>

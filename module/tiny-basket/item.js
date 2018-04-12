@@ -30,6 +30,10 @@ const ItemImage = styled.img.attrs({
   margin-right: 10px;
 `;
 
+const ItemName = styled.div.attrs({
+  className: 'crystallize-basket__item-name'
+})``;
+
 const ItemQuantityChanger = styled.span.attrs({
   className: 'crystallize-basket__item-quantity-changer'
 })`
@@ -53,6 +57,14 @@ const ItemDelete = styled.button.attrs({
   position: absolute;
   top: 2px;
   right: 2px;
+  font-size: 0px;
+
+  &:before {
+    content: '+';
+    display: block;
+    transform: rotate(45deg);
+    font-size: 12px;
+  }
 `;
 
 const Attributes = styled.div.attrs({
@@ -81,7 +93,7 @@ export default class TinyBasketItem extends React.Component {
         <ItemInfo>
           <ItemImage src={item.product_image_resized} alt={item.name} />
           <ItemInfoText>
-            <div>{item.name}</div>
+            <ItemName>{item.name}</ItemName>
             {attributes &&
               attributes.length > 0 && (
                 <Attributes>
@@ -100,7 +112,9 @@ export default class TinyBasketItem extends React.Component {
           <ItemQuantity>{item.quantity}</ItemQuantity>
           <button onClick={() => actions.incrementQuantityItem(item)}>+</button>
         </ItemQuantityChanger>
-        <ItemDelete onClick={() => actions.removeItem(item)}>x</ItemDelete>
+        <ItemDelete onClick={() => actions.removeItem(item)}>
+          Remove from basket
+        </ItemDelete>
       </Item>
     );
   }

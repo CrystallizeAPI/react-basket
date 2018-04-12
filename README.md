@@ -72,3 +72,9 @@ The state object contains:
 * setShipping (set the current shipping item)
 * setMetadata (set your metadata)
 * onReady (calls then given function when the basket is loaded and ready)
+
+## TinyBasket
+
+The tiny basket accepts the following props
+
+* ItemCmp (The component to use when rendering each basket item)
