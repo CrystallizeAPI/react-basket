@@ -1,4 +1,4 @@
-const fetch = require('isomorphic-unfetch');
+const fetch = require('isomorphic-fetch');
 const Bounce = require('bounce');
 const { Router } = require('express');
 const bodyParser = require('body-parser');
