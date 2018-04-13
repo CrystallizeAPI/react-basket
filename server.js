@@ -35,7 +35,7 @@ async function doFetch(url, { body, method = 'get', headers = {} } = {}) {
     return request.json();
   } catch (error) {
     Bounce.rethrow(error, 'system');
-    console.error(error);
+    console.error(error); // eslint-disable-line
     return {};
   }
 }

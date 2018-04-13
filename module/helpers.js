@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch';
+import fetch from 'isomorphic-fetch';
 import { tr } from '@crystallize/translations';
 
 export const generateUniqueId = (function iife() {
