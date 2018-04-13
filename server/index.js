@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const next = require('next');
-const basketApi = require('@crystallize/express-basket');
+const basketApi = require('../server');
 
 const config = require('./config');
 

@@ -84,15 +84,6 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@crystallize/express-basket@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@crystallize/express-basket/-/express-basket-0.0.5.tgz#d4a13de3bc0fba5e5643a736705fe559d15e91da"
-  dependencies:
-    body-parser "^1.18.2"
-    bounce "^1.2.0"
-    express "^4.16.3"
-    node-fetch "^2.1.2"
-
 "@crystallize/react-image@^1.2.2":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@crystallize/react-image/-/react-image-1.3.0.tgz#e507425cfc724154504af05c11a73ea8cf45e750"

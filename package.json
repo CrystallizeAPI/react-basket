@@ -143,6 +143,9 @@
   "eslintIgnore": [
     "dist"
   ],
+  "peerDependencies": {
+    "styled-components": "^3.2.5"
+  },
   "dependencies": {
     "@crystallize/react-image": "^1.2.2",
     "@crystallize/translations": "^0.0.1",

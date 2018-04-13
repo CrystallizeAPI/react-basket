@@ -15,21 +15,18 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [['env', { modules: false }], 'stage-0', 'react'],
-            plugins: [
-              [
-                'babel-plugin-styled-components',
-                {
-                  ssr: true
-                }
-              ]
-            ]
+            presets: [['env', { modules: false }], 'stage-0', 'react']
           }
         }
       }
     ]
   },
   externals: {
-    react: 'commonjs react'
+    react: 'commonjs react',
+    'styled-components': {
+      commonjs: 'styled-components',
+      commonjs2: 'styled-components',
+      amd: 'styled-components'
+    }
   }
 };
