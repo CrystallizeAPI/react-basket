@@ -144,10 +144,12 @@
     "dist"
   ],
   "dependencies": {
-    "@crystallize/express-basket": "^0.0.5",
     "@crystallize/react-image": "^1.2.2",
     "@crystallize/translations": "^0.0.1",
+    "body-parser": "^1.18.2",
+    "bounce": "^1.2.0",
     "localforage": "^1.6.0",
+    "node-fetch": "^2.1.2",
     "prop-types": "^15.6.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0"
@@ -159,7 +161,7 @@
     "babel-loader": "^7.1.4",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-module-resolver": "^3.0.0",
-    "babel-plugin-styled-components": "^1.5.0",
+    "babel-plugin-styled-components": "^1.5.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -176,7 +178,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.4.0",
     "eslint-plugin-react": "^7.5.1",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "faker": "^4.1.0",
     "helmet": "^3.10.0",
     "husky": "^0.14.3",
