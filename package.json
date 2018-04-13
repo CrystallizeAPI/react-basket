@@ -1,7 +1,7 @@
 {
   "name": "@crystallize/react-basket",
   "description": "React component to help with integrating your basket with Crystallize",
-  "version": "1.9.6",
+  "version": "1.9.7",
   "private": false,
   "license": "ISC",
   "engines": {
