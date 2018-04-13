@@ -57,7 +57,7 @@
             "page-components": "./page-components",
             "components": "./components",
             "cmp": "./components",
-            "module": "./module"
+            "module": "./dist"
           }
         }
       ],
@@ -151,7 +151,7 @@
     "@crystallize/translations": "^0.0.1",
     "body-parser": "^1.18.2",
     "bounce": "^1.2.0",
-    "isomorphic-fetch": "^2.2.1",
+    "cross-fetch": "^2.1.0",
     "localforage": "^1.6.0",
     "prop-types": "^15.6.0",
     "react": "^16.3.0",

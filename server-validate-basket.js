@@ -1,17 +1,8 @@
-const fetch = require('isomorphic-fetch');
+const fetch = require('cross-fetch');
 const { tr } = require('@crystallize/translations');
 
-const SERVER = typeof window !== 'undefined';
-
 const validateBasketRequest = async ({ validateEndpoint, basket }) => {
-  let endpoint = validateEndpoint;
-
-  if (validateEndpoint.startsWith('/') && !SERVER) {
-    const l = window.location;
-    endpoint = `${l.protocol}//${l.host}${validateEndpoint}`;
-  }
-
-  const response = await fetch(endpoint, {
+  const response = await fetch(validateEndpoint, {
     method: 'post',
     headers: {
       Accept: 'application/json',
