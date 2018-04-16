@@ -57,7 +57,7 @@
             "page-components": "./page-components",
             "components": "./components",
             "cmp": "./components",
-            "module": "./dist"
+            "module": "./module"
           }
         }
       ],

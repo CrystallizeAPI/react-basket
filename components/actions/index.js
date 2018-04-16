@@ -198,7 +198,12 @@ export default class Products extends Component {
                     <div>{v.reference}</div>
                     <div>Price: {v.unit_price},-</div>
                     <Add>
-                      <button onClick={() => actions.addItem(v)}>
+                      <button
+                        onClick={() => {
+                          actions.addItem(v);
+                          actions.animateItem(v);
+                        }}
+                      >
                         Add to basket
                       </button>
                     </Add>

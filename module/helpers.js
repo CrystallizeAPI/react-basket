@@ -1,6 +1,22 @@
 import fetch from 'cross-fetch';
 import { tr } from '@crystallize/translations';
 
+export const animationSpeedMs = 300;
+
+export function getSupportedOptionsFromProps(props) {
+  const {
+    freeShippingMinimumPurchaseAmount = -1,
+    validateEndpoint = '/api/basket/validate'
+  } = props;
+
+  return {
+    freeShippingMinimumPurchaseAmount: parseFloat(
+      freeShippingMinimumPurchaseAmount
+    ),
+    validateEndpoint
+  };
+}
+
 export const generateUniqueId = (function iife() {
   let idIncremenet = 0;
 
@@ -82,20 +98,6 @@ export function createBasketItem({ masterProduct, variant }) {
   basketItem.reference = basketItem.sku;
 
   return basketItem;
-}
-
-export function getSupportedOptionsFromProps(props) {
-  const {
-    freeShippingMinimumPurchaseAmount = -1,
-    validateEndpoint = '/api/basket/validate'
-  } = props;
-
-  return {
-    freeShippingMinimumPurchaseAmount: parseFloat(
-      freeShippingMinimumPurchaseAmount
-    ),
-    validateEndpoint
-  };
 }
 
 const validateBasketRequest = async ({ validateEndpoint, basket }) => {

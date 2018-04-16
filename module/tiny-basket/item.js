@@ -1,5 +1,25 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+import { animationSpeedMs } from '../helpers';
+
+const animationItemHighlight = keyframes`
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(0.95);
+    }
+    50% {
+      transform: scale(0.97);
+    }
+    75% {
+      transform: scale(0.93);
+    }
+    100% {
+      transform: scale(1);
+    }
+  `;
 
 const Item = styled.li.attrs({
   className: 'crystallize-basket__item'
@@ -10,6 +30,11 @@ const Item = styled.li.attrs({
   padding: 15px 20px;
   border-bottom: 1px solid #eee;
   position: relative;
+  ${p =>
+    p.animate &&
+    `
+    animation: ${animationItemHighlight} ${animationSpeedMs}ms 1;
+  `};
 `;
 
 const ItemInfo = styled.span.attrs({
@@ -89,7 +114,7 @@ export default class TinyBasketItem extends React.Component {
     const { item, actions } = this.props;
     const { attributes } = item;
     return (
-      <Item>
+      <Item animate={item.animate}>
         <ItemInfo>
           <ItemImage src={item.product_image_resized} alt={item.name} />
           <ItemInfoText>

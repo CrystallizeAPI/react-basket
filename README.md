@@ -81,6 +81,7 @@ The state object contains:
 * setDiscount (set the discount item)
 * setShipping (set the current shipping item)
 * setMetadata (set your metadata)
+* animateItem (jiggles the item in the TinyBasket)
 * onReady (calls then given function when the basket is loaded and ready)
 
 ## TinyBasket

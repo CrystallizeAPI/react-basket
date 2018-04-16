@@ -68,6 +68,7 @@ export class BasketProvider extends React.Component {
   };
 
   onReadyQueue = [];
+  itemAnimationTimeouts = [];
 
   componentDidMount() {
     this.getCachedBasket();
@@ -218,6 +219,50 @@ export class BasketProvider extends React.Component {
       }
     });
 
+  animateItem = animItem => {
+    return new Promise(async mainResolve => {
+      // Remove queded animation
+      const removeQueuedAnimation = async queueItem => {
+        const index = this.itemAnimationTimeouts.findIndex(
+          i => i.item.sku === animItem.sku
+        );
+        if (index >= 0) {
+          clearTimeout(this.itemAnimationTimeouts[index].timeout);
+          this.itemAnimationTimeouts.splice(index, 1);
+          await updateStateItem(animItem, false);
+        }
+      };
+
+      const updateStateItem = (stateItem, animate) => {
+        return new Promise(resolve => {
+          this.setState(
+            {
+              items: this.state.items.map(item => {
+                if (item.sku === stateItem.sku) {
+                  item.animate = animate;
+                }
+                return item;
+              })
+            },
+            resolve
+          );
+        });
+      };
+
+      await removeQueuedAnimation(animItem);
+
+      await updateStateItem(animItem, true);
+
+      this.itemAnimationTimeouts.push({
+        item: animItem,
+        timeout: setTimeout(async () => {
+          await removeQueuedAnimation(animItem);
+          mainResolve();
+        }, helpers.animationSpeedMs)
+      });
+    });
+  };
+
   removeItem = item =>
     this.onReady(() => this.changeItemQuantity({ item, quantity: 0 }));
 
@@ -266,6 +311,7 @@ export class BasketProvider extends React.Component {
           actions: {
             empty: this.empty,
             addItem: this.addItem,
+            animateItem: this.animateItem,
             removeItem: this.removeItem,
             incrementQuantityItem: this.incrementQuantityItem,
             decrementQuantityItem: this.decrementQuantityItem,
