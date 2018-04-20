@@ -1,5 +1,4 @@
 const fetch = require('cross-fetch');
-const { tr } = require('@crystallize/translations');
 
 const validateBasketRequest = async ({ validateEndpoint, basket }) => {
   const response = await fetch(validateEndpoint, {
@@ -78,7 +77,7 @@ async function validateBasket({ validateEndpoint, items, coupon }) {
     console.warn('@crystallize/react-basket', error); // eslint-disable-line
 
     return {
-      error: tr.anErrorOccurred
+      error
     };
   }
 }

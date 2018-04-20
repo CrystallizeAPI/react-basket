@@ -111,7 +111,7 @@ const Price = styled.div.attrs({
 export default class TinyBasketItem extends React.Component {
   state = {};
   render() {
-    const { item, actions } = this.props;
+    const { item, actions, t } = this.props;
     const { attributes } = item;
     return (
       <Item animate={item.animate}>
@@ -138,7 +138,7 @@ export default class TinyBasketItem extends React.Component {
           <button onClick={() => actions.incrementQuantityItem(item)}>+</button>
         </ItemQuantityChanger>
         <ItemDelete onClick={() => actions.removeItem(item)}>
-          Remove from basket
+          {t('basket:removeItemFromBasket', item)}
         </ItemDelete>
       </Item>
     );

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { tr } from '@crystallize/translations';
+import { translate } from 'react-i18next';
 
 import { BasketConsumer } from '../context';
 import { Coupon } from '../coupon';
@@ -22,6 +22,7 @@ import {
 class TinyBasketInner extends React.Component {
   render() {
     const {
+      t,
       state,
       actions,
       Spinner = DefaultSpinner,
@@ -45,7 +46,7 @@ class TinyBasketInner extends React.Component {
     if (!items.length) {
       return (
         <Outer>
-          <BasketIsEmpty>{tr('basket.basketIsEmpty')}</BasketIsEmpty>
+          <BasketIsEmpty>{t('basket:empty', state)}</BasketIsEmpty>
         </Outer>
       );
     }
@@ -54,32 +55,32 @@ class TinyBasketInner extends React.Component {
       <Outer>
         <Items>
           {items.map(item => (
-            <ItemCmp actions={actions} key={item.reference} item={item} />
+            <ItemCmp actions={actions} key={item.reference} item={item} t={t} />
           ))}
         </Items>
         <Totals>
           <TotalsRows>
             <TotalsRow hideValue={validating} modifier="total-price">
-              <span>{tr('basket.totalPrice')}:</span>
+              <span>{t('basket:totalPrice', state)}:</span>
               <span>{totalPrice},-</span>
             </TotalsRow>
             {discount && (
               <Fragment>
                 <TotalsRow hideValue={validating} modifier="discount">
-                  <span>{tr('basket.discount')}:</span>
+                  <span>{t('basket:discount', state)}:</span>
                   <span>{discount},-</span>
                 </TotalsRow>
                 <TotalsRow
                   hideValue={validating}
                   modifier="total-after-discount"
                 >
-                  <span>{tr('basket.totalAfterDiscount')}:</span>
+                  <span>{t('basket:totalAfterDiscount', state)}:</span>
                   <span>{totalPriceMinusDiscount},-</span>
                 </TotalsRow>
               </Fragment>
             )}
             <TotalsRow hideValue={validating} modifier="shipping">
-              <span>{tr('basket.shipping')}:</span>
+              <span>{t('basket:shipping', state)}:</span>
               {freeShipping ? (
                 <span>
                   {shipping && (
@@ -92,7 +93,7 @@ class TinyBasketInner extends React.Component {
               )}
             </TotalsRow>
             <TotalsRow hideValue={validating} modifier="to-pay">
-              <span>{tr('basket.amountToPay')}:</span>
+              <span>{t('basket:amountToPay', state)}:</span>
               <span>{totalToPay},-</span>
             </TotalsRow>
             {validating && (
@@ -109,9 +110,7 @@ class TinyBasketInner extends React.Component {
           !freeShipping &&
           remainingUntilFreeShippingApplies > 0 && (
             <RemainingUntilFreeShipping>
-              {tr('basket.remainingUntilFreeShippingApplies', {
-                remainingUntilFreeShippingApplies
-              })}
+              {t('basket:remainingUntilFreeShippingApplies', state)}
             </RemainingUntilFreeShipping>
           )}
       </Outer>
@@ -119,8 +118,8 @@ class TinyBasketInner extends React.Component {
   }
 }
 
-export const TinyBasket = outerProps => (
+export const TinyBasket = translate(['common', 'basket'])(outerProps => (
   <BasketConsumer>
     {props => <TinyBasketInner {...props} {...outerProps} />}
   </BasketConsumer>
-);
+));

@@ -87,7 +87,7 @@ export default class Products extends Component {
   async getProducts() {
     /* A tenant with product variants */
     const response = await doFetch(`{
-      product (url: "/standard/monthly-illustration", tenantID: "demo") {
+      product (url: "/illustrations/monthly-illustration", tenantID: "demo") {
         id
         name
         vat

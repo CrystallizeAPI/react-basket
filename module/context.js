@@ -1,5 +1,4 @@
 import React, { createContext } from 'react';
-import { setTranslations } from '@crystallize/translations';
 
 import * as helpers from './helpers';
 import { retrieveBasketFromCache, persistBasketToCache } from './cache';
@@ -15,11 +14,6 @@ const BasketContext = createContext();
 
 export class BasketProvider extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
-    const tr = nextProps.translations || nextProps.tr;
-    if (tr) {
-      setTranslations(tr);
-    }
-
     const newState = {
       options: {
         ...prevState.options,

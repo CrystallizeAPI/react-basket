@@ -1,5 +1,5 @@
 import React from 'react';
-import { tr } from '@crystallize/translations';
+import { translate } from 'react-i18next';
 
 import { BasketConsumer } from '../context';
 import { generateUniqueId, validateBasket } from '../helpers';
@@ -16,7 +16,7 @@ import {
   Feedback
 } from './styles';
 
-class CouponInner extends React.PureComponent {
+class CouponInner extends React.Component {
   state = {
     showInput: false,
     coupon: '',
@@ -34,14 +34,15 @@ class CouponInner extends React.PureComponent {
   };
 
   register = async () => {
+    const { t, actions, state, options } = this.props;
     const {
       setValidatingNewCoupon,
       setCoupon,
       setItems,
       setDiscount
-    } = this.props.actions;
-    const { items } = this.props.state;
-    const { validateEndpoint } = this.props.options;
+    } = actions;
+    const { items } = state;
+    const { validateEndpoint } = options;
 
     const { coupon } = this.state;
 
@@ -49,7 +50,7 @@ class CouponInner extends React.PureComponent {
       this.inputRef.focus();
 
       this.setState({
-        feedback: tr('basket.fillOutCoupon')
+        feedback: t('basket:fillOutCoupon')
       });
       return;
     }
@@ -69,7 +70,7 @@ class CouponInner extends React.PureComponent {
 
       if (result.error || result.status === 'INVALID') {
         this.setState({
-          feedback: tr('basket.couldNotVerifyCoupon', { coupon })
+          feedback: t('basket:couldNotVerifyCoupon', { coupon })
         });
         this.inputRef.focus();
       } else {
@@ -95,7 +96,7 @@ class CouponInner extends React.PureComponent {
   render() {
     const { showInput, coupon, feedback } = this.state;
     const { validatingNewCoupon } = this.props.state;
-    const { Spinner = DefaultSpinner } = this.props;
+    const { Spinner = DefaultSpinner, t } = this.props;
 
     // A coupon has already been registered
     if (this.props.state.coupon) {
@@ -106,7 +107,7 @@ class CouponInner extends React.PureComponent {
       const id = generateUniqueId('coupon-input');
       return (
         <Outer>
-          <Label htmlFor={id}>{tr('basket.inputCoupon')}</Label>
+          <Label htmlFor={id}>{t('basket:inputCoupon')}</Label>
           <Input
             id={id}
             innerRef={this.getInputRef}
@@ -114,6 +115,7 @@ class CouponInner extends React.PureComponent {
             onChange={this.onCouponChange}
             onKeyPress={this.onCouponKeyPress}
             readOnly={validatingNewCoupon}
+            placeholder={t('basket:inputCouponPlaceholder')}
             autoComplete="off"
           />
           <ButtonRegisterWrap>
@@ -123,12 +125,12 @@ class CouponInner extends React.PureComponent {
               onClick={this.register}
               disabled={validatingNewCoupon}
             >
-              {tr('basket.registerCoupon')}
+              {t('basket:registerCoupon')}
             </ButtonRegister>
             {validatingNewCoupon && <Spinner size="12" />}
             <ButtonRegisterCancel>
               <ButtonToggle onClick={this.hideInput}>
-                {tr('basket.cancel')}
+                {t('basket:cancel')}
               </ButtonToggle>
             </ButtonRegisterCancel>
           </ButtonRegisterWrap>
@@ -139,15 +141,15 @@ class CouponInner extends React.PureComponent {
     return (
       <Outer>
         <ButtonToggle onClick={this.showInput}>
-          {tr('basket.clickToAddCoupon')}
+          {t('basket:clickToAddCoupon')}
         </ButtonToggle>
       </Outer>
     );
   }
 }
 
-export const Coupon = outerProps => (
+export const Coupon = translate(['common', 'basket'])(outerProps => (
   <BasketConsumer>
     {props => <CouponInner {...props} {...outerProps} />}
   </BasketConsumer>
-);
+));

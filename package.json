@@ -144,11 +144,12 @@
     "dist"
   ],
   "peerDependencies": {
-    "styled-components": "^3.2.5"
+    "styled-components": "^3.2.5",
+    "i18next": "^11.2.3",
+    "react-i18next": "^7.6.0"
   },
   "dependencies": {
     "@crystallize/react-image": "^1.2.2",
-    "@crystallize/translations": "^0.0.1",
     "body-parser": "^1.18.2",
     "bounce": "^1.2.0",
     "cross-fetch": "^2.1.0",
@@ -185,6 +186,7 @@
     "faker": "^4.1.0",
     "helmet": "^3.10.0",
     "husky": "^0.14.3",
+    "i18next": "^11.2.3",
     "jest": "^22.0.4",
     "next": "^5.0.0",
     "npm-run-all": "^4.1.2",
@@ -192,6 +194,7 @@
     "react": "^16.3.0",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.3.0",
+    "react-i18next": "^7.6.0",
     "styled-components": "^3.2.5",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.12"

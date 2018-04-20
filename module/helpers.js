@@ -1,5 +1,4 @@
 import fetch from 'cross-fetch';
-import { tr } from '@crystallize/translations';
 
 export const animationSpeedMs = 300;
 
@@ -184,7 +183,7 @@ export async function validateBasket({ validateEndpoint, items, coupon }) {
     console.warn('@crystallize/react-basket', error); // eslint-disable-line
 
     return {
-      error: tr.anErrorOccurred
+      error
     };
   }
 }

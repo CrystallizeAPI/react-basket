@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import withData from 'lib/with-data';
 import Layout from 'components/layout';
 import { H2 } from 'components/style';
 import Actions from 'components/actions';
@@ -32,7 +33,7 @@ const Inner = styled.div`
   overflow: auto;
 `;
 
-export default class Index extends React.Component {
+class Index extends React.Component {
   render() {
     const { router } = this.props;
     return (
@@ -56,3 +57,5 @@ export default class Index extends React.Component {
     );
   }
 }
+
+export default withData(Index);

@@ -27,6 +27,16 @@ module.exports = {
       commonjs: 'styled-components',
       commonjs2: 'styled-components',
       amd: 'styled-components'
+    },
+    i18next: {
+      commonjs: 'i18next',
+      commonjs2: 'i18next',
+      amd: 'i18next'
+    },
+    'react-i18next': {
+      commonjs: 'react-i18next',
+      commonjs2: 'react-i18next',
+      amd: 'react-i18next'
     }
   }
 };
