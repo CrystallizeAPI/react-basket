@@ -1,3 +1,10 @@
+<a name="1.12.0"></a>
+## 1.12.0 (2018-04-20)
+
+* Use react-i18n ([e1fc475](https://github.com/snowballdigital/react-basket/commit/e1fc475))
+
+
+
 <a name="1.11.0"></a>
 ## 1.11.0 (2018-04-16)
 
