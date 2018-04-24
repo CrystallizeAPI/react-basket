@@ -1,3 +1,10 @@
+<a name="1.13.1"></a>
+## <small>1.13.1 (2018-04-24)</small>
+
+* Fixed error when defaultShipping was set ([887d1f0](https://github.com/snowballdigital/react-basket/commit/887d1f0))
+
+
+
 <a name="1.13.0"></a>
 ## 1.13.0 (2018-04-24)
 
