@@ -1,3 +1,12 @@
+<a name="1.13.0"></a>
+## 1.13.0 (2018-04-24)
+
+* Added totals as export ([b229fc6](https://github.com/snowballdigital/react-basket/commit/b229fc6))
+* Removed unused translations ([ccbe9e9](https://github.com/snowballdigital/react-basket/commit/ccbe9e9))
+* Renamed i18n folder ([bfd9961](https://github.com/snowballdigital/react-basket/commit/bfd9961))
+
+
+
 <a name="1.12.0"></a>
 ## 1.12.0 (2018-04-20)
 
