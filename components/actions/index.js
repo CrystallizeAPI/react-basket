@@ -22,6 +22,7 @@ export const Section = styled.div`
   button {
     white-space: nowrap;
     margin-bottom: 5px;
+    background: #ccc;
   }
 
   pre {
@@ -45,6 +46,7 @@ export const Item = styled.div`
   img {
     height: 100px;
     margin-bottom: 5px;
+    object-fit: contain;
   }
 `;
 

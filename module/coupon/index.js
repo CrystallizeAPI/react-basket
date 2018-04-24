@@ -96,7 +96,7 @@ class CouponInner extends React.Component {
   render() {
     const { showInput, coupon, feedback } = this.state;
     const { validatingNewCoupon } = this.props.state;
-    const { Spinner = DefaultSpinner, t } = this.props;
+    const { SpinnerCmp = DefaultSpinner, t } = this.props;
 
     // A coupon has already been registered
     if (this.props.state.coupon) {
@@ -127,7 +127,7 @@ class CouponInner extends React.Component {
             >
               {t('basket:registerCoupon')}
             </ButtonRegister>
-            {validatingNewCoupon && <Spinner size="12" />}
+            {validatingNewCoupon && <SpinnerCmp size="12" />}
             <ButtonRegisterCancel>
               <ButtonToggle onClick={this.hideInput}>
                 {t('basket:cancel')}
