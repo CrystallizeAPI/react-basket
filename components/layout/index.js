@@ -7,7 +7,7 @@ import { Outer, Main } from './styles';
 
 const basketOptions = {
   freeShippingMinimumPurchaseAmount: 800,
-  defaultShipping: {
+  defaultShippingOld: {
     discount_rate: 0,
     name: 'Shipping',
     quantity: 1,
@@ -18,6 +18,18 @@ const basketOptions = {
     total_tax_amount: 0,
     type: 'shipping_fee',
     unit_price: 99
+  },
+  defaultShipping: {
+    sku: 'BP-X-shipping-mypack',
+    name: 'Frakt - MyPack',
+    price: 59,
+    displayName: 'MyPack',
+    description: 'Få varene levert til nærmeste utleveringssted dude!',
+    'COLLIFLOW-REFERENCE': 'POSTNORD',
+    transporterContract: {
+      name: 'MyPack T1',
+      reference: 'POSTNORD'
+    }
   }
 };
 

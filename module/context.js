@@ -22,7 +22,9 @@ export class BasketProvider extends React.Component {
     };
 
     if (!newState.shipping && nextProps.defaultShipping) {
-      newState.shipping = nextProps.defaultShipping;
+      newState.shipping = BasketProvider.createShippingBasketItem(
+        nextProps.defaultShipping
+      );
     }
 
     return newState;
@@ -37,7 +39,6 @@ export class BasketProvider extends React.Component {
     return {
       name: 'Shipping',
       reference: 'not-set',
-      unit_price: 0,
       discount_rate: 0,
       quantity: 1,
       tax_rate: 0,
@@ -45,6 +46,7 @@ export class BasketProvider extends React.Component {
       total_price_including_tax: 0,
       total_tax_amount: 0,
       type: 'shipping_fee',
+      unit_price: shipping.price || 0,
       ...shipping
     };
   }
