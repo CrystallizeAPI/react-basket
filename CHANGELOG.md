@@ -1,3 +1,10 @@
+<a name="1.14.0"></a>
+## 1.14.0 (2018-04-25)
+
+* Metadata defaults to {} ([009b7e9](https://github.com/snowballdigital/react-basket/commit/009b7e9))
+
+
+
 <a name="1.13.1"></a>
 ## <small>1.13.1 (2018-04-24)</small>
 
