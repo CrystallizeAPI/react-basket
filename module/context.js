@@ -60,7 +60,7 @@ export class BasketProvider extends React.Component {
     coupon: null,
     discount: null,
     shipping: null,
-    metadata: null
+    metadata: {}
   };
 
   onReadyQueue = [];
