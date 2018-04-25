@@ -186,7 +186,7 @@ export default class Products extends Component {
                 </button>
               </div>
               <div>
-                <button onClick={() => actions.setMetadata(null)}>
+                <button onClick={() => actions.setMetadata({})}>
                   Remove metadata
                 </button>
               </div>
