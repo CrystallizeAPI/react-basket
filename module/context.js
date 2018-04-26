@@ -269,6 +269,7 @@ export class BasketProvider extends React.Component {
   empty = () =>
     this.onReady(() =>
       this.setState({
+        id: uuid(),
         items: [],
         metadata: null,
         coupon: null,
@@ -278,6 +279,7 @@ export class BasketProvider extends React.Component {
 
   setValidating = validating =>
     this.onReady(() => this.setState({ validating }));
+
   setValidatingNewCoupon = validatingNewCoupon =>
     this.onReady(() => this.setState({ validatingNewCoupon }));
 
