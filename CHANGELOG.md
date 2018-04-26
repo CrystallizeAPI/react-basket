@@ -1,3 +1,10 @@
+<a name="1.15.1"></a>
+## <small>1.15.1 (2018-04-26)</small>
+
+* Reset ID when the basket is emptied ([6f01481](https://github.com/snowballdigital/react-basket/commit/6f01481))
+
+
+
 <a name="1.15.0"></a>
 ## 1.15.0 (2018-04-26)
 
