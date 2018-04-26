@@ -1,4 +1,5 @@
 import React, { createContext } from 'react';
+import uuid from 'uuid/v1';
 
 import * as helpers from './helpers';
 import { retrieveBasketFromCache, persistBasketToCache } from './cache';
@@ -83,9 +84,12 @@ export class BasketProvider extends React.Component {
   };
 
   getCachedBasket = async () => {
+    const id = uuid();
     const basket = await retrieveBasketFromCache();
     if (basket) {
-      this.setState({ ...basket });
+      this.setState({ id, ...basket });
+    } else {
+      this.setState({ id });
     }
 
     this.setState({ ready: true });

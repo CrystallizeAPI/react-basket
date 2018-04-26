@@ -144,9 +144,9 @@
     "dist"
   ],
   "peerDependencies": {
-    "styled-components": "^3.2.5",
     "i18next": "^11.2.3",
-    "react-i18next": "^7.6.0"
+    "react-i18next": "^7.6.0",
+    "styled-components": "^3.2.5"
   },
   "dependencies": {
     "@crystallize/react-image": "^1.2.2",
@@ -156,7 +156,8 @@
     "localforage": "^1.6.0",
     "prop-types": "^15.6.0",
     "react": "^16.3.0",
-    "react-dom": "^16.3.0"
+    "react-dom": "^16.3.0",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
