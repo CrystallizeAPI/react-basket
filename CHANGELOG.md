@@ -1,3 +1,12 @@
+<a name="1.15.0"></a>
+## 1.15.0 (2018-04-26)
+
+* Added a unique ID to the basket state ([a03e5e8](https://github.com/snowballdigital/react-basket/commit/a03e5e8))
+* Changed metadata demo ([8c5fcde](https://github.com/snowballdigital/react-basket/commit/8c5fcde))
+* Updated license ([051001b](https://github.com/snowballdigital/react-basket/commit/051001b))
+
+
+
 <a name="1.14.0"></a>
 ## 1.14.0 (2018-04-25)
 
