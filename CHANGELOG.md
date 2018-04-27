@@ -1,3 +1,10 @@
+<a name="1.16.0"></a>
+## 1.16.0 (2018-04-27)
+
+* Added event callbacks ([9a29322](https://github.com/snowballdigital/react-basket/commit/9a29322))
+
+
+
 <a name="1.15.1"></a>
 ## <small>1.15.1 (2018-04-26)</small>
 
