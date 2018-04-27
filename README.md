@@ -15,7 +15,10 @@ import { BasketProvider } from '@crystallize/react-basket';
 
 const basketOptions = {
   freeShippingMinimumPurchaseAmount: 600,
-  defaultShipping: yourDefaultShipping
+  defaultShipping: yourDefaultShipping,
+  onEmpty: () => console.log('emptied basket'),
+  onAddToBasket: item => console.log('Add to basket', item),
+  onRemoveFromBasket: item => console.log('Remove from basket', item)
 };
 
 export default () => (

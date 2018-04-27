@@ -7,18 +7,9 @@ import { Outer, Main } from './styles';
 
 const basketOptions = {
   freeShippingMinimumPurchaseAmount: 800,
-  defaultShippingOld: {
-    discount_rate: 0,
-    name: 'Shipping',
-    quantity: 1,
-    reference: 'BM-1-Frakt-standard',
-    tax_rate: 0,
-    total_price_excluding_tax: 0,
-    total_price_including_tax: 0,
-    total_tax_amount: 0,
-    type: 'shipping_fee',
-    unit_price: 99
-  },
+  onEmpty: () => console.log('emptied basket'), // eslint-disable-line
+  onAddToBasket: item => console.log('Add to basket', item), // eslint-disable-line
+  onRemoveFromBasket: item => console.log('Remove from basket', item), // eslint-disable-line
   defaultShipping: {
     sku: 'BP-X-shipping-mypack',
     name: 'Frakt - MyPack',

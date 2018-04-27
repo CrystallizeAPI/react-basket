@@ -212,6 +212,14 @@ export default class Products extends Component {
                   </Item>
                 ))}
               </List>
+              <hr />
+              <button
+                onClick={() => {
+                  actions.empty();
+                }}
+              >
+                Empty basket
+              </button>
             </Section>
           </Outer>
         )}

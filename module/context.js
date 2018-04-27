@@ -176,6 +176,8 @@ export class BasketProvider extends React.Component {
     const itemInBasket = items[index];
 
     if (itemInBasket) {
+      const itemInBasketOldQuantity = itemInBasket.quantity;
+
       if (typeof quantity === 'number') {
         itemInBasket.quantity = quantity;
       } else if (typeof num === 'number') {
@@ -191,6 +193,27 @@ export class BasketProvider extends React.Component {
       });
 
       this.validateBasketDelayed();
+
+      const quantityChange = itemInBasket.quantity - itemInBasketOldQuantity;
+      if (quantityChange > 0) {
+        if (this.state.options.onAddToBasket) {
+          this.state.options.onAddToBasket([
+            {
+              ...item,
+              quantity: quantityChange
+            }
+          ]);
+        }
+      } else if (quantityChange < 0) {
+        if (this.state.options.onRemoveFromBasket) {
+          this.state.options.onRemoveFromBasket([
+            {
+              ...item,
+              quantity: Math.abs(quantityChange)
+            }
+          ]);
+        }
+      }
 
       return true;
     }
@@ -216,6 +239,10 @@ export class BasketProvider extends React.Component {
         this.setState({
           items: [...this.state.items, item]
         });
+
+        if (this.state.options.onAddToBasket) {
+          this.state.options.onAddToBasket([{ ...item, quantity: 1 }]);
+        }
       }
     });
 
@@ -267,6 +294,16 @@ export class BasketProvider extends React.Component {
     this.onReady(() => this.changeItemQuantity({ item, quantity: 0 }));
 
   empty = () =>
+    this.onReady(() => {
+      if (this.state.options.onRemoveFromBasket) {
+        this.state.options.onRemoveFromBasket(this.state.items);
+      }
+      this.setState({
+        items: []
+      });
+    });
+
+  reset = () =>
     this.onReady(() =>
       this.setState({
         id: uuid(),
@@ -312,6 +349,7 @@ export class BasketProvider extends React.Component {
           options,
           actions: {
             empty: this.empty,
+            reset: this.reset,
             addItem: this.addItem,
             animateItem: this.animateItem,
             removeItem: this.removeItem,
@@ -321,7 +359,6 @@ export class BasketProvider extends React.Component {
             setValidating: this.setValidating,
             setValidatingNewCoupon: this.setValidatingNewCoupon,
             setCoupon: this.setCoupon,
-            setItems: this.setItems,
             setDiscount: this.setDiscount,
             setShipping: this.setShipping,
             setMetadata: this.setMetadata,

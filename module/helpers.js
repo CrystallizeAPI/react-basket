@@ -5,14 +5,20 @@ export const animationSpeedMs = 300;
 export function getSupportedOptionsFromProps(props) {
   const {
     freeShippingMinimumPurchaseAmount = -1,
-    validateEndpoint = '/api/basket/validate'
+    validateEndpoint = '/api/basket/validate',
+    onEmpty,
+    onAddToBasket,
+    onRemoveFromBasket
   } = props;
 
   return {
     freeShippingMinimumPurchaseAmount: parseFloat(
       freeShippingMinimumPurchaseAmount
     ),
-    validateEndpoint
+    validateEndpoint,
+    onEmpty,
+    onAddToBasket,
+    onRemoveFromBasket
   };
 }
 
