@@ -1,4 +1,5 @@
 import fetch from 'cross-fetch';
+import isArray from 'isarray';
 
 export const animationSpeedMs = 300;
 
@@ -94,7 +95,9 @@ export function createBasketItem({ masterProduct, variant }) {
 
     if (variant.image) {
       Object.assign(basketItem, {
-        product_image: variant.image,
+        product_image: isArray(variant.image)
+          ? variant.image[0]
+          : variant.image,
         product_image_resized: null
       });
     }

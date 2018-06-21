@@ -116,7 +116,10 @@ export default class TinyBasketItem extends React.Component {
     return (
       <Item animate={item.animate}>
         <ItemInfo>
-          <ItemImage src={item.product_image_resized} alt={item.name} />
+          <ItemImage
+            src={item.product_image_resized || item.product_image}
+            alt={item.name}
+          />
           <ItemInfoText>
             <ItemName>{item.name}</ItemName>
             {attributes &&
