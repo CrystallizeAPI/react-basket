@@ -1,3 +1,10 @@
+<a name="1.16.1"></a>
+## <small>1.16.1 (2018-06-21)</small>
+
+* Better comp. with the new crystallize catalogue graph structure ([5c59a2e](https://github.com/snowballdigital/react-basket/commit/5c59a2e))
+
+
+
 <a name="1.16.0"></a>
 ## 1.16.0 (2018-04-27)
 
