@@ -9,7 +9,8 @@ export function getSupportedOptionsFromProps(props) {
     validateEndpoint = '/api/basket/validate',
     onEmpty,
     onAddToBasket,
-    onRemoveFromBasket
+    onRemoveFromBasket,
+    alwaysValidate
   } = props;
 
   return {
@@ -19,7 +20,8 @@ export function getSupportedOptionsFromProps(props) {
     validateEndpoint,
     onEmpty,
     onAddToBasket,
-    onRemoveFromBasket
+    onRemoveFromBasket,
+    alwaysValidate
   };
 }
 
@@ -65,7 +67,8 @@ export function createBasketItem({ masterProduct, variant }) {
   }
 
   function getPriceWithVAT(price) {
-    return price * (1 + (masterProduct.vat || 0) / 100);
+    const vat = isNaN(masterProduct.vat) ? 0 : masterProduct.vat;
+    return price * (1 + (vat || 0) / 100);
   }
 
   const basketItem = {

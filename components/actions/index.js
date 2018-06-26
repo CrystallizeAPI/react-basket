@@ -89,38 +89,44 @@ export default class Products extends Component {
   async getProducts() {
     /* A tenant with product variants */
     const response = await doFetch(`{
-      product (url: "/illustrations/monthly-illustration", tenantID: "demo") {
-        id
-        name
-        vat
-        product_image
-        product_image_resized
-        variations {
-          variation_sku
-          price_ex_vat
-          stock_count
-          attributes {
-            attribute_key
-            attribute_value
-          }
-          variation_plans {
+        catalogue(url: "/standard/monthly-illustration", tenantID: "demo") {
+          name
+          link
+          product {
+            id
             name
-            initial_price
-            renewal_price
-            initial_period_unit
-            initial_period
-            duration
-            duration_unit
-            renewal_term
-            cancellation_term
-            variationplan_id
+            vat {
+              id
+            }
+            product_image
+            product_image_resized
+            variations {
+              variation_sku
+              price_ex_vat
+              stock_count
+              attributes {
+                attribute_key
+                attribute_value
+              }
+              variation_plans {
+                name
+                initial_price
+                renewal_price
+                initial_period_unit
+                initial_period
+                duration
+                duration_unit
+                renewal_term
+                cancellation_term
+                variationplan_id
+              }
+            }
           }
         }
-      }
     }`);
 
     if (response.data) {
-      const { product } = response.data;
+      const { product } = response.data.catalogue;
       this.setState({
         products: product.variations.map(variant =>
           createBasketItem({ masterProduct: product, variant })

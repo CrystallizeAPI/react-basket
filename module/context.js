@@ -140,7 +140,7 @@ export class BasketProvider extends React.Component {
 
   validateBasketDelayed = () => {
     // No coupon -> no validation needed
-    if (!this.state.coupon) {
+    if (!this.state.coupon && !this.state.options.alwaysValidate) {
       return;
     }
 

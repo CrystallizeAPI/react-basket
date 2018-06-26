@@ -6,6 +6,7 @@ import Header from '../header';
 import { Outer, Main } from './styles';
 
 const basketOptions = {
+  alwaysValidate: true,
   freeShippingMinimumPurchaseAmount: 800,
   onEmpty: () => console.log('emptied basket'), // eslint-disable-line
   onAddToBasket: item => console.log('Add to basket', item), // eslint-disable-line
