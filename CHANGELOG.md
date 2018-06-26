@@ -1,3 +1,9 @@
+## 1.17.0 (2018-06-26)
+
+* New option: alwaysValidate ([f8d12cb](https://github.com/snowballdigital/react-basket/commit/f8d12cb))
+
+
+
 <a name="1.16.1"></a>
 ## <small>1.16.1 (2018-06-21)</small>
 
