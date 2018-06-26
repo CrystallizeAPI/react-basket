@@ -1,3 +1,9 @@
+## <small>1.17.2 (2018-06-26)</small>
+
+* Validate @addItem ([c2dcc82](https://github.com/snowballdigital/react-basket/commit/c2dcc82))
+
+
+
 ## <small>1.17.1 (2018-06-26)</small>
 
 * Extra check for validation status ([bcd7693](https://github.com/snowballdigital/react-basket/commit/bcd7693))
