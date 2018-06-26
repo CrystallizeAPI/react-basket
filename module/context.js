@@ -240,6 +240,8 @@ export class BasketProvider extends React.Component {
           items: [...this.state.items, item]
         });
 
+        this.validateBasketDelayed();
+
         if (this.state.options.onAddToBasket) {
           this.state.options.onAddToBasket([{ ...item, quantity: 1 }]);
         }
