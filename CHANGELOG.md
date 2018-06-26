@@ -1,3 +1,9 @@
+## <small>1.17.1 (2018-06-26)</small>
+
+* Extra check for validation status ([bcd7693](https://github.com/snowballdigital/react-basket/commit/bcd7693))
+
+
+
 ## 1.17.0 (2018-06-26)
 
 * New option: alwaysValidate ([f8d12cb](https://github.com/snowballdigital/react-basket/commit/f8d12cb))
