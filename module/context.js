@@ -158,7 +158,7 @@ export class BasketProvider extends React.Component {
           validateEndpoint
         });
 
-        if (!result.error) {
+        if (!result.error && result.status !== 'INVALID') {
           this.setItems(result.items);
           this.setDiscount(result.discount);
         }
