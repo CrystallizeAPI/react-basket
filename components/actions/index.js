@@ -146,16 +146,8 @@ export default class Products extends Component {
                 <button
                   onClick={() =>
                     actions.setShipping({
-                      discount_rate: 0,
-                      name: 'Shipping',
-                      quantity: 1,
-                      reference: 'BM-1-Frakt-standard',
-                      tax_rate: 0,
-                      total_price_excluding_tax: 0,
-                      total_price_including_tax: 0,
-                      total_tax_amount: 0,
-                      type: 'shipping_fee',
-                      unit_price: 99
+                      reference: 'DE-9-43-standard',
+                      price: 99
                     })
                   }
                 >

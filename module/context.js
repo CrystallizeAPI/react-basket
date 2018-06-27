@@ -148,18 +148,33 @@ export class BasketProvider extends React.Component {
 
     clearTimeout(this.validateBasketDelayedTimeout);
     this.validateBasketDelayedTimeout = setTimeout(async () => {
-      const { items, coupon, options } = this.state;
+      const { items, coupon, options, shipping } = this.state;
       const { validateEndpoint } = options;
 
       try {
+        let itemsToValidate = [...items];
+        if (shipping) {
+          itemsToValidate.push(shipping);
+        }
+
         const result = await validateBasket({
-          items,
+          items: itemsToValidate,
           coupon,
           validateEndpoint
         });
 
         if (!result.error && result.status !== 'INVALID') {
-          this.setItems(result.items);
+          const shippingItem = result.items.find(
+            i => i.type === 'shipping_fee'
+          );
+          if (shippingItem) {
+            this.setShipping(shippingItem);
+          }
+
+          const basketItems = result.items.filter(
+            i => i.type !== 'shipping_fee'
+          );
+          this.setItems(basketItems);
           this.setDiscount(result.discount);
         }
       } catch (error) {
