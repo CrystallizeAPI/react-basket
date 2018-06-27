@@ -94,3 +94,4 @@ The tiny basket accepts the following props
 * hideCoupon
 * hideRemainingUntilFreeShipping
 * ItemCmp (The component to use when rendering each basket item)
+* itemImageSizes (The sizes attr for each item image. Ex: '(min-width: 900px) 1000px, 500px')

@@ -12,16 +12,8 @@ const basketOptions = {
   onAddToBasket: item => console.log('Add to basket', item), // eslint-disable-line
   onRemoveFromBasket: item => console.log('Remove from basket', item), // eslint-disable-line
   defaultShipping: {
-    sku: 'BP-X-shipping-mypack',
-    name: 'Frakt - MyPack',
-    price: 59,
-    displayName: 'MyPack',
-    description: 'Få varene levert til nærmeste utleveringssted dude!',
-    'COLLIFLOW-REFERENCE': 'POSTNORD',
-    transporterContract: {
-      name: 'MyPack T1',
-      reference: 'POSTNORD'
-    }
+    reference: 'DE-9-43-standard',
+    price: 99
   }
 };
 

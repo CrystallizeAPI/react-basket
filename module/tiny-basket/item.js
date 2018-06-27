@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import CrystallizeImage from '@crystallize/react-image';
 
 import { animationSpeedMs } from '../helpers';
 
@@ -48,7 +49,7 @@ const ItemInfoText = styled.div.attrs({
   className: 'crystallize-basket__item-info-text'
 })``;
 
-const ItemImage = styled.img.attrs({
+const ItemImage = styled(CrystallizeImage).attrs({
   className: 'crystallize-basket__item-image'
 })`
   width: 50px;
@@ -111,14 +112,16 @@ const Price = styled.div.attrs({
 export default class TinyBasketItem extends React.Component {
   state = {};
   render() {
-    const { item, actions, t } = this.props;
+    const { item, actions, t, itemImageSizes = '100px' } = this.props;
     const { attributes } = item;
+
     return (
       <Item animate={item.animate}>
         <ItemInfo>
           <ItemImage
-            src={item.product_image_resized || item.product_image}
+            src={item.product_image}
             alt={item.name}
+            sizes={itemImageSizes}
           />
           <ItemInfoText>
             <ItemName>{item.name}</ItemName>

@@ -24,7 +24,8 @@ class TinyBasketInner extends React.Component {
       ItemCmp = TinyBasketItem,
       hideTotals = false,
       hideCoupon = false,
-      hideRemainingUntilFreeShipping = false
+      hideRemainingUntilFreeShipping = false,
+      itemImageSizes
     } = this.props;
 
     const {
@@ -46,7 +47,13 @@ class TinyBasketInner extends React.Component {
       <Outer>
         <Items>
           {items.map(item => (
-            <ItemCmp actions={actions} key={item.reference} item={item} t={t} />
+            <ItemCmp
+              actions={actions}
+              key={item.reference}
+              item={item}
+              t={t}
+              itemImageSizes={itemImageSizes}
+            />
           ))}
         </Items>
 
