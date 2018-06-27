@@ -1,3 +1,10 @@
+<a name="1.17.3"></a>
+## <small>1.17.3 (2018-06-27)</small>
+
+* Adding shipping to validation ([9ccfaa5](https://github.com/snowballdigital/react-basket/commit/9ccfaa5))
+
+
+
 ## <small>1.17.2 (2018-06-26)</small>
 
 * Validate @addItem ([c2dcc82](https://github.com/snowballdigital/react-basket/commit/c2dcc82))
