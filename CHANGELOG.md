@@ -1,3 +1,9 @@
+## 1.18.0 (2018-06-27)
+
+* Added new option for TinyBasket: itemImageSizes ([09ea24b](https://github.com/snowballdigital/react-basket/commit/09ea24b))
+
+
+
 <a name="1.17.3"></a>
 ## <small>1.17.3 (2018-06-27)</small>
 
