@@ -51,7 +51,8 @@ router.route('/validate').post(jsonParser, async (req, res) => {
 
     return res.json(validation);
   } catch (error) {
-    Bounce.rethrow(error, 'system');
+    // Bounce.rethrow(error, 'system');
+    console.error(error); // eslint-disable-line
   }
 
   return res.json({
