@@ -1,3 +1,9 @@
+## <small>1.18.1 (2018-06-28)</small>
+
+* Don't throw an error if validation fails ([1aeca18](https://github.com/snowballdigital/react-basket/commit/1aeca18))
+
+
+
 ## 1.18.0 (2018-06-27)
 
 * Added new option for TinyBasket: itemImageSizes ([09ea24b](https://github.com/snowballdigital/react-basket/commit/09ea24b))
