@@ -1,3 +1,10 @@
+<a name="1.19.0"></a>
+## 1.19.0 (2018-06-29)
+
+* Persist discount in cache ([a0f73ca](https://github.com/snowballdigital/react-basket/commit/a0f73ca))
+
+
+
 <a name="1.18.2"></a>
 ## <small>1.18.2 (2018-06-29)</small>
 
