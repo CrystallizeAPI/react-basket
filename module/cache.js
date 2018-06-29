@@ -18,11 +18,18 @@ export async function retrieveBasketFromCache() {
   return null;
 }
 
-export async function persistBasketToCache({ id, items, shipping, metadata }) {
+export async function persistBasketToCache({
+  id,
+  items,
+  shipping,
+  metadata,
+  coupon,
+  discount
+}) {
   try {
     await localforage.setItem(
       localCacheKey,
-      JSON.stringify({ id, items, shipping, metadata })
+      JSON.stringify({ id, items, shipping, metadata, coupon, discount })
     );
   } catch (error) {
     console.warn('The basket was not persisted', error); // eslint-disable-line
