@@ -1,3 +1,10 @@
+<a name="1.18.2"></a>
+## <small>1.18.2 (2018-06-29)</small>
+
+* Bugfix: ensure coupon is visible after adding it ([2d34918](https://github.com/snowballdigital/react-basket/commit/2d34918))
+
+
+
 ## <small>1.18.1 (2018-06-28)</small>
 
 * Don't throw an error if validation fails ([1aeca18](https://github.com/snowballdigital/react-basket/commit/1aeca18))
