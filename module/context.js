@@ -368,6 +368,7 @@ export class BasketProvider extends React.Component {
             empty: this.empty,
             reset: this.reset,
             addItem: this.addItem,
+            setItems: this.setItems,
             animateItem: this.animateItem,
             removeItem: this.removeItem,
             incrementQuantityItem: this.incrementQuantityItem,
