@@ -51,7 +51,7 @@ export default class TotalsInner extends React.Component {
             {freeShipping ? (
               <span>
                 {shipping &&
-                  shipping.unit_price && (
+                  shipping.unit_price > 0 && (
                     <StrikeThrough>{shipping.unit_price},-</StrikeThrough>
                   )}{' '}
                 0,-
