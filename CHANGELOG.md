@@ -1,3 +1,10 @@
+<a name="1.19.2"></a>
+## <small>1.19.2 (2018-07-03)</small>
+
+* Bugfix: dont display double 0 in totals when shipping is free ([aa05962](https://github.com/snowballdigital/react-basket/commit/aa05962))
+
+
+
 <a name="1.19.1"></a>
 ## <small>1.19.1 (2018-07-03)</small>
 
