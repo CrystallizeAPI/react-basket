@@ -1,3 +1,10 @@
+<a name="1.19.1"></a>
+## <small>1.19.1 (2018-07-03)</small>
+
+* Bugfix: shipping was not updated when default shipping was set ([2bd594c](https://github.com/snowballdigital/react-basket/commit/2bd594c))
+
+
+
 <a name="1.19.0"></a>
 ## 1.19.0 (2018-06-29)
 
