@@ -1,3 +1,10 @@
+<a name="1.20.0"></a>
+## 1.20.0 (2018-07-06)
+
+* Added discountBasketModel to response ([f50d964](https://github.com/snowballdigital/react-basket/commit/f50d964))
+
+
+
 <a name="1.19.2"></a>
 ## <small>1.19.2 (2018-07-03)</small>
 
