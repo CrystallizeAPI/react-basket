@@ -58,7 +58,7 @@ export function parseBasketItem(item) {
   };
 }
 
-export function createBasketItem({ masterProduct, variant }) {
+export function createBasketItem({ masterProduct, variant, metadata }) {
   if (!masterProduct) {
     /* eslint-disable */
     console.error('Could not the create basket item without a master product!');
@@ -72,12 +72,14 @@ export function createBasketItem({ masterProduct, variant }) {
   }
 
   const basketItem = {
+    masterId: masterProduct.id,
     name: masterProduct.name,
     sku: `${masterProduct.sku}-standard`,
     product_image: masterProduct.product_image,
     product_image_resized: masterProduct.product_image_resized,
     unit_price: getPriceWithVAT(masterProduct.price),
-    attributes: []
+    attributes: [],
+    metadata
   };
 
   if (!variant) {
@@ -88,6 +90,7 @@ export function createBasketItem({ masterProduct, variant }) {
     /* eslint-enable */
   } else {
     Object.assign(basketItem, {
+      id: variant.id,
       sku: variant.variation_sku,
       attributes: variant.attributes
     });
