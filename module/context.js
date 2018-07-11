@@ -175,7 +175,16 @@ export class BasketProvider extends React.Component {
             i => i.type !== 'shipping_fee'
           );
           this.setItems(basketItems);
-          this.setDiscount(result.discount);
+
+          let { discount } = result;
+          if (!discount) {
+            discount = 0;
+            basketItems.forEach(item => {
+              discount -= item.discount_value;
+            });
+          }
+
+          this.setDiscount(discount);
         }
       } catch (error) {
         console.error(error); // eslint-disable-line
