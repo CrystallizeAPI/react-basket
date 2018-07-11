@@ -71,8 +71,7 @@ async function validateBasket({ validateEndpoint, items, coupon }) {
       coupon,
       items: itemsTransformed,
       totalAmount,
-      discount,
-      discountBasketModel: discountItem
+      discount
     };
   } catch (error) {
     console.warn('@crystallize/react-basket', error); // eslint-disable-line
