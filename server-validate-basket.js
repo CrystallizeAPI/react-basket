@@ -31,7 +31,7 @@ async function validateBasket({ validateEndpoint, items, coupon }) {
       validateEndpoint,
       basket: {
         items: items.filter(
-          item => item.type !== 'discount' && item.type !== 'shipping'
+          item => !['discount', 'shipping', 'shipping_fee'].includes(item.type)
         ),
         coupon: {
           code: coupon
