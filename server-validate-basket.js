@@ -58,7 +58,7 @@ async function validateBasket({ validateEndpoint, items, coupon }) {
         item.discount_rate = item.discount_rate || 0;
         delete item.vat;
 
-        return i;
+        return item;
       });
 
     // Calculate the total order value minus shipping and discount
