@@ -1,3 +1,10 @@
+<a name="2.0.1"></a>
+## <small>2.0.1 (2018-07-11)</small>
+
+* Display calculated discount for each basket item ([3f6668a](https://github.com/snowballdigital/react-basket/commit/3f6668a))
+
+
+
 <a name="2.0.0"></a>
 ## 2.0.0 (2018-07-11)
 
