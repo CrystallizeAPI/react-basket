@@ -1,3 +1,10 @@
+<a name="1.21.1"></a>
+## <small>1.21.1 (2018-07-11)</small>
+
+* bugfix for returning correct VAT prop ([e80f868](https://github.com/snowballdigital/react-basket/commit/e80f868))
+
+
+
 ## 1.21.0 (2018-07-09)
 
 * Added id, masterId and metadata to the basketModel ([b72a5df](https://github.com/snowballdigital/react-basket/commit/b72a5df))
