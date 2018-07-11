@@ -1,3 +1,10 @@
+<a name="1.21.2"></a>
+## <small>1.21.2 (2018-07-11)</small>
+
+* Check for new shipping type string ([59a6315](https://github.com/snowballdigital/react-basket/commit/59a6315))
+
+
+
 <a name="1.21.1"></a>
 ## <small>1.21.1 (2018-07-11)</small>
 
