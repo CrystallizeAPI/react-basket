@@ -1,3 +1,9 @@
+## 1.21.0 (2018-07-09)
+
+* Added id, masterId and metadata to the basketModel ([b72a5df](https://github.com/snowballdigital/react-basket/commit/b72a5df))
+
+
+
 <a name="1.20.0"></a>
 ## 1.20.0 (2018-07-06)
 
