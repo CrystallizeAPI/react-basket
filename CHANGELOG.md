@@ -1,3 +1,10 @@
+<a name="2.1.0"></a>
+## 2.1.0 (2018-07-11)
+
+* Re-added discountBasketModel ([64dbb01](https://github.com/snowballdigital/react-basket/commit/64dbb01))
+
+
+
 <a name="2.0.1"></a>
 ## <small>2.0.1 (2018-07-11)</small>
 
