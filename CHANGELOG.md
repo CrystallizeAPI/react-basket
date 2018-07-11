@@ -1,3 +1,10 @@
+<a name="2.0.0"></a>
+## 2.0.0 (2018-07-11)
+
+* Don't do discount as a separate order line ([75684c8](https://github.com/snowballdigital/react-basket/commit/75684c8))
+
+
+
 <a name="1.21.2"></a>
 ## <small>1.21.2 (2018-07-11)</small>
 
