@@ -352,7 +352,8 @@ export class BasketProvider extends React.Component {
 
   setItems = items => this.onReady(() => this.setState({ items }));
 
-  setDiscount = discount => this.onReady(() => this.setState({ discount }));
+  setDiscount = discount =>
+    this.onReady(() => this.setState({ discount }, this.validateBasketDelayed));
 
   setMetadata = metadata => this.onReady(() => this.setState({ metadata }));
 
