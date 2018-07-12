@@ -131,8 +131,9 @@ export default class TinyBasketItem extends React.Component {
     const { attributes } = item;
 
     const isDiscounted = !!item.discount_rate;
-    const discountedPrice =
-      item.unit_price - item.unit_price * (item.discount_rate / 100);
+    const discountedPrice = Math.round(
+      item.unit_price - item.unit_price * (item.discount_rate / 100)
+    );
 
     return (
       <Item animate={item.animate}>

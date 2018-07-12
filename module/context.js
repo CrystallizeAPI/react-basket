@@ -99,7 +99,7 @@ export class BasketProvider extends React.Component {
   };
 
   calculateExtraBasketState = () => {
-    const { items, discount = 0, options, shipping } = this.state;
+    const { items, discount, options, shipping } = this.state;
     const { freeShippingMinimumPurchaseAmount = -1 } = options;
 
     const totalQuantity = items.reduce((acc, i) => acc + i.quantity, 0);
@@ -108,7 +108,7 @@ export class BasketProvider extends React.Component {
       0
     );
 
-    const totalPriceMinusDiscount = totalPrice - Math.abs(discount);
+    const totalPriceMinusDiscount = totalPrice - Math.abs(discount || 0);
 
     // Determine shipping related variables
     let freeShipping = false;
@@ -184,7 +184,9 @@ export class BasketProvider extends React.Component {
             });
           }
 
-          this.setDiscount(discount);
+          if (discount) {
+            this.setDiscount(discount);
+          }
         }
       } catch (error) {
         console.error(error); // eslint-disable-line
