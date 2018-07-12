@@ -1,3 +1,10 @@
+<a name="2.2.0"></a>
+## 2.2.0 (2018-07-12)
+
+* Show discounted price for each item in tiny basket ([853613d](https://github.com/snowballdigital/react-basket/commit/853613d))
+
+
+
 <a name="2.1.0"></a>
 ## 2.1.0 (2018-07-11)
 
