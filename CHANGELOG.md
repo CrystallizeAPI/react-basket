@@ -1,3 +1,10 @@
+<a name="2.2.2"></a>
+## <small>2.2.2 (2018-07-12)</small>
+
+* Validate basket after a coupon has been added ([9730d22](https://github.com/snowballdigital/react-basket/commit/9730d22))
+
+
+
 <a name="2.2.1"></a>
 ## <small>2.2.1 (2018-07-12)</small>
 
