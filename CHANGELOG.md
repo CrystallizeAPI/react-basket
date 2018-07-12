@@ -1,3 +1,10 @@
+<a name="2.2.1"></a>
+## <small>2.2.1 (2018-07-12)</small>
+
+* Bugfixes for coupon validation ([6a9f437](https://github.com/snowballdigital/react-basket/commit/6a9f437))
+
+
+
 <a name="2.2.0"></a>
 ## 2.2.0 (2018-07-12)
 
