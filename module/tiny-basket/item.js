@@ -103,10 +103,25 @@ const Attribute = styled.div.attrs({
   className: 'crystallize-basket__item-attribute'
 })``;
 
-const Price = styled.div.attrs({
-  className: 'crystallize-basket__item-price'
+const PriceWrap = styled.div.attrs({
+  className: `crystallize-basket__item-price-wrap`
 })`
+  display: flex;
   margin-top: 5px;
+`;
+
+const Price = styled.div.attrs({
+  className: p =>
+    `crystallize-basket__item-price crystallize-basket__item-price--original ${p.isDiscounted &&
+      'crystallize-basket__item-price--original-discounted'}`
+})`
+  ${p => p.isDiscounted && 'text-decoration: line-through'};
+`;
+
+const PriceDiscounted = styled.div.attrs({
+  className: `crystallize-basket__item-price crystallize-basket__item-price--discounted`
+})`
+  margin-left: 10px;
 `;
 
 export default class TinyBasketItem extends React.Component {
@@ -114,6 +129,10 @@ export default class TinyBasketItem extends React.Component {
   render() {
     const { item, actions, t, itemImageSizes = '100px' } = this.props;
     const { attributes } = item;
+
+    const isDiscounted = !!item.discount_rate;
+    const discountedPrice =
+      item.unit_price - item.unit_price * (item.discount_rate / 100);
 
     return (
       <Item animate={item.animate}>
@@ -135,7 +154,12 @@ export default class TinyBasketItem extends React.Component {
                   ))}
                 </Attributes>
               )}
-            <Price>{item.unit_price},-</Price>
+            <PriceWrap>
+              <Price isDiscounted={isDiscounted}>{item.unit_price},-</Price>
+              {isDiscounted && (
+                <PriceDiscounted>{discountedPrice},-</PriceDiscounted>
+              )}
+            </PriceWrap>
           </ItemInfoText>
         </ItemInfo>
         <ItemQuantityChanger>
