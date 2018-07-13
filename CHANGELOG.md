@@ -1,3 +1,10 @@
+<a name="2.2.3"></a>
+## <small>2.2.3 (2018-07-13)</small>
+
+* Bugfix for when validating basket ([31b0bae](https://github.com/snowballdigital/react-basket/commit/31b0bae))
+
+
+
 <a name="2.2.2"></a>
 ## <small>2.2.2 (2018-07-12)</small>
 
