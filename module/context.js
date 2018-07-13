@@ -185,7 +185,7 @@ export class BasketProvider extends React.Component {
           }
 
           if (discount) {
-            this.setDiscount(discount);
+            this.setDiscount(discount, false);
           }
         }
       } catch (error) {
@@ -352,8 +352,14 @@ export class BasketProvider extends React.Component {
 
   setItems = items => this.onReady(() => this.setState({ items }));
 
-  setDiscount = discount =>
-    this.onReady(() => this.setState({ discount }, this.validateBasketDelayed));
+  setDiscount = (discount, validateBasket = true) =>
+    this.onReady(() =>
+      this.setState({ discount }, () => {
+        if (validateBasket) {
+          this.validateBasketDelayed();
+        }
+      })
+    );
 
   setMetadata = metadata => this.onReady(() => this.setState({ metadata }));
 
