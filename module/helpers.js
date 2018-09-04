@@ -31,7 +31,7 @@ export const generateUniqueId = (function iife() {
   return name => `crystallize-${name}-${idIncremenet++}`;
 })();
 
-export function parseBasketItem(item) {
+export function parseBasketItem({ basketId, ...item }) {
   function ensureProperty(name, fallbackValue) {
     if (typeof item[name] === 'undefined') {
       /* eslint-disable */
@@ -49,6 +49,12 @@ export function parseBasketItem(item) {
   const sku = ensureProperty('sku', item.variation_sku);
 
   return {
+    get basketId() {
+      if (this.subscription) {
+        return `${item.sku}-subscr-${this.subscription.variationplan_id}`;
+      }
+      return item.sku;
+    },
     name: ensureProperty('name', 'No name'),
     unit_price: ensureProperty('unit_price', item.price_ex_vat || 0),
     reference: sku,
@@ -58,7 +64,12 @@ export function parseBasketItem(item) {
   };
 }
 
-export function createBasketItem({ masterProduct, variant, metadata }) {
+export function createBasketItem({
+  masterProduct,
+  variant,
+  metadata,
+  subscription
+}) {
   if (!masterProduct) {
     /* eslint-disable */
     console.error('Could not the create basket item without a master product!');
@@ -79,7 +90,8 @@ export function createBasketItem({ masterProduct, variant, metadata }) {
     product_image_resized: masterProduct.product_image_resized,
     unit_price: getPriceWithVAT(masterProduct.price),
     attributes: [],
-    metadata
+    metadata,
+    subscription
   };
 
   if (!variant) {

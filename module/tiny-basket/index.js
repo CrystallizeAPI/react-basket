@@ -49,7 +49,7 @@ class TinyBasketInner extends React.Component {
           {items.map(item => (
             <ItemCmp
               actions={actions}
-              key={item.reference}
+              key={item.basketId}
               item={item}
               t={t}
               itemImageSizes={itemImageSizes}

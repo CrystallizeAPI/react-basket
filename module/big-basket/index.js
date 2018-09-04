@@ -13,7 +13,7 @@ export const BigBasket = () => (
           <div>No items in basket</div>
         ) : (
           state.items.map(item => (
-            <div key={item.reference}>
+            <div key={item.basketId}>
               {item.name} ({item.quantity})
             </div>
           ))

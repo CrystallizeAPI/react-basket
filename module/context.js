@@ -87,7 +87,13 @@ export class BasketProvider extends React.Component {
     const id = uuid();
     const basket = await retrieveBasketFromCache();
     if (basket) {
-      this.setState({ id, ...basket });
+      let { items, ...rest } = basket;
+
+      this.setState({
+        id,
+        ...rest,
+        items: items.map(parseBasketItem)
+      });
     } else {
       this.setState({ id });
     }
@@ -198,7 +204,7 @@ export class BasketProvider extends React.Component {
 
   changeItemQuantity = ({ item, num, quantity }) => {
     const { items } = this.state;
-    const index = items.findIndex(i => i.sku === item.sku);
+    const index = this.findItemIndex(item);
     const itemInBasket = items[index];
 
     if (itemInBasket) {
@@ -274,17 +280,24 @@ export class BasketProvider extends React.Component {
       }
     });
 
+  findItemIndex = item => {
+    const parsed = parseBasketItem(item);
+    return this.state.items.findIndex(i => i.basketId === parsed.basketId);
+  };
+
   animateItem = animItem => {
+    const parsedItem = parseBasketItem(animItem);
+
     return new Promise(async mainResolve => {
-      // Remove queded animation
-      const removeQueuedAnimation = async queueItem => {
+      // Remove queued animation
+      const removeQueuedAnimation = async () => {
         const index = this.itemAnimationTimeouts.findIndex(
-          i => i.item.sku === animItem.sku
+          i => i.item.basketId === parsedItem.basketId
         );
         if (index >= 0) {
           clearTimeout(this.itemAnimationTimeouts[index].timeout);
           this.itemAnimationTimeouts.splice(index, 1);
-          await updateStateItem(animItem, false);
+          await updateStateItem(parsedItem, false);
         }
       };
 
@@ -293,7 +306,7 @@ export class BasketProvider extends React.Component {
           this.setState(
             {
               items: this.state.items.map(item => {
-                if (item.sku === stateItem.sku) {
+                if (item.basketId === stateItem.basketId) {
                   item.animate = animate;
                 }
                 return item;
@@ -304,14 +317,14 @@ export class BasketProvider extends React.Component {
         });
       };
 
-      await removeQueuedAnimation(animItem);
+      await removeQueuedAnimation(parsedItem);
 
-      await updateStateItem(animItem, true);
+      await updateStateItem(parsedItem, true);
 
       this.itemAnimationTimeouts.push({
-        item: animItem,
+        item: parsedItem,
         timeout: setTimeout(async () => {
-          await removeQueuedAnimation(animItem);
+          await removeQueuedAnimation(parsedItem);
           mainResolve();
         }, helpers.animationSpeedMs)
       });

@@ -198,26 +198,45 @@ export default class Products extends Component {
                     <div>{v.reference}</div>
                     <div>Price: {v.unit_price},-</div>
                     <Add>
-                      <button
-                        onClick={() => {
-                          actions.addItem(v);
-                          actions.animateItem(v);
-                        }}
-                      >
-                        Add to basket
-                      </button>
+                      <div>
+                        <button
+                          onClick={() => {
+                            actions.addItem(v);
+                            actions.animateItem(v);
+                          }}
+                        >
+                          Add to basket
+                        </button>
+                        <button
+                          onClick={() => {
+                            const item = {
+                              ...v,
+                              subscription: {
+                                name: 'Hvert kvartal',
+                                initial_price: 98,
+                                renewal_price: 98,
+                                initial_period_unit: 'months',
+                                initial_period: 3,
+                                duration: 3,
+                                duration_unit: 'months',
+                                renewal_term: '{ }',
+                                cancellation_term: '{ }',
+                                variationplan_id: 61
+                              }
+                            };
+                            actions.addItem(item);
+                            actions.animateItem(item);
+                          }}
+                        >
+                          Add to basket with subscription
+                        </button>
+                      </div>
                     </Add>
                   </Item>
                 ))}
               </List>
               <hr />
-              <button
-                onClick={() => {
-                  actions.empty();
-                }}
-              >
-                Empty basket
-              </button>
+              <button onClick={actions.empty}>Empty basket</button>
             </Section>
           </Outer>
         )}
