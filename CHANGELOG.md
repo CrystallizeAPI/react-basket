@@ -1,3 +1,11 @@
+## 2.3.0 (2018-09-04)
+
+* Add subscription to the basket item model ([88bce77](https://github.com/snowballdigital/react-basket/commit/88bce77))
+* Babel 7 ([960cf0a](https://github.com/snowballdigital/react-basket/commit/960cf0a))
+* Enable subscriptions for basket items ([bb29f30](https://github.com/snowballdigital/react-basket/commit/bb29f30))
+
+
+
 <a name="2.2.4"></a>
 ## <small>2.2.4 (2018-07-13)</small>
 
