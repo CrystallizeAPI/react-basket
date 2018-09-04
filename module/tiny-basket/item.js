@@ -22,12 +22,11 @@ const animationItemHighlight = keyframes`
     }
   `;
 
-const Item = styled.li.attrs({
-  className: 'crystallize-basket__item'
+const Item = styled.div.attrs({
+  className: `crystallize-basket__item-inner`
 })`
   display: grid;
   grid-template-columns: 3fr 1fr;
-  margin: 0;
   padding: 15px 20px;
   border-bottom: 1px solid #eee;
   position: relative;
@@ -122,14 +121,110 @@ const PriceDiscounted = styled.div.attrs({
   className: `crystallize-basket__item-price crystallize-basket__item-price--discounted`
 })`
   margin-left: 10px;
+  text-decoration: line-through;
 `;
+
+export const SubInfoOuter = styled.div.attrs({
+  className: 'crystallize-basket__item-subscription'
+})`
+  font-size: 0.8rem;
+`;
+
+export const SubInfoLine = styled.div.attrs({
+  className: 'crystallize-basket__item-subscription-line'
+})`
+  margin-top: 5px;
+`;
+
+export const SubInfoDuration = styled.span.attrs({
+  className: 'crystallize-basket__item-subscription-duration'
+})`
+  display: block;
+  color: #555;
+
+  &::before {
+    content: '(';
+  }
+
+  &::after {
+    content: ')';
+  }
+`;
+
+// name: 'Hvert kvartal',
+// initial_price: 98,
+// renewal_price: 98,
+// initial_period_unit: 'weeks',
+// initial_period: 1,
+// duration: 3,
+// duration_unit: 'months',
+// renewal_term: '{ }',
+// cancellation_term: '{ }',
+// variationplan_id: 61
+
+function ItemSubscriptionInfo({
+  t,
+  initial_price,
+  renewal_price,
+  initial_period,
+  initial_period_unit,
+  duration,
+  duration_unit
+}) {
+  return (
+    <SubInfoOuter>
+      <SubInfoLine>
+        Initial price: {initial_price}
+        ,-
+        <SubInfoDuration>
+          {getDurationString({
+            t,
+            name: initial_period_unit,
+            count: initial_period
+          })}
+        </SubInfoDuration>
+      </SubInfoLine>
+      <SubInfoLine>
+        Renewal price: {renewal_price}
+        ,-
+        <SubInfoDuration>
+          {getDurationString({
+            t,
+            name: duration_unit,
+            count: duration
+          })}
+        </SubInfoDuration>
+      </SubInfoLine>
+    </SubInfoOuter>
+  );
+}
+
+function getDurationString({ t, name, count }) {
+  const unit = t(name.replace(/s$/, ''), { count });
+  return t('basket:subscriptionItemDuration', { unit, count });
+}
 
 export default class TinyBasketItem extends React.Component {
   state = {};
 
+  increment = () => {
+    const { actions, item } = this.props;
+    actions.incrementQuantityItem(item);
+  };
+
+  decrement = () => {
+    const { actions, item } = this.props;
+    actions.decrementQuantityItem(item);
+  };
+
+  remove = () => {
+    const { actions, item } = this.props;
+    actions.removeItem(item);
+  };
+
   render() {
-    const { item, actions, t, itemImageSizes = '100px' } = this.props;
-    const { attributes } = item;
+    const { item, t, itemImageSizes = '100px' } = this.props;
+    const { attributes, subscription } = item;
 
     const isDiscounted = !!item.discount_rate;
 
@@ -137,8 +232,10 @@ export default class TinyBasketItem extends React.Component {
       item.unit_price - item.unit_price * (item.discount_rate / 100)
     );
 
+    const isSubscription = !!subscription;
+
     return (
-      <Item animate={item.animate}>
+      <Item animate={item.animate} isSubscription={isSubscription}>
         <ItemInfo>
           <ItemImage
             src={item.product_image}
@@ -146,7 +243,11 @@ export default class TinyBasketItem extends React.Component {
             sizes={itemImageSizes}
           />
           <ItemInfoText>
-            <ItemName>{item.name}</ItemName>
+            <ItemName>
+              {isSubscription
+                ? t('basket:subscriptionItemName', item)
+                : item.name}
+            </ItemName>
             {attributes &&
               attributes.length > 0 && (
                 <Attributes>
@@ -157,36 +258,38 @@ export default class TinyBasketItem extends React.Component {
                   ))}
                 </Attributes>
               )}
-            <PriceWrap>
-              <Price isDiscounted={isDiscounted}>
-                {item.unit_price}
-                ,-
-              </Price>
-              {isDiscounted && (
-                <PriceDiscounted>
-                  {discountedPrice}
+            {isSubscription ? (
+              <ItemSubscriptionInfo t={t} {...subscription} />
+            ) : (
+              <PriceWrap>
+                <Price isDiscounted={isDiscounted}>
+                  {item.unit_price}
                   ,-
-                </PriceDiscounted>
-              )}
-            </PriceWrap>
+                </Price>
+                {isDiscounted && (
+                  <PriceDiscounted>
+                    {discountedPrice}
+                    ,-
+                  </PriceDiscounted>
+                )}
+              </PriceWrap>
+            )}
           </ItemInfoText>
         </ItemInfo>
         <ItemQuantityChanger>
           <button
-            onClick={() => actions.decrementQuantityItem(item)}
+            onClick={this.decrement}
             type="button"
+            disabled={item.quantity === 1}
           >
             -
           </button>
           <ItemQuantity>{item.quantity}</ItemQuantity>
-          <button
-            onClick={() => actions.incrementQuantityItem(item)}
-            type="button"
-          >
+          <button onClick={this.increment} type="button">
             +
           </button>
         </ItemQuantityChanger>
-        <ItemDelete onClick={() => actions.removeItem(item)}>
+        <ItemDelete onClick={this.remove}>
           {t('basket:removeItemFromBasket', item)}
         </ItemDelete>
       </Item>

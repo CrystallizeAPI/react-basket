@@ -23,7 +23,7 @@ const Big = styled.div`
   flex-direction: column;
 `;
 
-const Tiny = Big.extend`
+const Tiny = styled(Big)`
   flex: 0 0 300px;
 `;
 

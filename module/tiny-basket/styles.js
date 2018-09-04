@@ -29,3 +29,8 @@ export const RemainingUntilFreeShipping = styled.div.attrs({
 })`
   text-align: center;
 `;
+
+export const ItemIsSubscription = styled.strong`
+  display: block;
+  font-weight: bold;
+`;

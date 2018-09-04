@@ -196,7 +196,10 @@ export default class Products extends Component {
                   <Item key={v.reference}>
                     <img src={v.product_image_resized} alt={v.name} />
                     <div>{v.reference}</div>
-                    <div>Price: {v.unit_price},-</div>
+                    <div>
+                      Price: {v.unit_price}
+                      ,-
+                    </div>
                     <Add>
                       <div>
                         <button
@@ -215,8 +218,8 @@ export default class Products extends Component {
                                 name: 'Hvert kvartal',
                                 initial_price: 98,
                                 renewal_price: 98,
-                                initial_period_unit: 'months',
-                                initial_period: 3,
+                                initial_period_unit: 'weeks',
+                                initial_period: 1,
                                 duration: 3,
                                 duration_unit: 'months',
                                 renewal_term: '{ }',

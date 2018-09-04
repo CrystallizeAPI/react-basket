@@ -18,6 +18,8 @@ const basketOptions = {
 
 export default class Layout extends React.PureComponent {
   render() {
+    const { children } = this.props;
+
     return (
       <Fragment>
         <Head>
@@ -26,7 +28,7 @@ export default class Layout extends React.PureComponent {
         <BasketProvider {...basketOptions}>
           <Outer>
             <Header />
-            <Main>{this.props.children}</Main>
+            <Main>{children}</Main>
           </Outer>
         </BasketProvider>
       </Fragment>

@@ -22,7 +22,7 @@ export class BasketProvider extends React.Component {
       }
     };
 
-    if (!prevState.shipping && nextProps.defaultShipping) {
+    if (!prevState.hasOwnProperty('shipping') && nextProps.defaultShipping) {
       newState.shipping = BasketProvider.createShippingBasketItem(
         nextProps.defaultShipping
       );

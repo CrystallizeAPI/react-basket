@@ -1,5 +1,7 @@
 import React from 'react';
 import { translate } from 'react-i18next';
+import posed, { PoseGroup } from 'react-pose';
+import styled from 'styled-components';
 
 import { BasketConsumer } from '../context';
 import { Totals } from '../totals';
@@ -13,6 +15,21 @@ import {
   BasketIsEmpty,
   RemainingUntilFreeShipping
 } from './styles';
+
+const PosedItem = posed.li({
+  enter: { opacity: 1, scale: 1 },
+  exit: { opacity: 0, scale: 0.5 }
+});
+
+const StyledPosedItem = styled(PosedItem).attrs({
+  className: p =>
+    `crystallize-basket__item${
+      p.subscription ? ' crystallize-basket__item--has-subscription' : ''
+    }`
+})`
+  display: block;
+  margin: 0;
+`;
 
 class TinyBasketInner extends React.Component {
   render() {
@@ -46,15 +63,18 @@ class TinyBasketInner extends React.Component {
     return (
       <Outer>
         <Items>
-          {items.map(item => (
-            <ItemCmp
-              actions={actions}
-              key={item.basketId}
-              item={item}
-              t={t}
-              itemImageSizes={itemImageSizes}
-            />
-          ))}
+          <PoseGroup>
+            {items.map(item => (
+              <StyledPosedItem key={item.basketId} item={item}>
+                <ItemCmp
+                  actions={actions}
+                  item={item}
+                  t={t}
+                  itemImageSizes={itemImageSizes}
+                />
+              </StyledPosedItem>
+            ))}
+          </PoseGroup>
         </Items>
 
         {!hideTotals && (
