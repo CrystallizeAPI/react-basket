@@ -9,6 +9,7 @@ import { Outer, Row, StrikeThrough, TotalsSpinner, Rows } from './styles';
 
 export default class TotalsInner extends React.Component {
   state = {};
+
   render() {
     const {
       t,
@@ -32,17 +33,26 @@ export default class TotalsInner extends React.Component {
         <Rows>
           <Row hideValue={validating} modifier="total-price">
             <span>{t('basket:totalPrice', state)}:</span>
-            <span>{totalPrice},-</span>
+            <span>
+              {totalPrice}
+              ,-
+            </span>
           </Row>
           {discount && (
             <Fragment>
               <Row hideValue={validating} modifier="discount">
                 <span>{t('basket:discount', state)}:</span>
-                <span>{discount},-</span>
+                <span>
+                  {discount}
+                  ,-
+                </span>
               </Row>
               <Row hideValue={validating} modifier="total-after-discount">
                 <span>{t('basket:totalAfterDiscount', state)}:</span>
-                <span>{totalPriceMinusDiscount},-</span>
+                <span>
+                  {totalPriceMinusDiscount}
+                  ,-
+                </span>
               </Row>
             </Fragment>
           )}
@@ -52,17 +62,26 @@ export default class TotalsInner extends React.Component {
               <span>
                 {shipping &&
                   shipping.unit_price > 0 && (
-                    <StrikeThrough>{shipping.unit_price},-</StrikeThrough>
+                    <StrikeThrough>
+                      {shipping.unit_price}
+                      ,-
+                    </StrikeThrough>
                   )}{' '}
                 0,-
               </span>
             ) : (
-              <span>{shipping ? shipping.unit_price : 0},-</span>
+              <span>
+                {shipping ? shipping.unit_price : 0}
+                ,-
+              </span>
             )}
           </Row>
           <Row hideValue={validating} modifier="to-pay">
             <span>{t('basket:amountToPay', state)}:</span>
-            <span>{totalToPay},-</span>
+            <span>
+              {totalToPay}
+              ,-
+            </span>
           </Row>
           {validating && (
             <TotalsSpinner>

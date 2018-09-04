@@ -126,11 +126,13 @@ const PriceDiscounted = styled.div.attrs({
 
 export default class TinyBasketItem extends React.Component {
   state = {};
+
   render() {
     const { item, actions, t, itemImageSizes = '100px' } = this.props;
     const { attributes } = item;
 
     const isDiscounted = !!item.discount_rate;
+
     const discountedPrice = Math.round(
       item.unit_price - item.unit_price * (item.discount_rate / 100)
     );
@@ -156,17 +158,33 @@ export default class TinyBasketItem extends React.Component {
                 </Attributes>
               )}
             <PriceWrap>
-              <Price isDiscounted={isDiscounted}>{item.unit_price},-</Price>
+              <Price isDiscounted={isDiscounted}>
+                {item.unit_price}
+                ,-
+              </Price>
               {isDiscounted && (
-                <PriceDiscounted>{discountedPrice},-</PriceDiscounted>
+                <PriceDiscounted>
+                  {discountedPrice}
+                  ,-
+                </PriceDiscounted>
               )}
             </PriceWrap>
           </ItemInfoText>
         </ItemInfo>
         <ItemQuantityChanger>
-          <button onClick={() => actions.decrementQuantityItem(item)}>-</button>
+          <button
+            onClick={() => actions.decrementQuantityItem(item)}
+            type="button"
+          >
+            -
+          </button>
           <ItemQuantity>{item.quantity}</ItemQuantity>
-          <button onClick={() => actions.incrementQuantityItem(item)}>+</button>
+          <button
+            onClick={() => actions.incrementQuantityItem(item)}
+            type="button"
+          >
+            +
+          </button>
         </ItemQuantityChanger>
         <ItemDelete onClick={() => actions.removeItem(item)}>
           {t('basket:removeItemFromBasket', item)}

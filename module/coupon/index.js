@@ -95,11 +95,11 @@ class CouponInner extends React.Component {
 
   render() {
     const { showInput, coupon, feedback } = this.state;
-    const { validatingNewCoupon } = this.props.state;
-    const { SpinnerCmp = DefaultSpinner, t } = this.props;
+    const { SpinnerCmp = DefaultSpinner, t, state } = this.props;
+    const { validatingNewCoupon } = state;
 
     // A coupon has already been registered
-    if (this.props.state.coupon) {
+    if (state.coupon) {
       return null;
     }
 
