@@ -5,7 +5,7 @@
   "private": false,
   "license": "MIT",
   "engines": {
-    "node": ">=9"
+    "node": ">=8"
   },
   "repository": {
     "url": "git@github.com:snowballdigital/react-basket.git",
@@ -157,27 +157,25 @@
     "isarray": "^2.0.4",
     "localforage": "^1.6.0",
     "prop-types": "^15.6.0",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "babel-eslint": "^8.1.2",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-plugin-module-resolver": "^3.0.0",
-    "babel-plugin-styled-components": "^1.5.1",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^6.26.0",
+    "babel-loader": "^8.0.2",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-styled-components": "^1.6.1",
     "dotenv": "^5.0.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "es6-promise": "^4.2.2",
-    "eslint": "^4.14.0",
+    "eslint": "^5.5.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-import-resolver-babel-module": "^4.0.0",
@@ -191,15 +189,15 @@
     "husky": "^0.14.3",
     "i18next": "^11.2.3",
     "jest": "^22.0.4",
-    "next": "^5.1.0",
+    "next": "^6.1.1",
     "npm-run-all": "^4.1.2",
     "prettier": "^1.9.2",
-    "react": "^16.3.0",
+    "react": "^16.4.2",
     "react-addons-test-utils": "^15.6.2",
-    "react-dom": "^16.3.0",
+    "react-dom": "^16.4.2",
     "react-i18next": "^7.6.0",
     "styled-components": "^3.2.5",
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.12"
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0"
   }
 }
