@@ -1,3 +1,9 @@
+## 2.4.0 (2018-09-04)
+
+* Display subscr. in tiny basket ([6c1ee4a](https://github.com/snowballdigital/react-basket/commit/6c1ee4a))
+
+
+
 ## 2.3.0 (2018-09-04)
 
 * Add subscription to the basket item model ([88bce77](https://github.com/snowballdigital/react-basket/commit/88bce77))
