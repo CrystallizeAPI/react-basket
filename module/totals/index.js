@@ -33,25 +33,18 @@ export default class TotalsInner extends React.Component {
         <Rows>
           <Row hideValue={validating} modifier="total-price">
             <span>{t('basket:totalPrice', state)}:</span>
-            <span>
-              {totalPrice}
-              ,-
-            </span>
+            <span>{t('currency', { amount: totalPrice })}</span>
           </Row>
           {discount && (
             <Fragment>
               <Row hideValue={validating} modifier="discount">
                 <span>{t('basket:discount', state)}:</span>
-                <span>
-                  {discount}
-                  ,-
-                </span>
+                <span>{t('currency', { amount: discount })}</span>
               </Row>
               <Row hideValue={validating} modifier="total-after-discount">
                 <span>{t('basket:totalAfterDiscount', state)}:</span>
                 <span>
-                  {totalPriceMinusDiscount}
-                  ,-
+                  {t('currency', { amount: totalPriceMinusDiscount })}
                 </span>
               </Row>
             </Fragment>
@@ -63,25 +56,20 @@ export default class TotalsInner extends React.Component {
                 {shipping &&
                   shipping.unit_price > 0 && (
                     <StrikeThrough>
-                      {shipping.unit_price}
-                      ,-
+                      {t('currency', { amount: shipping.unit_price })}
                     </StrikeThrough>
                   )}{' '}
-                0,-
+                {t('currency', { amount: 0 })}
               </span>
             ) : (
               <span>
-                {shipping ? shipping.unit_price : 0}
-                ,-
+                {t('currency', { amount: shipping ? shipping.unit_price : 0 })}
               </span>
             )}
           </Row>
           <Row hideValue={validating} modifier="to-pay">
             <span>{t('basket:amountToPay', state)}:</span>
-            <span>
-              {totalToPay}
-              ,-
-            </span>
+            <span>{t('currency', { amount: totalToPay })}</span>
           </Row>
           {validating && (
             <TotalsSpinner>

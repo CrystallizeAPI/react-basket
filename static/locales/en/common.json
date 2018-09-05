@@ -4,5 +4,6 @@
   "week": "week",
   "week_plural": "weeks",
   "month": "month",
-  "month_plural": "months"
+  "month_plural": "months",
+  "currency": "{{amount}},-"
 }

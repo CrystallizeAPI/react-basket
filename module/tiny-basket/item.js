@@ -174,8 +174,7 @@ function ItemSubscriptionInfo({
   return (
     <SubInfoOuter>
       <SubInfoLine>
-        Initial price: {initial_price}
-        ,-
+        {t('basket:subscriptionInitialPrice', { price: initial_price })}
         <SubInfoDuration>
           {getDurationString({
             t,
@@ -185,8 +184,7 @@ function ItemSubscriptionInfo({
         </SubInfoDuration>
       </SubInfoLine>
       <SubInfoLine>
-        Renewal price: {renewal_price}
-        ,-
+        {t('basket:subscriptionRenewalPrice', { price: renewal_price })}
         <SubInfoDuration>
           {getDurationString({
             t,
@@ -263,13 +261,11 @@ export default class TinyBasketItem extends React.Component {
             ) : (
               <PriceWrap>
                 <Price isDiscounted={isDiscounted}>
-                  {item.unit_price}
-                  ,-
+                  {t('currency', { amount: item.unit_price })}
                 </Price>
                 {isDiscounted && (
                   <PriceDiscounted>
-                    {discountedPrice}
-                    ,-
+                    {t('currency', { amount: discountedPrice })}
                   </PriceDiscounted>
                 )}
               </PriceWrap>
