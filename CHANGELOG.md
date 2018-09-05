@@ -1,3 +1,9 @@
+## <small>2.4.1 (2018-09-05)</small>
+
+* Added missing translations ([0defb00](https://github.com/snowballdigital/react-basket/commit/0defb00))
+
+
+
 ## 2.4.0 (2018-09-04)
 
 * Display subscr. in tiny basket ([6c1ee4a](https://github.com/snowballdigital/react-basket/commit/6c1ee4a))
