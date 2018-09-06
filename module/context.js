@@ -22,12 +22,6 @@ export class BasketProvider extends React.Component {
       }
     };
 
-    if (!prevState.shipping && nextProps.defaultShipping) {
-      newState.shipping = BasketProvider.createShippingBasketItem(
-        nextProps.defaultShipping
-      );
-    }
-
     return newState;
   }
 
@@ -52,17 +46,26 @@ export class BasketProvider extends React.Component {
     };
   }
 
-  state = {
-    ready: false,
-    items: [],
-    options: {},
-    validating: false,
-    validatingNewCoupon: false,
-    coupon: null,
-    discount: null,
-    shipping: null,
-    metadata: {}
-  };
+  constructor(props) {
+    super(props);
+
+    let shipping = null;
+    if (props.defaultShipping) {
+      shipping = props.defaultShipping;
+    }
+
+    this.state = {
+      ready: false,
+      items: [],
+      options: {},
+      validating: false,
+      validatingNewCoupon: false,
+      coupon: null,
+      discount: null,
+      shipping,
+      metadata: {}
+    };
+  }
 
   onReadyQueue = [];
   itemAnimationTimeouts = [];
