@@ -123,6 +123,12 @@ export function createBasketItem({
 
   basketItem.reference = basketItem.sku;
 
+  if (basketItem.subscription) {
+    if (!basketItem.variationplan_id) {
+      basketItem.variationplan_id = basketItem.subscription.variationplan_id;
+    }
+  }
+
   return basketItem;
 }
 
