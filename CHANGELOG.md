@@ -1,3 +1,10 @@
+## <small>2.4.2 (2018-09-06)</small>
+
+* Add variationplan_id to base basket item model if subscr. ([1d20246](https://github.com/snowballdigital/react-basket/commit/1d20246))
+* Fixed default shipping not being set ([17e4874](https://github.com/snowballdigital/react-basket/commit/17e4874))
+
+
+
 ## <small>2.4.1 (2018-09-05)</small>
 
 * Added missing translations ([0defb00](https://github.com/snowballdigital/react-basket/commit/0defb00))
