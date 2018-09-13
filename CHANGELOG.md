@@ -1,3 +1,9 @@
+## 3.0.0 (2018-09-13)
+
+* Change to subscription translations ([557601a](https://github.com/snowballdigital/react-basket/commit/557601a))
+
+
+
 ## <small>2.4.4 (2018-09-13)</small>
 
 * Fix totals display when shipping was removed ([82f79a4](https://github.com/snowballdigital/react-basket/commit/82f79a4))
