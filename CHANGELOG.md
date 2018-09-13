@@ -1,3 +1,9 @@
+## <small>2.4.4 (2018-09-13)</small>
+
+* Fix totals display when shipping was removed ([82f79a4](https://github.com/snowballdigital/react-basket/commit/82f79a4))
+
+
+
 ## <small>2.4.3 (2018-09-06)</small>
 
 * Moved defaultShipping setting to constructor ([f5858b3](https://github.com/snowballdigital/react-basket/commit/f5858b3))
