@@ -136,70 +136,13 @@ export const SubInfoLine = styled.div.attrs({
   margin-top: 5px;
 `;
 
-export const SubInfoDuration = styled.span.attrs({
-  className: 'crystallize-basket__item-subscription-duration'
-})`
-  display: block;
-  color: #555;
-
-  &::before {
-    content: '(';
-  }
-
-  &::after {
-    content: ')';
-  }
-`;
-
-// name: 'Hvert kvartal',
-// initial_price: 98,
-// renewal_price: 98,
-// initial_period_unit: 'weeks',
-// initial_period: 1,
-// duration: 3,
-// duration_unit: 'months',
-// renewal_term: '{ }',
-// cancellation_term: '{ }',
-// variationplan_id: 61
-
-function ItemSubscriptionInfo({
-  t,
-  initial_price,
-  renewal_price,
-  initial_period,
-  initial_period_unit,
-  duration,
-  duration_unit
-}) {
+function ItemSubscriptionInfo({ t, ...plan }) {
   return (
     <SubInfoOuter>
-      <SubInfoLine>
-        {t('basket:subscriptionInitialPrice', { price: initial_price })}
-        <SubInfoDuration>
-          {getDurationString({
-            t,
-            name: initial_period_unit,
-            count: initial_period
-          })}
-        </SubInfoDuration>
-      </SubInfoLine>
-      <SubInfoLine>
-        {t('basket:subscriptionRenewalPrice', { price: renewal_price })}
-        <SubInfoDuration>
-          {getDurationString({
-            t,
-            name: duration_unit,
-            count: duration
-          })}
-        </SubInfoDuration>
-      </SubInfoLine>
+      <SubInfoLine>{t('basket:subscriptionInitialInfo', plan)}</SubInfoLine>
+      <SubInfoLine>{t('basket:subscriptionRenewalInfo', plan)}</SubInfoLine>
     </SubInfoOuter>
   );
-}
-
-function getDurationString({ t, name, count }) {
-  const unit = t(name.replace(/s$/, ''), { count });
-  return t('basket:subscriptionItemDuration', { unit, count });
 }
 
 export default class TinyBasketItem extends React.Component {
