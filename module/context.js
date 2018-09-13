@@ -136,10 +136,15 @@ export class BasketProvider extends React.Component {
 
     const shippingCost = shipping ? shipping.unit_price : 0;
 
+    let totalToPay = totalPriceMinusDiscount;
+    if (!freeShipping && shippingCost) {
+      totalToPay += shippingCost;
+    }
+
     return {
       totalPrice,
       totalPriceMinusDiscount,
-      totalToPay: totalPriceMinusDiscount + (freeShipping ? 0 : shippingCost),
+      totalToPay,
       totalQuantity,
       freeShipping,
       remainingUntilFreeShippingApplies,

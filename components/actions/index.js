@@ -77,6 +77,46 @@ async function doFetch(query) {
   }
 }
 
+const testItem = {
+  masterId: 347,
+  name: 'MyoBCAA',
+  sku: 'MY-12-347-enkel-amazing-apple',
+  product_image:
+    'https://accelerated.atoms.crystallize.digital/myrevolution/images/image_347_353_bcaa_myrevolution_aplle.png',
+  product_image_resized: null,
+  unit_price: 368,
+  attributes: [
+    {
+      attribute_key: 'Smak',
+      attribute_value: 'Amazing Apple',
+      __typename: 'variation_attributes'
+    },
+    {
+      attribute_key: 'Pakke',
+      attribute_value: 'Enkel',
+      __typename: 'variation_attributes'
+    }
+  ],
+  metadata: {
+    description: '',
+    link: '/kosttilskudd/myobcaa'
+  },
+  reference: 'MY-12-347-enkel-amazing-apple',
+  subscription: {
+    name: 'Ukentlig',
+    initial_price: 349,
+    renewal_price: 349,
+    initial_period_unit: 'weeks',
+    initial_period: 1,
+    duration: 1,
+    duration_unit: 'weeks',
+    renewal_term: '{ }',
+    cancellation_term: '{ }',
+    variationplan_id: 37,
+    __typename: 'variation_plans'
+  }
+};
+
 export default class Products extends Component {
   state = {
     products: []
@@ -227,8 +267,8 @@ export default class Products extends Component {
                                 variationplan_id: 61
                               }
                             };
-                            actions.addItem(item);
-                            actions.animateItem(item);
+                            actions.addItem(testItem);
+                            actions.animateItem(testItem);
                           }}
                         >
                           Add to basket with subscription
