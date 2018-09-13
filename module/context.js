@@ -51,7 +51,7 @@ export class BasketProvider extends React.Component {
 
     let shipping = null;
     if (props.defaultShipping) {
-      shipping = props.defaultShipping;
+      shipping = BasketProvider.createShippingBasketItem(props.defaultShipping);
     }
 
     this.state = {
