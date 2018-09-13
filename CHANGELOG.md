@@ -1,3 +1,9 @@
+## <small>3.0.1 (2018-09-13)</small>
+
+* Fixed issue with default shipping not being set ([91fc08d](https://github.com/snowballdigital/react-basket/commit/91fc08d))
+
+
+
 ## 3.0.0 (2018-09-13)
 
 * Change to subscription translations ([557601a](https://github.com/snowballdigital/react-basket/commit/557601a))
