@@ -180,9 +180,6 @@ export default class TinyBasketItem extends React.Component {
     );
 
     const isSubscription = !!subscription;
-    if (item.animate) {
-      console.log('ANIMATING!', item);
-    }
 
     return (
       <Item animate={item.animate} isSubscription={isSubscription}>
