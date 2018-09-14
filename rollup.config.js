@@ -7,7 +7,7 @@ import pkg from './package.json';
 export default {
   input: 'module/index.js',
   output: {
-    file: 'build/index.js',
+    file: 'dist/index.js',
     format: 'umd',
     exports: 'named',
     name: pkg.name,

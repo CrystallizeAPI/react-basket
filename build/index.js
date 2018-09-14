@@ -13112,8 +13112,8 @@
   }).withConfig({
     displayName: "item__Item",
     componentId: "sc-1w3cru-0"
-  })(["display:grid;grid-template-columns:3fr 1fr;padding:15px 20px;border-bottom:1px solid #eee;position:relative;transition:background-color ", "ms;", ";"], animationSpeedMs, function (p) {
-    return p.animate && "\n    animation: ".concat(animationItemHighlight, " ").concat(animationSpeedMs, "ms 1;\n    background: #eee;\n  ");
+  })(["display:grid;grid-template-columns:3fr 1fr;padding:15px 20px;border-bottom:1px solid #eee;position:relative;", ";"], function (p) {
+    return p.animate && "\n    animation: ".concat(animationItemHighlight, " ").concat(animationSpeedMs, "ms 1;\n  ");
   });
   var ItemInfo = styled__default.span.attrs({
     className: 'crystallize-basket__item-info'
