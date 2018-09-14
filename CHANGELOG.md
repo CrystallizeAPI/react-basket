@@ -1,3 +1,10 @@
+## <small>3.1.1 (2018-09-14)</small>
+
+* Fixed path to build ([59f000b](https://github.com/snowballdigital/react-basket/commit/59f000b))
+* Removed log ([a1a2ba6](https://github.com/snowballdigital/react-basket/commit/a1a2ba6))
+
+
+
 ## 3.1.0 (2018-09-14)
 
 * Use rollup as build tool ([c0ac4fc](https://github.com/snowballdigital/react-basket/commit/c0ac4fc))
