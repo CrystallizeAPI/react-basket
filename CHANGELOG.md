@@ -1,3 +1,9 @@
+## 3.1.0 (2018-09-14)
+
+* Use rollup as build tool ([c0ac4fc](https://github.com/snowballdigital/react-basket/commit/c0ac4fc))
+
+
+
 ## <small>3.0.1 (2018-09-13)</small>
 
 * Fixed issue with default shipping not being set ([91fc08d](https://github.com/snowballdigital/react-basket/commit/91fc08d))
