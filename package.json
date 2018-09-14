@@ -13,15 +13,16 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "prepush": "npm run validate",
+    "prepush": "yarn validate",
     "dev": "node server/index.js",
     "start": "NODE_ENV=production node server/index.js",
     "test": "NODE_ENV=test jest",
     "lint": "eslint ./module",
     "validate": "npm-run-all lint",
-    "build": "webpack --mode=production",
-    "build:watch": "webpack --mode=production --watch",
-    "prepare": "npm run build"
+    "build": "yarn build:rollup",
+    "build:webpack": "webpack --mode=production",
+    "build:rollup": "rollup -c --sourcemap",
+    "prepare": "yarn build"
   },
   "browserslist": [
     "> 1%",
@@ -154,7 +155,7 @@
   "peerDependencies": {
     "i18next": "^11.2.3",
     "react-i18next": "^7.6.0",
-    "styled-components": "^3.2.5"
+    "styled-components": ">=3"
   },
   "dependencies": {
     "@crystallize/react-image": "^1.4.2",
@@ -178,8 +179,9 @@
     "@babel/register": "^7.0.0",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.2",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-module-resolver": "^3.1.1",
-    "babel-plugin-styled-components": "^1.6.1",
+    "babel-plugin-styled-components": "^1.7.1",
     "dotenv": "^5.0.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -205,7 +207,11 @@
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.4.2",
     "react-i18next": "^7.6.0",
-    "styled-components": "^3.2.5",
+    "rollup": "^0.65.2",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.1.6",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "styled-components": "^3.4.6",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0"
   }

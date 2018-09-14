@@ -23,7 +23,13 @@ const animationItemHighlight = keyframes`
   `;
 
 const Item = styled.div.attrs({
-  className: `crystallize-basket__item-inner`
+  className: p => {
+    const b = `crystallize-basket__item-inner`;
+    if (p.animate) {
+      return `${b} ${b}--animate`;
+    }
+    return b;
+  }
 })`
   display: grid;
   grid-template-columns: 3fr 1fr;
@@ -174,6 +180,9 @@ export default class TinyBasketItem extends React.Component {
     );
 
     const isSubscription = !!subscription;
+    if (item.animate) {
+      console.log('ANIMATING!', item);
+    }
 
     return (
       <Item animate={item.animate} isSubscription={isSubscription}>
