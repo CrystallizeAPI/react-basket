@@ -1,3 +1,9 @@
+## <small>3.2.1 (2018-09-21)</small>
+
+* Removed log ([47b601b](https://github.com/snowballdigital/react-basket/commit/47b601b))
+
+
+
 ## 3.2.0 (2018-09-21)
 
 * Support for styled-components v4 ([7c84ab4](https://github.com/snowballdigital/react-basket/commit/7c84ab4))
