@@ -1,3 +1,9 @@
+## 3.2.0 (2018-09-21)
+
+* Support for styled-components v4 ([7c84ab4](https://github.com/snowballdigital/react-basket/commit/7c84ab4))
+
+
+
 ## <small>3.1.1 (2018-09-14)</small>
 
 * Fixed path to build ([59f000b](https://github.com/snowballdigital/react-basket/commit/59f000b))
