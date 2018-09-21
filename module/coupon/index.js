@@ -1,5 +1,6 @@
 import React from 'react';
 import { translate } from 'react-i18next';
+import styled from 'styled-components';
 
 import { BasketConsumer } from '../context';
 import { generateUniqueId, validateBasket } from '../helpers';
@@ -15,6 +16,8 @@ import {
   ButtonToggle,
   Feedback
 } from './styles';
+
+console.log(styled);
 
 class CouponInner extends React.Component {
   state = {
@@ -47,7 +50,9 @@ class CouponInner extends React.Component {
     const { coupon } = this.state;
 
     if (!coupon) {
-      this.inputRef.focus();
+      if (this.inputRef && this.inputRef.focus) {
+        this.inputRef.focus();
+      }
 
       this.setState({
         feedback: t('basket:fillOutCoupon')
@@ -72,7 +77,9 @@ class CouponInner extends React.Component {
         this.setState({
           feedback: t('basket:couldNotVerifyCoupon', { coupon })
         });
-        this.inputRef.focus();
+        if (this.inputRef && this.inputRef.focus) {
+          this.inputRef.focus();
+        }
       } else {
         setCoupon(coupon);
         setItems(result.items);
@@ -87,7 +94,9 @@ class CouponInner extends React.Component {
 
   showInput = () =>
     this.setState({ showInput: true }, () => {
-      this.inputRef.focus();
+      if (this.inputRef && this.inputRef.focus) {
+        this.inputRef.focus();
+      }
     });
 
   hideInput = () =>
@@ -110,6 +119,7 @@ class CouponInner extends React.Component {
           <Label htmlFor={id}>{t('basket:inputCoupon')}</Label>
           <Input
             id={id}
+            ref={this.getInputRef}
             innerRef={this.getInputRef}
             value={coupon}
             onChange={this.onCouponChange}
