@@ -1,6 +1,5 @@
 import React from 'react';
 import { translate } from 'react-i18next';
-import styled from 'styled-components';
 
 import { BasketConsumer } from '../context';
 import { generateUniqueId, validateBasket } from '../helpers';
@@ -16,8 +15,6 @@ import {
   ButtonToggle,
   Feedback
 } from './styles';
-
-console.log(styled);
 
 class CouponInner extends React.Component {
   state = {
