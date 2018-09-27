@@ -1,3 +1,9 @@
+## <small>3.2.3 (2018-09-27)</small>
+
+* Fixed issue with discounted price being striked through ([0685510](https://github.com/snowballdigital/react-basket/commit/0685510))
+
+
+
 ## <small>3.2.2 (2018-09-27)</small>
 
 * Better ID generation ([81c9ee3](https://github.com/snowballdigital/react-basket/commit/81c9ee3))
