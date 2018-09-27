@@ -127,7 +127,6 @@ const PriceDiscounted = styled.div.attrs({
   className: `crystallize-basket__item-price crystallize-basket__item-price--discounted`
 })`
   margin-left: 10px;
-  text-decoration: line-through;
 `;
 
 export const SubInfoOuter = styled.div.attrs({

@@ -129,7 +129,7 @@ export default class Products extends Component {
   async getProducts() {
     /* A tenant with product variants */
     const response = await doFetch(`{
-        catalogue(url: "/standard/monthly-illustration", tenantID: "demo") {
+        catalogue(url: "/illustrations/potatoe-pig", tenantID: "demo") {
           name
           link
           product {
@@ -232,7 +232,7 @@ export default class Products extends Component {
             <Section>
               <h2>Products:</h2>
               <List>
-                {this.state.products.slice(0, 4).map(v => (
+                {this.state.products.slice(0, 1).map(v => (
                   <Item key={v.reference}>
                     <img src={v.product_image_resized} alt={v.name} />
                     <div>{v.reference}</div>
