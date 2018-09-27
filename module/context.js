@@ -13,6 +13,10 @@ export const {
 
 const BasketContext = createContext();
 
+function createId() {
+  return `${Date.now()}-${uuid()}`;
+}
+
 export class BasketProvider extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const newState = {
@@ -87,7 +91,7 @@ export class BasketProvider extends React.Component {
   };
 
   getCachedBasket = async () => {
-    const id = uuid();
+    const id = createId();
     const basket = await retrieveBasketFromCache();
     if (basket) {
       let { items, ...rest } = basket;
@@ -355,7 +359,7 @@ export class BasketProvider extends React.Component {
   reset = () =>
     this.onReady(() =>
       this.setState({
-        id: uuid(),
+        id: createId(),
         items: [],
         metadata: null,
         coupon: null,
