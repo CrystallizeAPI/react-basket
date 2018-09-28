@@ -1,4 +1,4 @@
-![alt text](https://raw.githubusercontent.com/snowballdigital/react-dialog/HEAD/media/logo.png 'Shopping cart')
+![alt text](https://raw.githubusercontent.com/snowballdigital/react-basket/HEAD/media/logo.png 'Shopping cart')
 
 # react-basket
 
