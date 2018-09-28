@@ -1,3 +1,11 @@
+## <small>3.2.4 (2018-09-28)</small>
+
+* Added example in readme on validateEndpoint ([9a16ab1](https://github.com/snowballdigital/react-basket/commit/9a16ab1))
+* Fixed logo ([b8367d7](https://github.com/snowballdigital/react-basket/commit/b8367d7))
+* Updated logo ([b252475](https://github.com/snowballdigital/react-basket/commit/b252475))
+
+
+
 ## <small>3.2.3 (2018-09-27)</small>
 
 * Fixed issue with discounted price being striked through ([0685510](https://github.com/snowballdigital/react-basket/commit/0685510))
