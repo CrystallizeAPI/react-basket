@@ -16,6 +16,7 @@ yarn add @crystallize/react-basket
 import { BasketProvider } from '@crystallize/react-basket';
 
 const basketOptions = {
+  validateEndpoint: "/api/basket/validate",
   freeShippingMinimumPurchaseAmount: 600,
   defaultShipping: yourDefaultShipping,
   onEmpty: () => console.log('emptied basket'),
