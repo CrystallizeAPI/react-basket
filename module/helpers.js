@@ -31,39 +31,6 @@ export const generateUniqueId = (function iife() {
   return name => `crystallize-${name}-${idIncremenet++}`;
 })();
 
-export function parseBasketItem({ basketId, ...item }) {
-  function ensureProperty(name, fallbackValue) {
-    if (typeof item[name] === 'undefined') {
-      /* eslint-disable */
-      console.warn(
-        `Basket item validation error: missing property "${name}" for`,
-        item
-      );
-      /* eslint-enable */
-
-      return fallbackValue;
-    }
-    return item[name];
-  }
-
-  const sku = ensureProperty('sku', item.variation_sku);
-
-  return {
-    get basketId() {
-      if (this.subscription) {
-        return `${item.sku}-subscr-${this.subscription.variationplan_id}`;
-      }
-      return item.sku;
-    },
-    name: ensureProperty('name', 'No name'),
-    unit_price: ensureProperty('unit_price', item.price_ex_vat || 0),
-    reference: sku,
-    sku,
-    quantity: 1,
-    ...item
-  };
-}
-
 export function createBasketItem({
   masterProduct,
   variant,

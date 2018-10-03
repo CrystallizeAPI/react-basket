@@ -141,15 +141,6 @@ export const SubInfoLine = styled.div.attrs({
   margin-top: 5px;
 `;
 
-function ItemSubscriptionInfo({ t, ...plan }) {
-  return (
-    <SubInfoOuter>
-      <SubInfoLine>{t('basket:subscriptionInitialInfo', plan)}</SubInfoLine>
-      <SubInfoLine>{t('basket:subscriptionRenewalInfo', plan)}</SubInfoLine>
-    </SubInfoOuter>
-  );
-}
-
 export default class TinyBasketItem extends React.Component {
   state = {};
 
@@ -190,9 +181,7 @@ export default class TinyBasketItem extends React.Component {
           />
           <ItemInfoText>
             <ItemName>
-              {isSubscription
-                ? t('basket:subscriptionItemName', item)
-                : item.name}
+              {isSubscription ? item.subscriptionName : item.name}
             </ItemName>
             {attributes &&
               attributes.length > 0 && (
@@ -205,7 +194,10 @@ export default class TinyBasketItem extends React.Component {
                 </Attributes>
               )}
             {isSubscription ? (
-              <ItemSubscriptionInfo t={t} {...subscription} />
+              <SubInfoOuter>
+                <SubInfoLine>{item.subscriptionInitialInfo}</SubInfoLine>
+                <SubInfoLine>{item.subscriptionRenewalInfo}</SubInfoLine>
+              </SubInfoOuter>
             ) : (
               <PriceWrap>
                 <Price isDiscounted={isDiscounted}>

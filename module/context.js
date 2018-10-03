@@ -1,11 +1,11 @@
 import React, { createContext } from 'react';
 import uuid from 'uuid/v1';
+import { translate } from 'react-i18next';
 
 import * as helpers from './helpers';
 import { retrieveBasketFromCache, persistBasketToCache } from './cache';
 
 export const {
-  parseBasketItem,
   createBasketItem,
   getSupportedOptionsFromProps,
   validateBasket
@@ -17,7 +17,7 @@ function createId() {
   return `${Date.now()}-${uuid()}`;
 }
 
-export class BasketProvider extends React.Component {
+class BasketProviderComponent extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const newState = {
       options: {
@@ -55,7 +55,9 @@ export class BasketProvider extends React.Component {
 
     let shipping = null;
     if (props.defaultShipping) {
-      shipping = BasketProvider.createShippingBasketItem(props.defaultShipping);
+      shipping = BasketProviderComponent.createShippingBasketItem(
+        props.defaultShipping
+      );
     }
 
     this.state = {
@@ -82,6 +84,60 @@ export class BasketProvider extends React.Component {
     persistBasketToCache(this.state);
   }
 
+  parseBasketItem = ({ basketId, ...item }) => {
+    function ensureProperty(name, fallbackValue) {
+      if (typeof item[name] === 'undefined') {
+        /* eslint-disable */
+        console.warn(
+          `Basket item validation error: missing property "${name}" for`,
+          item
+        );
+        /* eslint-enable */
+
+        return fallbackValue;
+      }
+      return item[name];
+    }
+
+    const { t } = this.props;
+
+    const sku = ensureProperty('sku', item.variation_sku);
+    const name = ensureProperty('name', 'No name');
+
+    let subscriptionName;
+    let subscriptionInitialInfo;
+    let subscriptionRenewalInfo;
+    if (item.subscription) {
+      subscriptionName = t('basket:subscriptionItemName', item);
+      subscriptionInitialInfo = t(
+        'basket:subscriptionInitialInfo',
+        item.subscription
+      );
+      subscriptionRenewalInfo = t(
+        'basket:subscriptionRenewalInfo',
+        item.subscription
+      );
+    }
+
+    return {
+      get basketId() {
+        if (this.subscription) {
+          return `${item.sku}-subscr-${this.subscription.variationplan_id}`;
+        }
+        return item.sku;
+      },
+      name,
+      subscriptionName,
+      unit_price: ensureProperty('unit_price', item.price_ex_vat || 0),
+      reference: sku,
+      sku,
+      quantity: 1,
+      subscriptionInitialInfo,
+      subscriptionRenewalInfo,
+      ...item
+    };
+  };
+
   onReady = fn => {
     if (this.state.ready) {
       fn();
@@ -92,14 +148,16 @@ export class BasketProvider extends React.Component {
 
   getCachedBasket = async () => {
     const id = createId();
-    const basket = await retrieveBasketFromCache();
+    const basket = await retrieveBasketFromCache({
+      parseBasketItem: this.parseBasketItem
+    });
     if (basket) {
-      let { items, ...rest } = basket;
+      const { items, ...rest } = basket;
 
       this.setState({
         id,
         ...rest,
-        items: items.map(parseBasketItem)
+        items: items.map(this.parseBasketItem)
       });
     } else {
       this.setState({ id });
@@ -170,7 +228,7 @@ export class BasketProvider extends React.Component {
       const { validateEndpoint } = options;
 
       try {
-        let itemsToValidate = [...items];
+        const itemsToValidate = [...items];
         if (shipping) {
           itemsToValidate.push(shipping);
         }
@@ -276,13 +334,13 @@ export class BasketProvider extends React.Component {
 
   addItem = itemRaw =>
     this.onReady(() => {
-      const item = parseBasketItem(itemRaw);
+      const item = this.parseBasketItem(itemRaw);
 
       // Try to increment by one. If not, add new product to basket
       if (!this.changeItemQuantity({ item, num: 1 })) {
-        this.setState({
-          items: [...this.state.items, item]
-        });
+        this.setState(s => ({
+          items: [...s.items, item]
+        }));
 
         this.validateBasketDelayed();
 
@@ -293,14 +351,29 @@ export class BasketProvider extends React.Component {
     });
 
   findItemIndex = item => {
-    const parsed = parseBasketItem(item);
+    const parsed = this.parseBasketItem(item);
     return this.state.items.findIndex(i => i.basketId === parsed.basketId);
   };
 
   animateItem = animItem => {
-    const parsedItem = parseBasketItem(animItem);
+    const parsedItem = this.parseBasketItem(animItem);
 
     return new Promise(async mainResolve => {
+      const updateStateItem = (stateItem, animate) =>
+        new Promise(resolve => {
+          this.setState(
+            s => ({
+              items: s.items.map(item => {
+                if (item.basketId === stateItem.basketId) {
+                  item.animate = animate;
+                }
+                return item;
+              })
+            }),
+            resolve
+          );
+        });
+
       // Remove queued animation
       const removeQueuedAnimation = async () => {
         const index = this.itemAnimationTimeouts.findIndex(
@@ -311,22 +384,6 @@ export class BasketProvider extends React.Component {
           this.itemAnimationTimeouts.splice(index, 1);
           await updateStateItem(parsedItem, false);
         }
-      };
-
-      const updateStateItem = (stateItem, animate) => {
-        return new Promise(resolve => {
-          this.setState(
-            {
-              items: this.state.items.map(item => {
-                if (item.basketId === stateItem.basketId) {
-                  item.animate = animate;
-                }
-                return item;
-              })
-            },
-            resolve
-          );
-        });
       };
 
       await removeQueuedAnimation(parsedItem);
@@ -377,10 +434,10 @@ export class BasketProvider extends React.Component {
 
   setItems = items => this.onReady(() => this.setState({ items }));
 
-  setDiscount = (discount, validateBasket = true) =>
+  setDiscount = (discount, doValidateBasket = true) =>
     this.onReady(() =>
       this.setState({ discount }, () => {
-        if (validateBasket) {
+        if (doValidateBasket) {
           this.validateBasketDelayed();
         }
       })
@@ -391,12 +448,13 @@ export class BasketProvider extends React.Component {
   setShipping = shipping =>
     this.onReady(() =>
       this.setState({
-        shipping: BasketProvider.createShippingBasketItem(shipping)
+        shipping: BasketProviderComponent.createShippingBasketItem(shipping)
       })
     );
 
   render() {
     const { options, ...state } = this.state;
+    const { children } = this.props;
     const calculatedState = this.calculateExtraBasketState();
 
     return (
@@ -416,7 +474,7 @@ export class BasketProvider extends React.Component {
             removeItem: this.removeItem,
             incrementQuantityItem: this.incrementQuantityItem,
             decrementQuantityItem: this.decrementQuantityItem,
-            parseBasketItem,
+            parseBasketItem: this.parseBasketItem,
             setValidating: this.setValidating,
             setValidatingNewCoupon: this.setValidatingNewCoupon,
             setCoupon: this.setCoupon,
@@ -427,10 +485,14 @@ export class BasketProvider extends React.Component {
           }
         }}
       >
-        {this.props.children}
+        {children}
       </BasketContext.Provider>
     );
   }
 }
+
+export const BasketProvider = translate(['common', 'basket'])(
+  BasketProviderComponent
+);
 
 export const BasketConsumer = BasketContext.Consumer;

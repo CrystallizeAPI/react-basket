@@ -1,10 +1,8 @@
 import localforage from 'localforage';
 
-import { parseBasketItem } from './helpers';
-
 const localCacheKey = 'crystallize-basket';
 
-export async function retrieveBasketFromCache() {
+export async function retrieveBasketFromCache({ parseBasketItem }) {
   try {
     const basket = await localforage.getItem(localCacheKey);
     if (basket) {

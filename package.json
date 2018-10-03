@@ -110,6 +110,7 @@
       "no-return-assign": 0,
       "no-restricted-globals": 0,
       "no-prototype-builtins": 0,
+      "no-param-reassign": 1,
       "no-use-before-define": [
         "error",
         "nofunc"
@@ -146,7 +147,8 @@
       "react/prefer-stateless-function": "ignorePureComponents",
       "react/no-unused-state": 0,
       "react/sort-comp": 0,
-      "react/jsx-one-expression-per-line": 0
+      "react/jsx-one-expression-per-line": 0,
+      "react/destructuring-assignment": 0
     }
   },
   "eslintIgnore": [
