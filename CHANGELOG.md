@@ -1,3 +1,9 @@
+## 3.3.0 (2018-10-03)
+
+* Enhance subscription products with more info ([8afd7c8](https://github.com/snowballdigital/react-basket/commit/8afd7c8))
+
+
+
 ## <small>3.2.4 (2018-09-28)</small>
 
 * Added example in readme on validateEndpoint ([9a16ab1](https://github.com/snowballdigital/react-basket/commit/9a16ab1))
