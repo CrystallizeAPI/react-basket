@@ -1,3 +1,9 @@
+## <small>3.3.1 (2018-10-03)</small>
+
+* Handle VAT correctly from master product ([6a8cf40](https://github.com/snowballdigital/react-basket/commit/6a8cf40))
+
+
+
 ## 3.3.0 (2018-10-03)
 
 * Enhance subscription products with more info ([8afd7c8](https://github.com/snowballdigital/react-basket/commit/8afd7c8))
