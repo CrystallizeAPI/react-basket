@@ -49,14 +49,30 @@ export function createBasketItem({
     return price * (1 + (vat || 0) / 100);
   }
 
+  let vat = 0;
+  if ('vat' in masterProduct) {
+    ({ vat } = masterProduct);
+    if (isArray(vat)) {
+      [vat] = vat;
+    }
+    if (isNaN(vat) && vat) {
+      vat = vat.percentage;
+    }
+
+    if (isNaN(vat)) {
+      vat = 0;
+    }
+  }
+
   const basketItem = {
     masterId: masterProduct.id,
     name: masterProduct.name,
     sku: `${masterProduct.sku}-standard`,
     product_image: masterProduct.product_image,
     product_image_resized: masterProduct.product_image_resized,
-    unit_price: getPriceWithVAT(masterProduct.price),
+    unit_price: getPriceWithVAT(masterProduct.price, vat),
     attributes: [],
+    vat,
     metadata,
     subscription
   };

@@ -135,11 +135,15 @@ export default class Products extends Component {
           product {
             id
             name
-            vat {
-              id
-            }
             product_image
             product_image_resized
+
+            vat {
+              id
+              name
+              percentage
+            }
+
             variations {
               variation_sku
               price_ex_vat
