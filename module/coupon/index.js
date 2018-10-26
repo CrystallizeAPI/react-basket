@@ -159,4 +159,6 @@ class CouponInner extends React.Component {
   }
 }
 
-export const Coupon = translate(['common', 'basket'])(CouponInner);
+export const Coupon = translate(['common', 'basket'])(props => (
+  <CouponInner {...props} />
+));

@@ -82,4 +82,6 @@ export default class TotalsInner extends React.Component {
   }
 }
 
-export const Totals = translate(['common', 'basket'])(TotalsInner);
+export const Totals = translate(['common', 'basket'])(props => (
+  <TotalsInner {...props} />
+));

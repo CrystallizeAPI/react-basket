@@ -47,6 +47,10 @@ class TinyBasketInner extends React.Component {
 
     const { state, actions } = this.context;
 
+    if (!state) {
+      return null;
+    }
+
     const {
       items,
       freeShipping,
@@ -96,4 +100,6 @@ class TinyBasketInner extends React.Component {
   }
 }
 
-export const TinyBasket = translate(['common', 'basket'])(TinyBasketInner);
+export const TinyBasket = translate(['common', 'basket'])(props => (
+  <TinyBasketInner {...props} />
+));
