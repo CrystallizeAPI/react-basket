@@ -1,3 +1,10 @@
+## <small>4.0.1 (2018-10-26)</small>
+
+* Fixes for the react-i18next hoc ([16bb729](https://github.com/snowballdigital/react-basket/commit/16bb729))
+* Upd. readme ([e626d1a](https://github.com/snowballdigital/react-basket/commit/e626d1a))
+
+
+
 ## 4.0.0 (2018-10-26)
 
 * Styled-components v4. Babel7 ([e0ee77f](https://github.com/snowballdigital/react-basket/commit/e0ee77f))
