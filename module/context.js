@@ -364,7 +364,10 @@ class BasketProviderComponent extends React.Component {
             s => ({
               items: s.items.map(item => {
                 if (item.basketId === stateItem.basketId) {
-                  item.animate = animate;
+                  return {
+                    ...item,
+                    animate
+                  };
                 }
                 return item;
               })
