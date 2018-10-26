@@ -31,7 +31,7 @@ export default () => (
 );
 ```
 
-** Consume it with BasketContext (>= React 16.6) **
+**Consume it with BasketContext (>= React 16.6)**
 
 ```
 import { BasketContext } from '@crystallize/react-basket';
@@ -54,7 +54,7 @@ export default class MyClass extends React.Component {
 }
 ```
 
-** Consume it with BasketConsumer **
+**Consume it with BasketConsumer**
 
 ```
 import { BasketConsumer } from '@crystallize/react-basket';
