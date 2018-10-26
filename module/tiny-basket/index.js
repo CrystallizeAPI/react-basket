@@ -3,7 +3,7 @@ import { translate } from 'react-i18next';
 import posed, { PoseGroup } from 'react-pose';
 import styled from 'styled-components';
 
-import { BasketConsumer } from '../context';
+import { BasketContext } from '../context';
 import { Totals } from '../totals';
 
 import DefaultSpinner from '../spinner';
@@ -32,11 +32,11 @@ const StyledPosedItem = styled(PosedItem).attrs({
 `;
 
 class TinyBasketInner extends React.Component {
+  static contextType = BasketContext;
+
   render() {
     const {
       t,
-      state,
-      actions,
       SpinnerCmp = DefaultSpinner,
       ItemCmp = TinyBasketItem,
       hideTotals = false,
@@ -44,6 +44,8 @@ class TinyBasketInner extends React.Component {
       hideRemainingUntilFreeShipping = false,
       itemImageSizes
     } = this.props;
+
+    const { state, actions } = this.context;
 
     const {
       items,
@@ -94,8 +96,4 @@ class TinyBasketInner extends React.Component {
   }
 }
 
-export const TinyBasket = translate(['common', 'basket'])(outerProps => (
-  <BasketConsumer>
-    {props => <TinyBasketInner {...props} {...outerProps} />}
-  </BasketConsumer>
-));
+export const TinyBasket = translate(['common', 'basket'])(TinyBasketInner);

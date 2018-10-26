@@ -31,7 +31,30 @@ export default () => (
 );
 ```
 
-**Where you consume it**
+** Consume it with BasketContext (>= React 16.6) **
+
+```
+import { BasketContext } from '@crystallize/react-basket';
+
+export default class MyClass extends React.Component {
+
+  static contextType = BasketContext;
+
+  render () {
+    const { state, actions } = this.context;
+
+    return (
+      <button onClick={() => actions.addItem({ sku: 'product-sku-1', price: 99, quantity: 1 })}>
+        {state.totalQuantity
+          ? `Your basket (${state.totalQuantity} items, ${state.totalPrice},-)`
+          : 'Your basket is empty'}
+      </button>
+    );
+  }
+}
+```
+
+** Consume it with BasketConsumer **
 
 ```
 import { BasketConsumer } from '@crystallize/react-basket';
@@ -52,6 +75,7 @@ export default () => (
 ## All exports
 
 - BasketProvider
+- BasketContext
 - BasketConsumer
 - TinyBasket
 - Coupon

@@ -1,7 +1,7 @@
 import React from 'react';
 import { translate } from 'react-i18next';
 
-import { BasketConsumer } from '../context';
+import { BasketContext } from '../context';
 import { generateUniqueId, validateBasket } from '../helpers';
 
 import DefaultSpinner from '../spinner';
@@ -17,6 +17,8 @@ import {
 } from './styles';
 
 class CouponInner extends React.Component {
+  static contextType = BasketContext;
+
   state = {
     showInput: false,
     coupon: '',
@@ -34,7 +36,9 @@ class CouponInner extends React.Component {
   };
 
   register = async () => {
-    const { t, actions, state, options } = this.props;
+    const { t } = this.props;
+    const { actions, state, options } = this.context;
+
     const {
       setValidatingNewCoupon,
       setCoupon,
@@ -101,7 +105,8 @@ class CouponInner extends React.Component {
 
   render() {
     const { showInput, coupon, feedback } = this.state;
-    const { SpinnerCmp = DefaultSpinner, t, state } = this.props;
+    const { SpinnerCmp = DefaultSpinner, t } = this.props;
+    const { state } = this.context;
     const { validatingNewCoupon } = state;
 
     // A coupon has already been registered
@@ -155,8 +160,4 @@ class CouponInner extends React.Component {
   }
 }
 
-export const Coupon = translate(['common', 'basket'])(outerProps => (
-  <BasketConsumer>
-    {props => <CouponInner {...props} {...outerProps} />}
-  </BasketConsumer>
-));
+export const Coupon = translate(['common', 'basket'])(CouponInner);

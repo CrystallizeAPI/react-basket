@@ -1,22 +1,21 @@
 import React, { Fragment } from 'react';
 import { translate } from 'react-i18next';
 
-import { BasketConsumer } from '../context';
+import { BasketContext } from '../context';
 import { Coupon } from '../coupon';
 import DefaultSpinner from '../spinner';
 
 import { Outer, Row, StrikeThrough, TotalsSpinner, Rows } from './styles';
 
 export default class TotalsInner extends React.Component {
+  static contextType = BasketContext;
+
   state = {};
 
   render() {
-    const {
-      t,
-      state,
-      SpinnerCmp = DefaultSpinner,
-      hideCoupon = false
-    } = this.props;
+    const { t, SpinnerCmp = DefaultSpinner, hideCoupon = false } = this.props;
+
+    const { state } = this.context;
 
     const {
       discount,
@@ -83,8 +82,4 @@ export default class TotalsInner extends React.Component {
   }
 }
 
-export const Totals = translate(['common', 'basket'])(outerProps => (
-  <BasketConsumer>
-    {props => <TotalsInner {...props} {...outerProps} />}
-  </BasketConsumer>
-));
+export const Totals = translate(['common', 'basket'])(TotalsInner);

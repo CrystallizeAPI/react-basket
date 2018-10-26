@@ -11,7 +11,7 @@ export const {
   validateBasket
 } = helpers;
 
-const BasketContext = createContext();
+export const BasketContext = createContext();
 
 function createId() {
   return `${Date.now()}-${uuid()}`;
