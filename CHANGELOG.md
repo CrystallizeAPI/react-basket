@@ -1,3 +1,9 @@
+## 4.0.0 (2018-10-26)
+
+* Styled-components v4. Babel7 ([e0ee77f](https://github.com/snowballdigital/react-basket/commit/e0ee77f))
+
+
+
 ## 3.4.0 (2018-10-26)
 
 * Exported BasketContext for React 16.6 ([811638a](https://github.com/snowballdigital/react-basket/commit/811638a))
