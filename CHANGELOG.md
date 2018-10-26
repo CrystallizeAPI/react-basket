@@ -1,3 +1,9 @@
+## 3.4.0 (2018-10-26)
+
+* Exported BasketContext for React 16.6 ([811638a](https://github.com/snowballdigital/react-basket/commit/811638a))
+
+
+
 ## <small>3.3.1 (2018-10-03)</small>
 
 * Handle VAT correctly from master product ([6a8cf40](https://github.com/snowballdigital/react-basket/commit/6a8cf40))
