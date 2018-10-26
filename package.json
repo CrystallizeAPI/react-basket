@@ -156,13 +156,13 @@
   ],
   "peerDependencies": {
     "i18next": "^11.2.3",
-    "react-i18next": "^7.6.0",
-    "styled-components": ">=3",
     "react": "^16.4.0",
-    "react-dom": "^16.4.0"
+    "react-dom": "^16.4.0",
+    "react-i18next": "^7.6.0",
+    "styled-components": ">=4"
   },
   "dependencies": {
-    "@crystallize/react-image": "^1.4.2",
+    "@crystallize/react-image": "^2.1.0",
     "body-parser": "^1.18.2",
     "bounce": "^1.2.0",
     "cross-fetch": "^2.1.0",
@@ -173,12 +173,13 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.2",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -186,7 +187,7 @@
     "babel-plugin-styled-components": "^1.7.1",
     "dotenv": "^5.0.1",
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-adapter-react-16": "^1.6.0",
     "es6-promise": "^4.2.2",
     "eslint": "^5.5.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -202,19 +203,17 @@
     "husky": "^0.14.3",
     "i18next": "^11.2.3",
     "jest": "^23.5.0",
-    "next": "^6.1.1",
+    "next": "^7.0.2",
     "npm-run-all": "^4.1.2",
     "prettier": "^1.14.2",
     "react": "^16.6.0",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.6.0",
     "react-i18next": "^7.6.0",
-    "rollup": "^0.65.2",
+    "rollup": "^0.66.6",
     "rollup-plugin-babel": "^4.0.3",
-    "rollup-plugin-commonjs": "^9.1.6",
+    "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^3.4.0",
-    "styled-components": "^3.4.6",
-    "webpack": "^4.17.2",
-    "webpack-cli": "^3.1.0"
+    "styled-components": "^4.0.2"
   }
 }

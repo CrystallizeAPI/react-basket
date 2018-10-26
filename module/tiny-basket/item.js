@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import CrystallizeImage from '@crystallize/react-image';
 
 import { animationSpeedMs } from '../helpers';
@@ -38,9 +38,9 @@ const Item = styled.div.attrs({
   position: relative;
   ${p =>
     p.animate &&
-    `
-    animation: ${animationItemHighlight} ${animationSpeedMs}ms 1;
-  `};
+    css`
+      animation: ${animationItemHighlight} ${animationSpeedMs}ms 1;
+    `};
 `;
 
 const ItemInfo = styled.span.attrs({

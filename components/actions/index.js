@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import faker from 'faker';
 import styled from 'styled-components';
 
-import { BasketConsumer, createBasketItem } from 'module';
+import { BasketConsumer, BasketContext, createBasketItem } from 'module';
 
 export const Outer = styled.div`
   width: 85vw;
@@ -118,6 +118,8 @@ const testItem = {
 };
 
 export default class Products extends Component {
+  static contextType = BasketContext;
+
   state = {
     products: []
   };
@@ -180,114 +182,118 @@ export default class Products extends Component {
   }
 
   render() {
+    const { actions, state } = this.context;
+
     return (
-      <BasketConsumer>
-        {({ actions, state }) => (
-          <Outer>
-            <Section>
-              <h2>Shipping:</h2>
-              <div>
-                <button
-                  onClick={() =>
-                    actions.setShipping({
-                      reference: 'DE-9-43-standard',
-                      price: 99
-                    })
+      <Outer>
+        <Section>
+          <h2>Shipping:</h2>
+          <div>
+            <button
+              type="button"
+              onClick={() =>
+                actions.setShipping({
+                  reference: 'DE-9-43-standard',
+                  price: 99
+                })
+              }
+            >
+              Add standard shipping
+            </button>
+          </div>
+          <div>
+            <button type="button" onClick={() => actions.setShipping(null)}>
+              Remove shipping
+            </button>
+          </div>
+        </Section>
+        <Section>
+          <h2>Metadata:</h2>
+          <pre>{JSON.stringify(state.metadata, null, 2)}</pre>
+          <div>
+            <button
+              type="button"
+              onClick={() =>
+                actions.setMetadata({
+                  comment: faker.hacker.phrase(),
+                  shippingAddress: {
+                    name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+                    email: faker.internet.email(),
+                    phone: faker.phone.phoneNumber(),
+                    streetName: faker.address.streetName(),
+                    streetAddress: faker.address.streetAddress(),
+                    zipCode: faker.address.zipCode(),
+                    city: faker.address.city()
                   }
-                >
-                  Add standard shipping
-                </button>
-              </div>
-              <div>
-                <button onClick={() => actions.setShipping(null)}>
-                  Remove shipping
-                </button>
-              </div>
-            </Section>
-            <Section>
-              <h2>Metadata:</h2>
-              <pre>{JSON.stringify(state.metadata, null, 2)}</pre>
-              <div>
-                <button
-                  onClick={() =>
-                    actions.setMetadata({
-                      comment: faker.hacker.phrase(),
-                      shippingAddress: {
-                        name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-                        email: faker.internet.email(),
-                        phone: faker.phone.phoneNumber(),
-                        streetName: faker.address.streetName(),
-                        streetAddress: faker.address.streetAddress(),
-                        zipCode: faker.address.zipCode(),
-                        city: faker.address.city()
-                      }
-                    })
-                  }
-                >
-                  Set metadata
-                </button>
-              </div>
-              <div>
-                <button onClick={() => actions.setMetadata({})}>
-                  Remove metadata
-                </button>
-              </div>
-            </Section>
-            <Section>
-              <h2>Products:</h2>
-              <List>
-                {this.state.products.slice(0, 1).map(v => (
-                  <Item key={v.reference}>
-                    <img src={v.product_image_resized} alt={v.name} />
-                    <div>{v.reference}</div>
-                    <div>
-                      Price: {v.unit_price}
-                      ,-
-                    </div>
-                    <Add>
-                      <div>
-                        <button
-                          onClick={() => {
-                            actions.addItem(v);
-                            actions.animateItem(v);
-                          }}
-                        >
-                          Add to basket
-                        </button>
-                        <button
-                          onClick={() => {
-                            const item = {
-                              ...v,
-                              subscription: {
-                                name: 'Hvert kvartal',
-                                initial_price: 98,
-                                renewal_price: 98,
-                                initial_period_unit: 'weeks',
-                                initial_period: 1,
-                                duration: 3,
-                                duration_unit: 'months',
-                                renewal_term: '{ }',
-                                cancellation_term: '{ }',
-                                variationplan_id: 61
-                              }
-                            };
-                            actions.addItem(testItem);
-                            actions.animateItem(testItem);
-                          }}
-                        >
-                          Add to basket with subscription
-                        </button>
-                      </div>
-                    </Add>
-                  </Item>
-                ))}
-              </List>
-              <hr />
-              <button onClick={actions.empty}>Empty basket</button>
-            </Section>
-          </Outer>
-        )}
-      </BasketConsumer>
+                })
+              }
+            >
+              Set metadata
+            </button>
+          </div>
+          <div>
+            <button type="button" onClick={() => actions.setMetadata({})}>
+              Remove metadata
+            </button>
+          </div>
+        </Section>
+        <Section>
+          <h2>Products:</h2>
+          <List>
+            {this.state.products.slice(0, 1).map(v => (
+              <Item key={v.reference}>
+                <img src={v.product_image_resized} alt={v.name} />
+                <div>{v.reference}</div>
+                <div>
+                  Price: {v.unit_price}
+                  ,-
+                </div>
+                <Add>
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        actions.addItem(v);
+                        actions.animateItem(v);
+                      }}
+                    >
+                      Add to basket
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const item = {
+                          ...v,
+                          subscription: {
+                            name: 'Hvert kvartal',
+                            initial_price: 98,
+                            renewal_price: 98,
+                            initial_period_unit: 'weeks',
+                            initial_period: 1,
+                            duration: 3,
+                            duration_unit: 'months',
+                            renewal_term: '{ }',
+                            cancellation_term: '{ }',
+                            variationplan_id: 61
+                          }
+                        };
+                        actions.addItem(testItem);
+                        actions.animateItem(testItem);
+                      }}
+                    >
+                      Add to basket with subscription
+                    </button>
+                  </div>
+                </Add>
+              </Item>
+            ))}
+          </List>
+          <hr />
+          <button type="button" onClick={actions.empty}>
+            Empty basket
+          </button>
+        </Section>
+      </Outer>
     );
   }
 }

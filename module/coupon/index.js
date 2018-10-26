@@ -122,7 +122,6 @@ class CouponInner extends React.Component {
           <Input
             id={id}
             ref={this.getInputRef}
-            innerRef={this.getInputRef}
             value={coupon}
             onChange={this.onCouponChange}
             onKeyPress={this.onCouponKeyPress}

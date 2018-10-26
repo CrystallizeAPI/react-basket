@@ -53,25 +53,24 @@ class BasketProviderComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    let shipping = null;
     if (props.defaultShipping) {
-      shipping = BasketProviderComponent.createShippingBasketItem(
+      this.state.shipping = BasketProviderComponent.createShippingBasketItem(
         props.defaultShipping
       );
     }
-
-    this.state = {
-      ready: false,
-      items: [],
-      options: {},
-      validating: false,
-      validatingNewCoupon: false,
-      coupon: null,
-      discount: null,
-      shipping,
-      metadata: {}
-    };
   }
+
+  state = {
+    ready: false,
+    items: [],
+    options: {},
+    validating: false,
+    validatingNewCoupon: false,
+    coupon: null,
+    discount: null,
+    shipping: null,
+    metadata: {}
+  };
 
   onReadyQueue = [];
   itemAnimationTimeouts = [];
