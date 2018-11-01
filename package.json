@@ -8,7 +8,7 @@
     "node": ">=8"
   },
   "repository": {
-    "url": "git@github.com:snowballdigital/react-basket.git",
+    "url": "git@github.com:CrystallizeAPI/react-basket.git",
     "type": "git"
   },
   "main": "dist/index.js",
