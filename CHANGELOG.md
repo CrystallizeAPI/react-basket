@@ -1,3 +1,11 @@
+## 5.0.0 (2018-11-01)
+
+* Fixed lint error ([306127f](https://github.com/CrystallizeAPI/react-basket/commit/306127f))
+* New git url ([0a7c3bc](https://github.com/CrystallizeAPI/react-basket/commit/0a7c3bc))
+* Updated i18next version ([d3e61be](https://github.com/CrystallizeAPI/react-basket/commit/d3e61be))
+
+
+
 ## <small>4.0.1 (2018-10-26)</small>
 
 * Fixes for the react-i18next hoc ([16bb729](https://github.com/snowballdigital/react-basket/commit/16bb729))
