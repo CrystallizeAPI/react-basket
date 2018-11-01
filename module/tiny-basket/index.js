@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 import posed, { PoseGroup } from 'react-pose';
 import styled from 'styled-components';
 
@@ -100,6 +100,6 @@ class TinyBasketInner extends React.Component {
   }
 }
 
-export const TinyBasket = translate(['common', 'basket'])(props => (
+export const TinyBasket = withNamespaces(['common', 'basket'])(props => (
   <TinyBasketInner {...props} />
 ));

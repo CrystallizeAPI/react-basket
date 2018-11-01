@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { BasketContext } from '../context';
 import { Coupon } from '../coupon';
@@ -82,6 +82,6 @@ export default class TotalsInner extends React.Component {
   }
 }
 
-export const Totals = translate(['common', 'basket'])(props => (
+export const Totals = withNamespaces(['common', 'basket'])(props => (
   <TotalsInner {...props} />
 ));

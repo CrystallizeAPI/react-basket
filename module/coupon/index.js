@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate } from 'react-i18next';
+import { withNamespaces } from 'react-i18next';
 
 import { BasketContext } from '../context';
 import { generateUniqueId, validateBasket } from '../helpers';
@@ -159,6 +159,6 @@ class CouponInner extends React.Component {
   }
 }
 
-export const Coupon = translate(['common', 'basket'])(props => (
+export const Coupon = withNamespaces(['common', 'basket'])(props => (
   <CouponInner {...props} />
 ));
