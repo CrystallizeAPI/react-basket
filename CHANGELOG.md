@@ -1,3 +1,9 @@
+## <small>5.1.1 (2018-11-01)</small>
+
+* Bugfix for removing coupon ([85394d4](https://github.com/CrystallizeAPI/react-basket/commit/85394d4))
+
+
+
 ## 5.1.0 (2018-11-01)
 
 * Enable remove coupon ([fcda8fa](https://github.com/CrystallizeAPI/react-basket/commit/fcda8fa))
