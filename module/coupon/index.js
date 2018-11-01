@@ -35,7 +35,7 @@ class CouponInner extends React.Component {
     }
   };
 
-  register = async () => {
+  updateCoupon = async coupon => {
     const { t } = this.props;
     const { actions, state, options } = this.context;
 
@@ -47,19 +47,6 @@ class CouponInner extends React.Component {
     } = actions;
     const { items } = state;
     const { validateEndpoint } = options;
-
-    const { coupon } = this.state;
-
-    if (!coupon) {
-      if (this.inputRef && this.inputRef.focus) {
-        this.inputRef.focus();
-      }
-
-      this.setState({
-        feedback: t('basket:fillOutCoupon')
-      });
-      return;
-    }
 
     this.setState({
       feedback: null
@@ -93,6 +80,30 @@ class CouponInner extends React.Component {
     setValidatingNewCoupon(false);
   };
 
+  register = async () => {
+    const { t } = this.props;
+    const { coupon } = this.state;
+
+    if (!coupon) {
+      if (this.inputRef && this.inputRef.focus) {
+        this.inputRef.focus();
+      }
+
+      this.setState({
+        feedback: t('basket:fillOutCoupon')
+      });
+      return;
+    }
+
+    this.updateCoupon(coupon);
+  };
+
+  unregister = () => {
+    this.setState({ coupon: null }, () => {
+      this.updateCoupon(null);
+    });
+  };
+
   showInput = () =>
     this.setState({ showInput: true }, () => {
       if (this.inputRef && this.inputRef.focus) {
@@ -111,7 +122,19 @@ class CouponInner extends React.Component {
 
     // A coupon has already been registered
     if (state.coupon) {
-      return null;
+      return (
+        <Outer>
+          <ButtonRegisterWrap>
+            <ButtonRegister
+              type="button"
+              onClick={this.unregister}
+              disabled={validatingNewCoupon}
+            >
+              {t('basket:unregisterCoupon', state)}
+            </ButtonRegister>
+          </ButtonRegisterWrap>
+        </Outer>
+      );
     }
 
     if (showInput) {
