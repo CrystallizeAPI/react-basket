@@ -1,3 +1,9 @@
+## 5.1.0 (2018-11-01)
+
+* Enable remove coupon ([fcda8fa](https://github.com/CrystallizeAPI/react-basket/commit/fcda8fa))
+
+
+
 ## 5.0.0 (2018-11-01)
 
 * Fixed lint error ([306127f](https://github.com/CrystallizeAPI/react-basket/commit/306127f))
