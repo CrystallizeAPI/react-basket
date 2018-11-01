@@ -14,10 +14,11 @@ export default {
     globals: {
       react: 'React',
       'react-dom': 'ReactDOM',
-      'styled-components': 'StyledComponents'
+      'styled-components': 'styled',
+      'react-i18next': 'reactI18nextModule'
     }
   },
-  external: ['react', 'react-dom', 'styled-components'],
+  external: ['react', 'react-dom', 'styled-components', 'react-i18next'],
   plugins: [
     resolve({
       browser: true,
@@ -29,7 +30,10 @@ export default {
       include: 'node_modules/**'
     }),
     babel({
-      exclude: 'node_modules/**'
+      exclude: 'node_modules/**',
+      runtimeHelpers: true,
+      presets: ['@babel/preset-env', '@babel/preset-react'],
+      plugins: ['@babel/plugin-proposal-class-properties']
     })
   ]
 };

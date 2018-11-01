@@ -19,9 +19,7 @@
     "test": "NODE_ENV=test jest",
     "lint": "eslint ./module",
     "validate": "npm-run-all lint",
-    "build": "yarn build:rollup",
-    "build:webpack": "webpack --mode=production",
-    "build:rollup": "rollup -c --sourcemap",
+    "build": "yarn rollup -c --sourcemap",
     "prepare": "yarn build"
   },
   "browserslist": [
@@ -162,14 +160,14 @@
     "styled-components": ">=4"
   },
   "dependencies": {
-    "@crystallize/react-image": "^2.1.0",
+    "@crystallize/react-image": "^2.3.0",
     "body-parser": "^1.18.2",
     "bounce": "^1.2.0",
     "cross-fetch": "^2.1.0",
     "isarray": "^2.0.4",
     "localforage": "^1.6.0",
     "prop-types": "^15.6.0",
-    "react-pose": "^3.2.1",
+    "react-pose": "3.3.7",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
@@ -188,7 +186,6 @@
     "dotenv": "^5.0.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.6.0",
-    "es6-promise": "^4.2.2",
     "eslint": "^5.5.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.0.1",
@@ -214,6 +211,6 @@
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^3.4.0",
-    "styled-components": "^4.0.2"
+    "styled-components": "^4.0.3"
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
-import posed, { PoseGroup } from 'react-pose';
+import { translate } from 'react-i18next';
+// import posed, { PoseGroup } from 'react-pose';
 import styled from 'styled-components';
 
 import { BasketContext } from '../context';
@@ -16,12 +16,12 @@ import {
   RemainingUntilFreeShipping
 } from './styles';
 
-const PosedItem = posed.li({
-  enter: { opacity: 1, scale: 1 },
-  exit: { opacity: 0, scale: 0.5 }
-});
+// const PosedItem = posed.li({
+//   enter: { opacity: 1, scale: 1 },
+//   exit: { opacity: 0, scale: 0.5 }
+// });
 
-const StyledPosedItem = styled(PosedItem).attrs({
+const StyledPosedItem = styled.li.attrs({
   className: p =>
     `crystallize-basket__item${
       p.subscription ? ' crystallize-basket__item--has-subscription' : ''
@@ -69,18 +69,18 @@ class TinyBasketInner extends React.Component {
     return (
       <Outer>
         <Items>
-          <PoseGroup>
-            {items.map(item => (
-              <StyledPosedItem key={item.basketId} item={item}>
-                <ItemCmp
-                  actions={actions}
-                  item={item}
-                  t={t}
-                  itemImageSizes={itemImageSizes}
-                />
-              </StyledPosedItem>
-            ))}
-          </PoseGroup>
+          {/* <PoseGroup> */}
+          {items.map(item => (
+            <StyledPosedItem key={item.basketId} item={item}>
+              <ItemCmp
+                actions={actions}
+                item={item}
+                t={t}
+                itemImageSizes={itemImageSizes}
+              />
+            </StyledPosedItem>
+          ))}
+          {/* </PoseGroup> */}
         </Items>
 
         {!hideTotals && (
@@ -100,6 +100,6 @@ class TinyBasketInner extends React.Component {
   }
 }
 
-export const TinyBasket = withNamespaces(['common', 'basket'])(props => (
+export const TinyBasket = translate(['common', 'basket'])(props => (
   <TinyBasketInner {...props} />
 ));

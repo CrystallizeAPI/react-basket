@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 import uuid from 'uuid/v1';
-import { withNamespaces } from 'react-i18next';
+import { translate } from 'react-i18next';
 
 import * as helpers from './helpers';
 import { retrieveBasketFromCache, persistBasketToCache } from './cache';
@@ -493,7 +493,7 @@ class BasketProviderComponent extends React.Component {
   }
 }
 
-export const BasketProvider = withNamespaces(['common', 'basket'])(
+export const BasketProvider = translate(['common', 'basket'])(
   BasketProviderComponent
 );
 
