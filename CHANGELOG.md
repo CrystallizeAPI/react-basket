@@ -1,3 +1,9 @@
+## <small>5.1.2 (2018-11-01)</small>
+
+* Bugfix for i18next ([607f2bf](https://github.com/CrystallizeAPI/react-basket/commit/607f2bf))
+
+
+
 ## <small>5.1.1 (2018-11-01)</small>
 
 * Bugfix for removing coupon ([85394d4](https://github.com/CrystallizeAPI/react-basket/commit/85394d4))
