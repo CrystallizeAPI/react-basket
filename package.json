@@ -155,10 +155,10 @@
     "dist"
   ],
   "peerDependencies": {
-    "i18next": "^12.0.0",
+    "i18next": "^11.0.0",
     "react": ">=16.4.0",
     "react-dom": ">=16.4.0",
-    "react-i18next": "^8.3.5",
+    "react-i18next": "^7.0.0",
     "styled-components": ">=4"
   },
   "dependencies": {
@@ -201,7 +201,7 @@
     "faker": "^4.1.0",
     "helmet": "^3.10.0",
     "husky": "^0.14.3",
-    "i18next": "^12.0.0",
+    "i18next": "^11.10.2",
     "jest": "^23.5.0",
     "next": "^7.0.2",
     "npm-run-all": "^4.1.2",
@@ -209,7 +209,7 @@
     "react": "^16.6.0",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.6.0",
-    "react-i18next": "^8.3.5",
+    "react-i18next": "^7.13.0",
     "rollup": "^0.66.6",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.2.0",

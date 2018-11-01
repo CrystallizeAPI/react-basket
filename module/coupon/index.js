@@ -35,8 +35,9 @@ class CouponInner extends React.Component {
     }
   };
 
-  updateCoupon = async coupon => {
+  updateCoupon = async () => {
     const { t } = this.props;
+    const { coupon } = this.state;
     const { actions, state, options } = this.context;
 
     const {
@@ -56,7 +57,7 @@ class CouponInner extends React.Component {
 
     try {
       const result = await validateBasket({
-        items,
+        items: items.map(({ discount_rate, discount_value, ...item }) => item),
         coupon,
         validateEndpoint
       });
@@ -95,13 +96,14 @@ class CouponInner extends React.Component {
       return;
     }
 
-    this.updateCoupon(coupon);
+    this.updateCoupon();
   };
 
   unregister = () => {
-    this.setState({ coupon: null }, () => {
-      this.updateCoupon(null);
-    });
+    this.setState(
+      { coupon: '', showInput: false, feedback: null },
+      this.updateCoupon
+    );
   };
 
   showInput = () =>
