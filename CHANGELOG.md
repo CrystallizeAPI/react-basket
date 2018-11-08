@@ -1,3 +1,9 @@
+## 5.2.0 (2018-11-08)
+
+* Re-introduce react-pose ([5dbb830](https://github.com/CrystallizeAPI/react-basket/commit/5dbb830))
+
+
+
 ## <small>5.1.2 (2018-11-01)</small>
 
 * Bugfix for i18next ([607f2bf](https://github.com/CrystallizeAPI/react-basket/commit/607f2bf))
