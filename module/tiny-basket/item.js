@@ -183,16 +183,15 @@ export default class TinyBasketItem extends React.Component {
             <ItemName>
               {isSubscription ? item.subscriptionName : item.name}
             </ItemName>
-            {attributes &&
-              attributes.length > 0 && (
-                <Attributes>
-                  {attributes.map(a => (
-                    <Attribute key={a.attribute_key}>
-                      {a.attribute_key}: {a.attribute_value}
-                    </Attribute>
-                  ))}
-                </Attributes>
-              )}
+            {attributes && attributes.length > 0 && (
+              <Attributes>
+                {attributes.map(a => (
+                  <Attribute key={a.attribute_key}>
+                    {a.attribute_key}: {a.attribute_value}
+                  </Attribute>
+                ))}
+              </Attributes>
+            )}
             {isSubscription ? (
               <SubInfoOuter>
                 <SubInfoLine>{item.subscriptionInitialInfo}</SubInfoLine>
