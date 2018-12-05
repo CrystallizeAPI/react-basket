@@ -1,3 +1,9 @@
+## 5.3.0 (2018-12-05)
+
+* Update README.md ([fef9442](https://github.com/CrystallizeAPI/react-basket/commit/fef9442))
+
+
+
 ## 5.2.0 (2018-11-08)
 
 * Re-introduce react-pose ([5dbb830](https://github.com/CrystallizeAPI/react-basket/commit/5dbb830))
