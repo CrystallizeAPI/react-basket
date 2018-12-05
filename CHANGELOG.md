@@ -1,3 +1,9 @@
+## 5.4.0 (2018-12-05)
+
+* Updated deps ([37cb9a0](https://github.com/CrystallizeAPI/react-basket/commit/37cb9a0))
+
+
+
 ## 5.3.0 (2018-12-05)
 
 * Update README.md ([fef9442](https://github.com/CrystallizeAPI/react-basket/commit/fef9442))
