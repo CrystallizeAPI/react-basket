@@ -2,7 +2,7 @@
 
 # react-basket
 
-Shopping basket compatible with Crystallize
+Shopping basket compatible with the [Crystallize headless ecommerce GraphQL service](https://crystallize.com/).
 
 ## Usage
 
