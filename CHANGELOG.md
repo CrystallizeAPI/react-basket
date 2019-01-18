@@ -1,3 +1,9 @@
+## <small>5.4.1 (2019-01-18)</small>
+
+* Respect subscription item initial_price ([8e91bb2](https://github.com/CrystallizeAPI/react-basket/commit/8e91bb2))
+
+
+
 ## 5.4.0 (2018-12-05)
 
 * Updated deps ([37cb9a0](https://github.com/CrystallizeAPI/react-basket/commit/37cb9a0))
