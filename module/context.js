@@ -173,10 +173,13 @@ class BasketProviderComponent extends React.Component {
     const { freeShippingMinimumPurchaseAmount = -1 } = options;
 
     const totalQuantity = items.reduce((acc, i) => acc + i.quantity, 0);
-    const totalPrice = items.reduce(
-      (acc, i) => acc + i.quantity * i.unit_price,
-      0
-    );
+
+    const totalPrice = items.reduce((acc, i) => {
+      const p =
+        i.quantity *
+        (i.subscription ? i.subscription.initial_price : i.unit_price);
+      return acc + p;
+    }, 0);
 
     const totalPriceMinusDiscount = totalPrice - Math.abs(discount || 0);
 
