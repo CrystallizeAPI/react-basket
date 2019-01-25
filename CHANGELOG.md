@@ -1,3 +1,9 @@
+## 5.5.0 (2019-01-25)
+
+* Added item class for subscr. ([8c071f5](https://github.com/CrystallizeAPI/react-basket/commit/8c071f5))
+
+
+
 ## <small>5.4.1 (2019-01-18)</small>
 
 * Respect subscription item initial_price ([8e91bb2](https://github.com/CrystallizeAPI/react-basket/commit/8e91bb2))
