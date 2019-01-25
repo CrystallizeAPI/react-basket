@@ -24,10 +24,14 @@ const animationItemHighlight = keyframes`
 
 const Item = styled.div.attrs({
   className: p => {
-    const b = `crystallize-basket__item-inner`;
+    let b = `crystallize-basket__item-inner`;
     if (p.animate) {
-      return `${b} ${b}--animate`;
+      b += ` ${b}--animate`;
     }
+    if (p.isSubscription) {
+      b += ` ${b}--subscription`;
+    }
+
     return b;
   }
 })`
