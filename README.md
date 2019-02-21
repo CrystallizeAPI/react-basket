@@ -4,6 +4,8 @@
 
 Shopping basket compatible with the [Crystallize headless ecommerce GraphQL service](https://crystallize.com/).
 
+Crystallize is a GraphQL based [PIM](https://crystallize.com/product/product-information-management) powered by (FAST APIs)[https://crystallize.com/product/graphql-commerce-api]
+
 ## Usage
 
 ```
@@ -101,8 +103,8 @@ The state object contains:
 - addItem (add an item)
 - setItems (set all the basket items in one go)
 - removeItem (remove an item)
-- incrementQuantityItem (incremenet the quantity for a given item)
-- decrementQuantityItem (decremenet the quantity for a given item)
+- incrementQuantityItem (increment the quantity for a given item)
+- decrementQuantityItem (decrement the quantity for a given item)
 - parseBasketItem (takes a product and a variant model and returns a valid basket item)
 - setValidating (set the validating flag (found in state))
 - setValidatingNewCoupon (set validatingNewCoupon flag (found in state))
