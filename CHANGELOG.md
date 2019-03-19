@@ -1,3 +1,11 @@
+## 5.6.0 (2019-03-19)
+
+* Set correct price display for subscriptions ([52c1876](https://github.com/CrystallizeAPI/react-basket/commit/52c1876))
+* Update README.md ([98b50cb](https://github.com/CrystallizeAPI/react-basket/commit/98b50cb))
+* Updated styled-components attrs def ([23cc704](https://github.com/CrystallizeAPI/react-basket/commit/23cc704))
+
+
+
 ## 5.5.0 (2019-01-25)
 
 * Added item class for subscr. ([8c071f5](https://github.com/CrystallizeAPI/react-basket/commit/8c071f5))
