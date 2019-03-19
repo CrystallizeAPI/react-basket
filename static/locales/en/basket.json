@@ -20,6 +20,6 @@
   "fillOutCoupon": "Please input a coupon",
   "removeItemFromBasket": "Remove {{name}} from basket",
   "subscriptionItemName": "Subscription for {{name}} ({{subscription.name, lowercase}})",
-  "subscriptionInitialInfo": "Første levering kr {{initial_price}},- ({{initial_period}} $t({{initial_period_unit}}, { 'count': {{initial_period}} }))",
-  "subscriptionRenewalInfo": "Fornyelsespris kr {{renewal_price}},- ({{duration}} $t({{duration_unit}}, { 'count': {{duration}} }))"
+  "subscriptionInitialInfo": "Første levering kr {{initial_price_display}},- ({{initial_period}} $t({{initial_period_unit}}, { 'count': {{initial_period}} }))",
+  "subscriptionRenewalInfo": "Fornyelsespris kr {{renewal_price_display}},- ({{duration}} $t({{duration_unit}}, { 'count': {{duration}} }))"
 }

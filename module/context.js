@@ -107,11 +107,18 @@ class BasketProviderComponent extends React.Component {
     let subscriptionInitialInfo;
     let subscriptionRenewalInfo;
     if (item.subscription) {
+      item.subscription.initial_price_display =
+        item.subscription.initial_price * (item.quantity || 1);
+      item.subscription.renewal_price_display =
+        item.subscription.renewal_price * (item.quantity || 1);
+
       subscriptionName = t('basket:subscriptionItemName', item);
+
       subscriptionInitialInfo = t(
         'basket:subscriptionInitialInfo',
         item.subscription
       );
+
       subscriptionRenewalInfo = t(
         'basket:subscriptionRenewalInfo',
         item.subscription
@@ -126,14 +133,14 @@ class BasketProviderComponent extends React.Component {
         return item.sku;
       },
       name,
-      subscriptionName,
       unit_price: ensureProperty('unit_price', item.price_ex_vat || 0),
       reference: sku,
       sku,
       quantity: 1,
+      ...item,
+      subscriptionName,
       subscriptionInitialInfo,
-      subscriptionRenewalInfo,
-      ...item
+      subscriptionRenewalInfo
     };
   };
 
@@ -290,6 +297,8 @@ class BasketProviderComponent extends React.Component {
 
       if (itemInBasket.quantity === 0) {
         items.splice(index, 1);
+      } else {
+        items[index] = this.parseBasketItem(itemInBasket);
       }
 
       this.setState({
