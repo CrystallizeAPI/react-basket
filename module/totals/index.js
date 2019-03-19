@@ -52,12 +52,11 @@ export default class TotalsInner extends React.Component {
             <span>{t('basket:shipping', state)}:</span>
             {freeShipping ? (
               <span>
-                {shipping &&
-                  shipping.unit_price > 0 && (
-                    <StrikeThrough>
-                      {t('currency', { amount: shipping.unit_price })}
-                    </StrikeThrough>
-                  )}{' '}
+                {shipping && shipping.unit_price > 0 && (
+                  <StrikeThrough>
+                    {t('currency', { amount: shipping.unit_price })}
+                  </StrikeThrough>
+                )}{' '}
                 {t('currency', { amount: 0 })}
               </span>
             ) : (

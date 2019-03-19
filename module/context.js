@@ -107,10 +107,12 @@ class BasketProviderComponent extends React.Component {
     let subscriptionInitialInfo;
     let subscriptionRenewalInfo;
     if (item.subscription) {
+      /* eslint-disable */
       item.subscription.initial_price_display =
         item.subscription.initial_price * (item.quantity || 1);
       item.subscription.renewal_price_display =
         item.subscription.renewal_price * (item.quantity || 1);
+      /* eslint-enable */
 
       subscriptionName = t('basket:subscriptionItemName', item);
 

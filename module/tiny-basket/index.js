@@ -66,8 +66,6 @@ class TinyBasketInner extends React.Component {
       );
     }
 
-    console.log(items);
-
     return (
       <Outer>
         <Items>
