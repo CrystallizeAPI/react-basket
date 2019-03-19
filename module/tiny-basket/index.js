@@ -21,12 +21,11 @@ const PosedItem = posed.li({
   exit: { opacity: 0, scale: 0.5 }
 });
 
-const StyledPosedItem = styled(PosedItem).attrs({
-  className: p =>
-    `crystallize-basket__item${
-      p.subscription ? ' crystallize-basket__item--has-subscription' : ''
-    }`
-})`
+const StyledPosedItem = styled(PosedItem).attrs(p => ({
+  className: `crystallize-basket__item${
+    p.subscription ? ' crystallize-basket__item--has-subscription' : ''
+  }`
+}))`
   display: block;
   margin: 0;
 `;

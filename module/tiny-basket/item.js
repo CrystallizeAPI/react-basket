@@ -22,24 +22,27 @@ const animationItemHighlight = keyframes`
     }
   `;
 
-const Item = styled.div.attrs({
-  className: p => {
-    let b = `crystallize-basket__item-inner`;
-    if (p.animate) {
-      b += ` ${b}--animate`;
-    }
-    if (p.isSubscription) {
-      b += ` ${b}--subscription`;
-    }
+const Item = styled.div.attrs(p => {
+  const base = `crystallize-basket__item-inner`;
+  let className = base;
 
-    return b;
+  if (p.animate) {
+    className += ` ${base}--animate`;
   }
+  if (p.isSubscription) {
+    className += ` ${base}--subscription`;
+  }
+
+  return {
+    className
+  };
 })`
   display: grid;
   grid-template-columns: 3fr 1fr;
   padding: 15px 20px;
   border-bottom: 1px solid #eee;
   position: relative;
+
   ${p =>
     p.animate &&
     css`
@@ -47,48 +50,48 @@ const Item = styled.div.attrs({
     `};
 `;
 
-const ItemInfo = styled.span.attrs({
+const ItemInfo = styled.span.attrs(() => ({
   className: 'crystallize-basket__item-info'
-})`
+}))`
   display: flex;
   align-items: center;
 `;
 
-const ItemInfoText = styled.div.attrs({
+const ItemInfoText = styled.div.attrs(() => ({
   className: 'crystallize-basket__item-info-text'
-})``;
+}))``;
 
-const ItemImage = styled(CrystallizeImage).attrs({
+const ItemImage = styled(CrystallizeImage).attrs(() => ({
   className: 'crystallize-basket__item-image'
-})`
+}))`
   width: 50px;
   margin-right: 10px;
 `;
 
-const ItemName = styled.div.attrs({
+const ItemName = styled.div.attrs(() => ({
   className: 'crystallize-basket__item-name'
-})``;
+}))``;
 
-const ItemQuantityChanger = styled.span.attrs({
+const ItemQuantityChanger = styled.span.attrs(() => ({
   className: 'crystallize-basket__item-quantity-changer'
-})`
+}))`
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-const ItemQuantity = styled.span.attrs({
+const ItemQuantity = styled.span.attrs(() => ({
   className: 'crystallize-basket__item-quantity'
-})`
+}))`
   display: inline-block;
   margin: 0 3px;
   min-width: 23px;
   text-align: center;
 `;
 
-const ItemDelete = styled.button.attrs({
+const ItemDelete = styled.button.attrs(() => ({
   className: 'crystallize-basket__item-delete'
-})`
+}))`
   position: absolute;
   top: 2px;
   right: 2px;
@@ -102,46 +105,45 @@ const ItemDelete = styled.button.attrs({
   }
 `;
 
-const Attributes = styled.div.attrs({
+const Attributes = styled.div.attrs(() => ({
   className: 'crystallize-basket__item-attributes'
-})`
+}))`
   margin-top: 5px;
   font-size: 0.8rem;
 `;
-const Attribute = styled.div.attrs({
+const Attribute = styled.div.attrs(() => ({
   className: 'crystallize-basket__item-attribute'
-})``;
+}))``;
 
-const PriceWrap = styled.div.attrs({
+const PriceWrap = styled.div.attrs(() => ({
   className: `crystallize-basket__item-price-wrap`
-})`
+}))`
   display: flex;
   margin-top: 5px;
 `;
 
-const Price = styled.div.attrs({
-  className: p =>
-    `crystallize-basket__item-price crystallize-basket__item-price--original ${p.isDiscounted &&
-      'crystallize-basket__item-price--original-discounted'}`
-})`
+const Price = styled.div.attrs(p => ({
+  className: `crystallize-basket__item-price crystallize-basket__item-price--original ${p.isDiscounted &&
+    'crystallize-basket__item-price--original-discounted'}`
+}))`
   ${p => p.isDiscounted && 'text-decoration: line-through'};
 `;
 
-const PriceDiscounted = styled.div.attrs({
+const PriceDiscounted = styled.div.attrs(() => ({
   className: `crystallize-basket__item-price crystallize-basket__item-price--discounted`
-})`
+}))`
   margin-left: 10px;
 `;
 
-export const SubInfoOuter = styled.div.attrs({
+export const SubInfoOuter = styled.div.attrs(() => ({
   className: 'crystallize-basket__item-subscription'
-})`
+}))`
   font-size: 0.8rem;
 `;
 
-export const SubInfoLine = styled.div.attrs({
+export const SubInfoLine = styled.div.attrs(() => ({
   className: 'crystallize-basket__item-subscription-line'
-})`
+}))`
   margin-top: 5px;
 `;
 
