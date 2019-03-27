@@ -210,7 +210,9 @@ export default class TinyBasketItem extends React.Component {
                 <SubInfoLine>{item.subscriptionInitialInfo}</SubInfoLine>
                 <SubInfoLine>{item.subscriptionRenewalInfo}</SubInfoLine>
               </SubInfoOuter>
-            ) : (
+            )
+              :
+              (
                 <PriceWrap>
                   <Price isDiscounted={isDiscounted}>
                     {t('currency', { amount: item.unit_price })}
@@ -221,7 +223,8 @@ export default class TinyBasketItem extends React.Component {
                     </PriceDiscounted>
                   )}
                 </PriceWrap>
-              )}
+              )
+            }
             <PriceVat>
               <span>{t('basket:itemVat', { amount: item.vat.toFixed(2) })}</span>
             </PriceVat>
