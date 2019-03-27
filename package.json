@@ -18,7 +18,7 @@
     "start": "NODE_ENV=production node server/index.js",
     "test": "NODE_ENV=test jest",
     "lint": "eslint ./module",
-    "validate": "npm run test && lint-staged",
+    "validate": "lint-staged",
     "build": "yarn rollup -c --sourcemap",
     "prepare": "yarn build"
   },
