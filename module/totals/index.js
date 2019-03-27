@@ -60,11 +60,14 @@ export default class TotalsInner extends React.Component {
                 )}{' '}
                 {t('currency', { amount: 0 })}
               </span>
-            ) : (
+            )
+              :
+              (
                 <span>
                   {t('currency', { amount: shipping ? shipping.unit_price : 0 })}
                 </span>
-              )}
+              )
+            }
           </Row>
           <Row hideValue={validating} modifier="total-vat">
             <span>{t('basket:totalVatAmount', state)}:</span>
