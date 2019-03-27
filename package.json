@@ -18,7 +18,7 @@
     "start": "NODE_ENV=production node server/index.js",
     "test": "NODE_ENV=test jest",
     "lint": "eslint ./module",
-    "validate": "npm-run-all lint",
+    "validate": "npm run test && lint-staged",
     "build": "yarn rollup -c --sourcemap",
     "prepare": "yarn build"
   },
@@ -158,6 +158,11 @@
     "react-dom": ">=16.4.0",
     "react-i18next": "^7.0.0",
     "styled-components": ">=4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run validate"
+    }
   },
   "lint-staged": {
     "*.js": [
