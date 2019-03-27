@@ -135,6 +135,11 @@ const PriceDiscounted = styled.div.attrs(() => ({
   margin-left: 10px;
 `;
 
+const PriceVat = styled.div.attrs(() => ({
+  className: `crystallize-basket__item-price crystallize-basket__item-vat`
+}))`
+`;
+
 export const SubInfoOuter = styled.div.attrs(() => ({
   className: 'crystallize-basket__item-subscription'
 }))`
@@ -181,7 +186,8 @@ export default class TinyBasketItem extends React.Component {
       <Item animate={item.animate} isSubscription={isSubscription}>
         <ItemInfo>
           <ItemImage
-            src={item.product_image}
+            src={item.product_image || item.placeholder_image}
+            onError={(e) => { e.target.onerror = null; e.target.src = item.placeholder_image }}
             alt={item.name}
             sizes={itemImageSizes}
           />
@@ -204,17 +210,20 @@ export default class TinyBasketItem extends React.Component {
                 <SubInfoLine>{item.subscriptionRenewalInfo}</SubInfoLine>
               </SubInfoOuter>
             ) : (
-              <PriceWrap>
-                <Price isDiscounted={isDiscounted}>
-                  {t('currency', { amount: item.unit_price })}
-                </Price>
-                {isDiscounted && (
-                  <PriceDiscounted>
-                    {t('currency', { amount: discountedPrice })}
-                  </PriceDiscounted>
-                )}
-              </PriceWrap>
-            )}
+                <PriceWrap>
+                  <Price isDiscounted={isDiscounted}>
+                    {t('currency', { amount: item.unit_price })}
+                  </Price>
+                  {isDiscounted && (
+                    <PriceDiscounted>
+                      {t('currency', { amount: discountedPrice })}
+                    </PriceDiscounted>
+                  )}
+                </PriceWrap>
+              )}
+            <PriceVat>
+              <span>{t('basket:itemVat', { amount: item.vat.toFixed(2) })}</span>
+            </PriceVat>
           </ItemInfoText>
         </ItemInfo>
         <ItemQuantityChanger>

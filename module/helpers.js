@@ -38,28 +38,30 @@ export function createBasketItem({
   subscription
 }) {
   if (!masterProduct) {
-    /* eslint-disable */
-    console.error('Could not the create basket item without a master product!');
-    /* eslint-enable */
-    return {};
+    throw new Error('Could not the create basket item without a master product!');
+  } else if (!variant) {
+    throw new Error('Product variant must be provided while creating a basket item');
   }
 
-  function getPriceWithVAT(price) {
-    const vat = isNaN(masterProduct.vat) ? 0 : masterProduct.vat;
-    return price * (1 + (vat || 0) / 100);
+  function getPriceWithVAT(priceWithVat) {
+    const { vatType } = masterProduct;
+    const vatPercent =
+      vatType.percent && vatType.percent === 0 ? 0 : vatType.percent;
+    return {
+      priceWithoutVat: priceWithVat / (1 + vatPercent / 100),
+      vatAmount: priceWithVat - (priceWithVat / (1 + vatPercent / 100))
+    };
   }
 
   let vat = 0;
-  if ('vat' in masterProduct) {
-    ({ vat } = masterProduct);
-    if (isArray(vat)) {
-      [vat] = vat;
-    }
-    if (isNaN(vat) && vat) {
-      vat = vat.percentage;
+  let vatType;
+  if (masterProduct && masterProduct.vatType) {
+    vatType = masterProduct.vatType;
+    if (isNaN(vatType.percent) && vatType && vatType.percent) {
+      vat = vatType.percent;
     }
 
-    if (isNaN(vat)) {
+    if (isNaN(vatType.percent) || vatType.percent === 0) {
       vat = 0;
     }
   }
@@ -67,42 +69,17 @@ export function createBasketItem({
   const basketItem = {
     masterId: masterProduct.id,
     name: masterProduct.name,
-    sku: `${masterProduct.sku}-standard`,
-    product_image: masterProduct.product_image,
-    product_image_resized: masterProduct.product_image_resized,
-    unit_price: getPriceWithVAT(masterProduct.price, vat),
+    sku: `${variant.sku}-standard`,
+    product_image: variant.image && variant.image.url ? variant.image.url : undefined,
+    unit_price: variant.price,
+    price_without_vat: getPriceWithVAT(variant.price).priceWithoutVat,
     attributes: [],
-    vat,
+    vat: getPriceWithVAT(variant.price).vatAmount,
     metadata,
-    subscription
+    subscription,
+    placeholder_image: variant.placeholder_image ? variant.placeholder_image : undefined
   };
 
-  if (!variant) {
-    /* eslint-disable */
-    console.warn(
-      'Creating basket item without a variant. Deferring to -standard'
-    );
-    /* eslint-enable */
-  } else {
-    Object.assign(basketItem, {
-      id: variant.id,
-      sku: variant.variation_sku,
-      attributes: variant.attributes
-    });
-
-    Object.assign(basketItem, {
-      unit_price: getPriceWithVAT(variant.price_ex_vat)
-    });
-
-    if (variant.image) {
-      Object.assign(basketItem, {
-        product_image: isArray(variant.image)
-          ? variant.image[0]
-          : variant.image,
-        product_image_resized: null
-      });
-    }
-  }
 
   basketItem.reference = basketItem.sku;
 
