@@ -159,6 +159,13 @@
     "react-i18next": "^7.0.0",
     "styled-components": ">=4"
   },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "dependencies": {
     "@crystallize/react-image": "^2.3.0",
     "body-parser": "^1.18.2",
