@@ -191,8 +191,8 @@ class BasketProviderComponent extends React.Component {
     }, 0);
 
     const totalVatAmount = items.reduce((acc, i) => {
-      const p = (i.quantity * (i.vat || 0));
-      return acc + p
+      const p = i.quantity * (i.vat || 0);
+      return acc + p;
     }, 0);
 
     const totalPriceMinusDiscount = totalPrice - Math.abs(discount || 0);

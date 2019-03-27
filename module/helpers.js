@@ -1,5 +1,4 @@
 import fetch from 'cross-fetch';
-import isArray from 'isarray';
 
 export const animationSpeedMs = 300;
 
@@ -38,9 +37,13 @@ export function createBasketItem({
   subscription
 }) {
   if (!masterProduct) {
+    /* eslint-disable */
     throw new Error('Could not the create basket item without a master product!');
+    /* eslint-enable */
   } else if (!variant) {
+    /* eslint-disable */
     throw new Error('Product variant must be provided while creating a basket item');
+    /* eslint-enable */
   }
 
   function getPriceWithVAT(priceWithVat) {
@@ -49,11 +52,15 @@ export function createBasketItem({
       vatType.percent && vatType.percent === 0 ? 0 : vatType.percent;
     return {
       priceWithoutVat: priceWithVat / (1 + vatPercent / 100),
+      /* eslint-disable */
       vatAmount: priceWithVat - (priceWithVat / (1 + vatPercent / 100))
+      /* eslint-enable */
     };
   }
 
+  /* eslint-disable */
   let vat = 0;
+  /* eslint-enable */
   let vatType;
   if (masterProduct && masterProduct.vatType) {
     vatType = masterProduct.vatType;

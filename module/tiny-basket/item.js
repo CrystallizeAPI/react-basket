@@ -137,8 +137,7 @@ const PriceDiscounted = styled.div.attrs(() => ({
 
 const PriceVat = styled.div.attrs(() => ({
   className: `crystallize-basket__item-price crystallize-basket__item-vat`
-}))`
-`;
+}));
 
 export const SubInfoOuter = styled.div.attrs(() => ({
   className: 'crystallize-basket__item-subscription'
@@ -187,7 +186,9 @@ export default class TinyBasketItem extends React.Component {
         <ItemInfo>
           <ItemImage
             src={item.product_image || item.placeholder_image}
-            onError={(e) => { e.target.onerror = null; e.target.src = item.placeholder_image }}
+            onError={e => {
+              e.target.onerror = null; e.target.src = item.placeholder_image
+            }}
             alt={item.name}
             sizes={itemImageSizes}
           />
