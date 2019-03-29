@@ -137,7 +137,9 @@ const PriceDiscounted = styled.div.attrs(() => ({
 
 const PriceVat = styled.div.attrs(() => ({
   className: `crystallize-basket__item-price crystallize-basket__item-vat`
-}));
+}))`
+display: block;
+`;
 
 export const SubInfoOuter = styled.div.attrs(() => ({
   className: 'crystallize-basket__item-subscription'
