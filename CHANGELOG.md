@@ -1,5 +1,13 @@
 ## 6.0.0 (2019-05-03)
 
+* Modifications to adapt to new schema ([d909980](https://github.com/CrystallizeAPI/react-basket/commit/d909980))
+* Release 6.0.0 ([fa262b8](https://github.com/CrystallizeAPI/react-basket/commit/fa262b8))
+* Removed react-i18next as dep. Added 't' as provider prop ([5431de0](https://github.com/CrystallizeAPI/react-basket/commit/5431de0))
+
+
+
+## 6.0.0 (2019-05-03)
+
 * Removed react-i18next as dep. Added 't' as provider prop ([5431de0](https://github.com/CrystallizeAPI/react-basket/commit/5431de0))
 
 
