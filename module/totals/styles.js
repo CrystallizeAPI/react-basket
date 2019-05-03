@@ -28,7 +28,7 @@ export const TotalsSpinner = styled.div.attrs(() => ({
 export const Row = styled.div.attrs(p => ({
   className: `crystallize-basket__totals-row crystallize-basket__totals-row--${
     p.modifier
-  }`
+    }`
 }))`
   display: grid;
   grid-template-columns: 2fr 1fr;

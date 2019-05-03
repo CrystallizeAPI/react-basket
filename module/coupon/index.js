@@ -175,9 +175,9 @@ export class Coupon extends React.Component {
 
     return (
       <Outer>
-        <ButtonToggle onClick={this.showInput}>
+        {/* <ButtonToggle onClick={this.showInput}>
           {t('basket:clickToAddCoupon')}
-        </ButtonToggle>
+        </ButtonToggle> */}
       </Outer>
     );
   }
