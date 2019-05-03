@@ -1,6 +1,5 @@
 import React, { createContext } from 'react';
 import uuid from 'uuid/v1';
-import { translate } from 'react-i18next';
 
 import * as helpers from './helpers';
 import { retrieveBasketFromCache, persistBasketToCache } from './cache';
@@ -17,7 +16,7 @@ function createId() {
   return `${Date.now()}-${uuid()}`;
 }
 
-class BasketProviderComponent extends React.Component {
+export class BasketProvider extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const newState = {
       options: {
@@ -50,11 +49,15 @@ class BasketProviderComponent extends React.Component {
     };
   }
 
+  static defaultProps = {
+    t: p => p
+  };
+
   constructor(props) {
     super(props);
 
     if (props.defaultShipping) {
-      this.state.shipping = BasketProviderComponent.createShippingBasketItem(
+      this.state.shipping = BasketProvider.createShippingBasketItem(
         props.defaultShipping
       );
     }
@@ -464,13 +467,13 @@ class BasketProviderComponent extends React.Component {
   setShipping = shipping =>
     this.onReady(() =>
       this.setState({
-        shipping: BasketProviderComponent.createShippingBasketItem(shipping)
+        shipping: BasketProvider.createShippingBasketItem(shipping)
       })
     );
 
   render() {
     const { options, ...state } = this.state;
-    const { children } = this.props;
+    const { children, t } = this.props;
     const calculatedState = this.calculateExtraBasketState();
 
     return (
@@ -480,6 +483,7 @@ class BasketProviderComponent extends React.Component {
             ...state,
             ...calculatedState
           },
+          t,
           options,
           actions: {
             empty: this.empty,
@@ -506,9 +510,5 @@ class BasketProviderComponent extends React.Component {
     );
   }
 }
-
-export const BasketProvider = translate(['common', 'basket'])(
-  BasketProviderComponent
-);
 
 export const BasketConsumer = BasketContext.Consumer;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { translate } from 'react-i18next';
 
 import { BasketContext } from '../context';
 import { generateUniqueId, validateBasket } from '../helpers';
@@ -16,7 +15,7 @@ import {
   Feedback
 } from './styles';
 
-class CouponInner extends React.Component {
+export class Coupon extends React.Component {
   static contextType = BasketContext;
 
   state = {
@@ -118,8 +117,8 @@ class CouponInner extends React.Component {
 
   render() {
     const { showInput, coupon, feedback } = this.state;
-    const { SpinnerCmp = DefaultSpinner, t } = this.props;
-    const { state } = this.context;
+    const { SpinnerCmp = DefaultSpinner } = this.props;
+    const { state, t } = this.context;
     const { validatingNewCoupon } = state;
 
     // A coupon has already been registered
@@ -183,7 +182,3 @@ class CouponInner extends React.Component {
     );
   }
 }
-
-export const Coupon = translate(['common', 'basket'])(props => (
-  <CouponInner {...props} />
-));

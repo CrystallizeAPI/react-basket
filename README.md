@@ -23,7 +23,11 @@ const basketOptions = {
   defaultShipping: yourDefaultShipping,
   onEmpty: () => console.log('emptied basket'),
   onAddToBasket: item => console.log('Add to basket', item),
-  onRemoveFromBasket: item => console.log('Remove from basket', item)
+  onRemoveFromBasket: item => console.log('Remove from basket', item),
+  t: (...args) => {
+    // Translator function. Same API as i18next
+    return MyOwnTranslatorService.apply(null, args);
+  }
 };
 
 export default () => (

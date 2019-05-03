@@ -1,5 +1,4 @@
 import React from 'react';
-import { translate } from 'react-i18next';
 import posed, { PoseGroup } from 'react-pose';
 import styled from 'styled-components';
 
@@ -30,12 +29,11 @@ const StyledPosedItem = styled(PosedItem).attrs(p => ({
   margin: 0;
 `;
 
-class TinyBasketInner extends React.Component {
+export class TinyBasket extends React.Component {
   static contextType = BasketContext;
 
   render() {
     const {
-      t,
       SpinnerCmp = DefaultSpinner,
       ItemCmp = TinyBasketItem,
       hideTotals = false,
@@ -44,7 +42,7 @@ class TinyBasketInner extends React.Component {
       itemImageSizes
     } = this.props;
 
-    const { state, actions } = this.context;
+    const { state, actions, t } = this.context;
 
     if (!state) {
       return null;
@@ -98,7 +96,3 @@ class TinyBasketInner extends React.Component {
     );
   }
 }
-
-export const TinyBasket = translate(['common', 'basket'])(props => (
-  <TinyBasketInner {...props} />
-));
