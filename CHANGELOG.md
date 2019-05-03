@@ -1,3 +1,8 @@
+## 7.0.0 (2019-05-03)
+
+
+
+
 ## 6.0.0 (2019-05-03)
 
 * Modifications to adapt to new schema ([d909980](https://github.com/CrystallizeAPI/react-basket/commit/d909980))
