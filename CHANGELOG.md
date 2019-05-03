@@ -1,3 +1,9 @@
+## 6.0.0 (2019-05-03)
+
+* Removed react-i18next as dep. Added 't' as provider prop ([5431de0](https://github.com/CrystallizeAPI/react-basket/commit/5431de0))
+
+
+
 ## 5.6.0 (2019-03-19)
 
 * Set correct price display for subscriptions ([52c1876](https://github.com/CrystallizeAPI/react-basket/commit/52c1876))
