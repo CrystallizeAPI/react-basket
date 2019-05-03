@@ -21,6 +21,7 @@ export class Totals extends React.Component {
       totalPrice,
       totalPriceMinusDiscount,
       totalToPay,
+      totalVatAmount,
       shipping,
       freeShipping,
       validating
@@ -58,11 +59,18 @@ export class Totals extends React.Component {
                 )}{' '}
                 {t('currency', { amount: 0 })}
               </span>
-            ) : (
-              <span>
-                {t('currency', { amount: shipping ? shipping.unit_price : 0 })}
-              </span>
-            )}
+            )
+              :
+              (
+                <span>
+                  {t('currency', { amount: shipping ? shipping.unit_price : 0 })}
+                </span>
+              )
+            }
+          </Row>
+          <Row hideValue={validating} modifier="total-vat">
+            <span>{t('basket:totalVatAmount', state)}:</span>
+            <span>{t('currency', { amount: totalVatAmount.toFixed(2) })}</span>
           </Row>
           <Row hideValue={validating} modifier="to-pay">
             <span>{t('basket:amountToPay', state)}:</span>

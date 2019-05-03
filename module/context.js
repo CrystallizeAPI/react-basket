@@ -193,6 +193,11 @@ export class BasketProvider extends React.Component {
       return acc + p;
     }, 0);
 
+    const totalVatAmount = items.reduce((acc, i) => {
+      const p = i.quantity * (i.vat || 0);
+      return acc + p;
+    }, 0);
+
     const totalPriceMinusDiscount = totalPrice - Math.abs(discount || 0);
 
     // Determine shipping related variables
@@ -220,6 +225,7 @@ export class BasketProvider extends React.Component {
     return {
       totalPrice,
       totalPriceMinusDiscount,
+      totalVatAmount,
       totalToPay,
       totalQuantity,
       freeShipping,
