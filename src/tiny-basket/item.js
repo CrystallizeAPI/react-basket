@@ -129,16 +129,16 @@ const Price = styled.div.attrs(p => ({
   ${p => p.isDiscounted && 'text-decoration: line-through'};
 `;
 
-const PriceDiscounted = styled.div.attrs(() => ({
-  className: `crystallize-basket__item-price crystallize-basket__item-price--discounted`
-}))`
-  margin-left: 10px;
-`;
+// const PriceDiscounted = styled.div.attrs(() => ({
+//   className: `crystallize-basket__item-price crystallize-basket__item-price--discounted`
+// }))`
+//   margin-left: 10px;
+// `;
 
 const PriceVat = styled.div.attrs(() => ({
   className: `crystallize-basket__item-price crystallize-basket__item-vat`
 }))`
-display: block;
+  display: block;
 `;
 
 export const SubInfoOuter = styled.div.attrs(() => ({
@@ -175,12 +175,6 @@ export default class TinyBasketItem extends React.Component {
     const { item, t, itemImageSizes = '100px' } = this.props;
     const { attributes, subscription } = item;
 
-    const isDiscounted = !!item.discount_rate;
-
-    const discountedPrice = Math.round(
-      item.unit_price - item.unit_price * (item.discount_rate / 100)
-    );
-
     const isSubscription = !!subscription;
 
     return (
@@ -189,7 +183,8 @@ export default class TinyBasketItem extends React.Component {
           <ItemImage
             src={item.product_image || item.placeholder_image}
             onError={e => {
-              e.target.onerror = null; e.target.src = item.placeholder_image
+              e.target.onerror = null;
+              e.target.src = item.placeholder_image;
             }}
             alt={item.name}
             sizes={itemImageSizes}
@@ -212,24 +207,18 @@ export default class TinyBasketItem extends React.Component {
                 <SubInfoLine>{item.subscriptionInitialInfo}</SubInfoLine>
                 <SubInfoLine>{item.subscriptionRenewalInfo}</SubInfoLine>
               </SubInfoOuter>
-            )
-              :
-              (
-                <PriceWrap>
-                  <Price isDiscounted={isDiscounted}>
-                    {t('currency', { amount: item.unit_price })}
-                  </Price>
-                  {isDiscounted && (
-                    <PriceDiscounted>
-                      {t('currency', { amount: discountedPrice })}
-                    </PriceDiscounted>
-                  )}
-                </PriceWrap>
-              )
-            }
-            <PriceVat>
-              <span>{t('basket:itemVat', { amount: item.vat.toFixed(2) })}</span>
-            </PriceVat>
+            ) : (
+              <PriceWrap>
+                <Price>{t('currency', { amount: item.price })}</Price>
+              </PriceWrap>
+            )}
+            {item.vat && (
+              <PriceVat>
+                <span>
+                  {t('basket:itemVat', { amount: item.vat.toFixed(2) })}
+                </span>
+              </PriceVat>
+            )}
           </ItemInfoText>
         </ItemInfo>
         <ItemQuantityChanger>

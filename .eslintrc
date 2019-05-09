@@ -1,0 +1,57 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "parser": "babel-eslint",
+  "settings": {
+    "import/resolver": {
+      "babel-module": {
+        "alias": {}
+      }
+    }
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "rules": {
+    "camelcase": 0,
+    "prettier/prettier": 1,
+    "no-plusplus": 0,
+    "no-return-assign": 0,
+    "no-restricted-globals": 0,
+    "no-prototype-builtins": 0,
+    "no-param-reassign": 1,
+    "no-use-before-define": ["error", "nofunc"],
+    "import/no-extraneous-dependencies": 0,
+    "prefer-arrow-callback": [
+      "error",
+      {
+        "allowNamedFunctions": true
+      }
+    ],
+    "import/prefer-default-export": false,
+    "jsx-a11y/anchor-is-valid": false,
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "components": ["Label"],
+        "required": {
+          "every": ["nesting", "id"]
+        },
+        "allowChildren": true
+      }
+    ],
+    "react/jsx-filename-extension": false,
+    "react/react-in-jsx-scope": false,
+    "react/prop-types": "skipUndeclared",
+    "react/forbid-prop-types": false,
+    "react/require-default-props": false,
+    "react/prefer-stateless-function": "ignorePureComponents",
+    "react/no-unused-state": 0,
+    "react/sort-comp": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "react/destructuring-assignment": 0
+  }
+}

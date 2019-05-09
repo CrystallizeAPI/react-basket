@@ -57,7 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
-# Next build output
+# Parcel and Next build output
+.cache
 .next
 
 # OSX Finder folder settings

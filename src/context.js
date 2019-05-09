@@ -4,11 +4,7 @@ import uuid from 'uuid/v1';
 import * as helpers from './helpers';
 import { retrieveBasketFromCache, persistBasketToCache } from './cache';
 
-export const {
-  createBasketItem,
-  getSupportedOptionsFromProps,
-  validateBasket
-} = helpers;
+export const { createBasketItem, getSupportedOptionsFromProps } = helpers;
 
 export const BasketContext = createContext();
 
@@ -28,54 +24,21 @@ export class BasketProvider extends React.Component {
     return newState;
   }
 
-  /* eslint-disable */
-  static createShippingBasketItem(shipping) {
-    if (!shipping) {
-      return shipping;
-    }
-
-    return {
-      name: 'Shipping',
-      reference: 'not-set',
-      discount_rate: 0,
-      quantity: 1,
-      tax_rate: 0,
-      total_price_excluding_tax: 0,
-      total_price_including_tax: 0,
-      total_tax_amount: 0,
-      type: 'shipping_fee',
-      unit_price: shipping.price || 0,
-      ...shipping
-    };
-  }
-
   static defaultProps = {
     t: p => p
   };
-
-  constructor(props) {
-    super(props);
-
-    if (props.defaultShipping) {
-      this.state.shipping = BasketProvider.createShippingBasketItem(
-        props.defaultShipping
-      );
-    }
-  }
 
   state = {
     ready: false,
     items: [],
     options: {},
-    validating: false,
-    validatingNewCoupon: false,
-    coupon: null,
     discount: null,
     shipping: null,
     metadata: {}
   };
 
   onReadyQueue = [];
+
   itemAnimationTimeouts = [];
 
   componentDidMount() {
@@ -87,65 +50,54 @@ export class BasketProvider extends React.Component {
   }
 
   parseBasketItem = ({ basketId, ...item }) => {
-    function ensureProperty(name, fallbackValue) {
-      if (typeof item[name] === 'undefined') {
-        /* eslint-disable */
-        console.warn(
-          `Basket item validation error: missing property "${name}" for`,
-          item
-        );
-        /* eslint-enable */
-
-        return fallbackValue;
-      }
-      return item[name];
+    function ensureProperties(names) {
+      names.forEach(name => {
+        if (!(name in item)) {
+          throw new Error(
+            `Basket item validation error: missing property "${name}" for`,
+            item
+          );
+        }
+      });
     }
 
-    const { t } = this.props;
+    // const { t } = this.props;
 
-    const sku = ensureProperty('sku', item.variation_sku);
-    const name = ensureProperty('name', 'No name');
+    ensureProperties(['sku']);
 
-    let subscriptionName;
-    let subscriptionInitialInfo;
-    let subscriptionRenewalInfo;
-    if (item.subscription) {
-      /* eslint-disable */
-      item.subscription.initial_price_display =
-        item.subscription.initial_price * (item.quantity || 1);
-      item.subscription.renewal_price_display =
-        item.subscription.renewal_price * (item.quantity || 1);
-      /* eslint-enable */
+    // let subscriptionName;
+    // let subscriptionInitialInfo;
+    // let subscriptionRenewalInfo;
+    // if (item.subscription) {
+    //   /* eslint-disable */
+    //   item.subscription.initial_price_display =
+    //     item.subscription.initial_price * (item.quantity || 1);
+    //   item.subscription.renewal_price_display =
+    //     item.subscription.renewal_price * (item.quantity || 1);
+    //   /* eslint-enable */
 
-      subscriptionName = t('basket:subscriptionItemName', item);
+    //   subscriptionName = t('basket:subscriptionItemName', item);
 
-      subscriptionInitialInfo = t(
-        'basket:subscriptionInitialInfo',
-        item.subscription
-      );
+    //   subscriptionInitialInfo = t(
+    //     'basket:subscriptionInitialInfo',
+    //     item.subscription
+    //   );
 
-      subscriptionRenewalInfo = t(
-        'basket:subscriptionRenewalInfo',
-        item.subscription
-      );
+    //   subscriptionRenewalInfo = t(
+    //     'basket:subscriptionRenewalInfo',
+    //     item.subscription
+    //   );
+    // }
+
+    let newBasketId = item.sku;
+    if (this.subscription) {
+      newBasketId = `${item.sku}-subscr-${this.subscription.variationplan_id}`;
     }
 
     return {
-      get basketId() {
-        if (this.subscription) {
-          return `${item.sku}-subscr-${this.subscription.variationplan_id}`;
-        }
-        return item.sku;
-      },
-      name,
-      unit_price: ensureProperty('unit_price', item.price_ex_vat || 0),
-      reference: sku,
-      sku,
+      basketId: newBasketId,
       quantity: 1,
-      ...item,
-      subscriptionName,
-      subscriptionInitialInfo,
-      subscriptionRenewalInfo
+      ...item
     };
   };
 
@@ -162,6 +114,7 @@ export class BasketProvider extends React.Component {
     const basket = await retrieveBasketFromCache({
       parseBasketItem: this.parseBasketItem
     });
+
     if (basket) {
       const { items, ...rest } = basket;
 
@@ -178,118 +131,6 @@ export class BasketProvider extends React.Component {
 
     this.onReadyQueue.forEach(fn => fn());
     this.onReadyQueue.length = 0;
-  };
-
-  calculateExtraBasketState = () => {
-    const { items, discount, options, shipping } = this.state;
-    const { freeShippingMinimumPurchaseAmount = -1 } = options;
-
-    const totalQuantity = items.reduce((acc, i) => acc + i.quantity, 0);
-
-    const totalPrice = items.reduce((acc, i) => {
-      const p =
-        i.quantity *
-        (i.subscription ? i.subscription.initial_price : i.unit_price);
-      return acc + p;
-    }, 0);
-
-    const totalVatAmount = items.reduce((acc, i) => {
-      const p = i.quantity * (i.vat || 0);
-      return acc + p;
-    }, 0);
-
-    const totalPriceMinusDiscount = totalPrice - Math.abs(discount || 0);
-
-    // Determine shipping related variables
-    let freeShipping = false;
-    let remainingUntilFreeShippingApplies = 0;
-    if (
-      freeShippingMinimumPurchaseAmount &&
-      freeShippingMinimumPurchaseAmount > 0
-    ) {
-      remainingUntilFreeShippingApplies =
-        freeShippingMinimumPurchaseAmount - totalPriceMinusDiscount;
-      if (remainingUntilFreeShippingApplies <= 0) {
-        remainingUntilFreeShippingApplies = 0;
-        freeShipping = true;
-      }
-    }
-
-    const shippingCost = shipping ? shipping.unit_price : 0;
-
-    let totalToPay = totalPriceMinusDiscount;
-    if (!freeShipping && shippingCost) {
-      totalToPay += shippingCost;
-    }
-
-    return {
-      totalPrice,
-      totalPriceMinusDiscount,
-      totalVatAmount,
-      totalToPay,
-      totalQuantity,
-      freeShipping,
-      remainingUntilFreeShippingApplies,
-      items
-    };
-  };
-
-  validateBasketDelayed = () => {
-    // No coupon -> no validation needed
-    if (!this.state.coupon && !this.state.options.alwaysValidate) {
-      return;
-    }
-
-    this.setValidating(true);
-
-    clearTimeout(this.validateBasketDelayedTimeout);
-    this.validateBasketDelayedTimeout = setTimeout(async () => {
-      const { items, coupon, options, shipping } = this.state;
-      const { validateEndpoint } = options;
-
-      try {
-        const itemsToValidate = [...items];
-        if (shipping) {
-          itemsToValidate.push(shipping);
-        }
-
-        const result = await validateBasket({
-          items: itemsToValidate,
-          coupon,
-          validateEndpoint
-        });
-
-        if (!result.error && result.status !== 'INVALID') {
-          const shippingItem = result.items.find(
-            i => i.type === 'shipping_fee'
-          );
-          if (shippingItem) {
-            this.setShipping(shippingItem);
-          }
-
-          const basketItems = result.items.filter(
-            i => i.type !== 'shipping_fee'
-          );
-          this.setItems(basketItems);
-
-          let { discount } = result;
-          if (!discount) {
-            discount = 0;
-            basketItems.forEach(item => {
-              discount -= item.discount_value;
-            });
-          }
-
-          if (discount) {
-            this.setDiscount(discount, false);
-          }
-        }
-      } catch (error) {
-        console.error(error); // eslint-disable-line
-      }
-
-      this.setValidating(false);
-    }, 250);
   };
 
   changeItemQuantity = ({ item, num, quantity }) => {
@@ -315,8 +156,6 @@ export class BasketProvider extends React.Component {
       this.setState({
         items: [...items]
       });
-
-      this.validateBasketDelayed();
 
       const quantityChange = itemInBasket.quantity - itemInBasketOldQuantity;
       if (quantityChange > 0) {
@@ -364,8 +203,6 @@ export class BasketProvider extends React.Component {
           items: [...s.items, item]
         }));
 
-        this.validateBasketDelayed();
-
         if (this.state.options.onAddToBasket) {
           this.state.options.onAddToBasket([{ ...item, quantity: 1 }]);
         }
@@ -377,7 +214,7 @@ export class BasketProvider extends React.Component {
     return this.state.items.findIndex(i => i.basketId === parsed.basketId);
   };
 
-  animateItem = animItem => {
+  pulsateItemInBasket = animItem => {
     const parsedItem = this.parseBasketItem(animItem);
 
     return new Promise(async mainResolve => {
@@ -444,29 +281,13 @@ export class BasketProvider extends React.Component {
         id: createId(),
         items: [],
         metadata: null,
-        coupon: null,
         discount: null
       })
     );
 
-  setValidating = validating =>
-    this.onReady(() => this.setState({ validating }));
-
-  setValidatingNewCoupon = validatingNewCoupon =>
-    this.onReady(() => this.setState({ validatingNewCoupon }));
-
-  setCoupon = coupon => this.onReady(() => this.setState({ coupon }));
-
   setItems = items => this.onReady(() => this.setState({ items }));
 
-  setDiscount = (discount, doValidateBasket = true) =>
-    this.onReady(() =>
-      this.setState({ discount }, () => {
-        if (doValidateBasket) {
-          this.validateBasketDelayed();
-        }
-      })
-    );
+  setDiscount = discount => this.onReady(() => this.setState({ discount }));
 
   setMetadata = metadata => this.onReady(() => this.setState({ metadata }));
 
@@ -480,14 +301,12 @@ export class BasketProvider extends React.Component {
   render() {
     const { options, ...state } = this.state;
     const { children, t } = this.props;
-    const calculatedState = this.calculateExtraBasketState();
 
     return (
       <BasketContext.Provider
         value={{
           state: {
-            ...state,
-            ...calculatedState
+            ...state
           },
           t,
           options,
@@ -496,16 +315,12 @@ export class BasketProvider extends React.Component {
             reset: this.reset,
             addItem: this.addItem,
             setItems: this.setItems,
-            animateItem: this.animateItem,
+            pulsateItemInBasket: this.pulsateItemInBasket,
             removeItem: this.removeItem,
             incrementQuantityItem: this.incrementQuantityItem,
             decrementQuantityItem: this.decrementQuantityItem,
             parseBasketItem: this.parseBasketItem,
-            setValidating: this.setValidating,
-            setValidatingNewCoupon: this.setValidatingNewCoupon,
-            setCoupon: this.setCoupon,
             setDiscount: this.setDiscount,
-            setShipping: this.setShipping,
             setMetadata: this.setMetadata,
             onReady: this.onReady
           }
